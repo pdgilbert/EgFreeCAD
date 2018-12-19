@@ -28,6 +28,17 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
 ]
+doctest_global_setup = '''
+import FreeCAD
+from FreeCAD import Base, Vector
+import Part, Mesh, MeshPart
+from testEqual import * 
+
+O = Vector(0,0,0)
+X = Vector(1,0,0)
+Y = Vector(0,1,0)
+Z = Vector(0,0,1)
+'''
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -100,7 +111,6 @@ pygments_style = 'sphinx'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
-
 
 # -- Options for HTML output ----------------------------------------------
 
