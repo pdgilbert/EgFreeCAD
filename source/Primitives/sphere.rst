@@ -13,6 +13,7 @@
 
 
 .. index:: Sphere
+
 Sphere
 ------
 
@@ -31,8 +32,6 @@ Sphere
       
    # circle is symmetic
 
-.. testoutput::
-
 .. testcode::
 
    S2.rotate(O, Z, 180)
@@ -40,14 +39,10 @@ Sphere
    S2.rotate(O, Z, 90)
    testEqual(S, S2)
 
-.. testoutput::
-
 .. testcode::
 
    S2.translate(Vector(0,0,10))
    testNotEqual(S, S2)
-
-.. testoutput::
 
 .. testcode::
 
@@ -58,9 +53,7 @@ Sphere
    testEqual(s, Part.makeSphere(10))
    testNotEqual(s, Part.makeSphere(9))
    testEqual(s, s2)
-   
-.. testoutput::
-  
+
 A sphere can be constructed by revolving a circle
 
 .. testcode::
@@ -78,8 +71,6 @@ A sphere can be constructed by revolving a circle
    
    C2x = Part.makeShell(C2.Faces)
 
-.. testoutput::
-
   
 See https://www.freecadweb.org/wiki/Part_Revolve
 revolve a face should give a solid
@@ -94,5 +85,4 @@ revolve a face should give a solid
    S2 = C2.revolve(O, Y, 360)  
    S2 = C2.revolve(O, Z, 360)  
 
-.. testoutput::
 

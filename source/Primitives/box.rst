@@ -13,6 +13,7 @@
 
 
 .. index:: Box
+
 Box
 ---
 
@@ -55,8 +56,6 @@ These  have no output
    testEqual(Part.makeBox(1,100,10), Part.makeBox(1,100,10)) 
    testNotEqual(Part.makeBox(1,100,10), Part.makeBox(1,100,9))
 
-.. testoutput::
-
 and these  raise exceptions
 
 .. testcode::
@@ -88,5 +87,3 @@ and these  raise exceptions
    
    testEqual(P, W.extrude(Vector(0,0,10)))
    testNotEqual(P, W.extrude(Vector(0,0,20))) 
-
-.. testoutput::

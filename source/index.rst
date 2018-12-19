@@ -26,8 +26,8 @@ Indices and tables
 * :ref:`search`
 
 
-
 .. index:: Introduction
+
 Introduction
 ------------
 
@@ -95,8 +95,6 @@ All sections use the setup code
    import Part, Mesh, MeshPart
    from testEqual import * 
 
-.. testoutput::
-
 and also set vectors for the origin and directions X, Y, and Z, which are used in several examples.
 
 .. testcode::
@@ -105,6 +103,4 @@ and also set vectors for the origin and directions X, Y, and Z, which are used i
    X = Vector(1,0,0)
    Y = Vector(0,1,0)
    Z = Vector(0,0,1)
-
-.. testoutput::
 

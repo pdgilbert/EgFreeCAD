@@ -11,6 +11,7 @@
    Y = Vector(0,1,0)
    Z = Vector(0,0,1)
 
+.. index:: Tube
 
 Tube
 ----
@@ -33,9 +34,6 @@ Now test function to make a tube generated along the z-axis
       b = b.cut(Part.makeCylinder(r-w, h, Vector(0,0,0), Vector(0,0,1), a))
       
       return(b)
-
-.. testcode::
-
   
 Outside 6,  wall 2, length 10, angle of sweep  360 (round tube)
    
@@ -60,15 +58,13 @@ TEST generate a tube by revolving a rectangle (vs cutting two cylindars above)
    # Part.show(tb3)
    testEqual(tb,  tb3)  
 
-.. testoutput::
+.. testcode::
 
    # outside 6,  wall 2, length 10, angle of sweep  90 (1/4 round)
    
    tb = tube( 6, 2, 10, 90)
    testEqual(tb,  tube(6, 2, 10, 90))
    testNotEqual(tb, tube(6, 2, 10, 80))
-
-.. testoutput::
 
 .. testcode::
 
@@ -90,6 +86,4 @@ TEST generate a tube by revolving a rectangle (vs cutting two cylindars above)
    wire3.Edges
    
    #Part.show(wire3) 
-
-.. testoutput::
 

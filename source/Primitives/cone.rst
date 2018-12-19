@@ -13,6 +13,7 @@
 
 
 .. index:: Cone
+
 Cone
 ----
 
@@ -26,8 +27,6 @@ Make a cone with base radius 5, top radius 10, and height 15
    
    testEqual(cone, cone2)
 
-.. testoutput::
-   
 The cone is symmetic under Z axis rotation
 
 .. testcode::
@@ -35,8 +34,6 @@ The cone is symmetic under Z axis rotation
    cone2.rotate(O, Z, 20)
    testEqual(cone, cone2)
 
-.. testoutput::
- 
 but not symmetic under X axis rotation
 
 .. testcode::
@@ -47,8 +44,6 @@ but not symmetic under X axis rotation
    cone2.translate(Vector(0,0,10))
    testNotEqual(cone, cone2)
 
-.. testoutput::
-   
 Translation and rotation can be undone, but if not undone in the reverse order
 then the axis for the rotation needs to be modified to the center of the cone.
 
@@ -77,6 +72,3 @@ then the axis for the rotation needs to be modified to the center of the cone.
    
    c2.rotate(O, Vector(1,0,0), 90)
    testNotEqual(c, c2)
-
-.. testoutput::
-   

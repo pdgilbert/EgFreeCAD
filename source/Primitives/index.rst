@@ -1,3 +1,12 @@
+.. toctree::
+   :hidden:
+
+   self
+   box
+   sphere
+   cone
+   polygon
+   torus
 
 .. testsetup::
 
@@ -13,6 +22,7 @@
 
 
 .. index:: Primitive Examples
+
 Primitive Examples
 ==================
 

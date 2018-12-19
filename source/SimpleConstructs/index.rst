@@ -1,5 +1,11 @@
+.. toctree::
+   :hidden:
+
+   self
+   tube
 
 .. index:: Simple Constructs
+
 Simple Constructs
 =================
 

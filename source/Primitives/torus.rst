@@ -12,6 +12,7 @@
    Z = Vector(0,0,1)
 
 .. index:: Torus
+
 Torus
 -----
 
@@ -30,17 +31,13 @@ Make a torus SxS with first radius 20 in the X-Y plane and second radius 5
    torus2.rotate(O, Z, 90)
    testEqual(torus, torus2 )
 
-.. testoutput::
-  
 Flipping will be equal
 
 .. testcode::
 
    torus2.rotate(O, X, 180)
    testEqual(torus, torus2 )
- 
-.. testoutput::
-  
+
 but half flip is not
 
 .. testcode::
@@ -48,8 +45,6 @@ but half flip is not
    torus2.rotate(O, X, 90)
    testNotEqual(torus, torus2 )
    
-.. testoutput::
-
 pnt is the center of torus and dir is the normal direction.
 The default is O, Z. Starting with default and rotating 90 around x-axis
 is the same as indicating y-axis as the initial normal direction.
@@ -60,8 +55,6 @@ is the same as indicating y-axis as the initial normal direction.
    torus2.rotate(O, X, 90)
    testEqual(torus2,  Part.makeTorus(20, 5, O, Y))
    
-.. testoutput::
-
 Make an ellipse using origin O and  two radii, 6.0 and 2.0
 
 .. testcode::
@@ -89,8 +82,6 @@ Make an ellipse using origin O and  two radii, 6.0 and 2.0
    b = Part.makeCylinder(8, 20, O, X, 90)
    b = b.cut(dd)
       
-.. testoutput::
-
 This would not need to be rotated, but s2 does not work the way I think
 # e2 = Part.Ellipse(Vector(0.0, 0.0, 6),Vector(0.0, 2, 8), Vector(0.0, 0.0, 8)).toShape()
 #Part.show(e2)

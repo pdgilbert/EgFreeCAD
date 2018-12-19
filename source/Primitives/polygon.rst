@@ -12,6 +12,7 @@
    Z = Vector(0,0,1)
 
 .. index:: Polygon
+
 Polygon
 -------
 
@@ -23,8 +24,6 @@ Make a line betweeen two points
    line2 = line.copy()
    testEqual(line, line2)
 
-.. testoutput::
-   
 Make a plane (rectangle) from origin 2 units in x direction and 4 in Y direction.
 
 .. testcode::
@@ -40,8 +39,6 @@ Make a plane (rectangle) from origin 2 units in x direction and 4 in Y direction
    
    plane2.rotate(O, Z, 20)
    testNotEqual(plane, plane2)
-  
-.. testoutput::
 
 Make a polygon of a list of points
 
@@ -53,6 +50,3 @@ Make a polygon of a list of points
    
    poly2.rotate(O, Z, 20)
    testNotEqual(poly, poly2)
-   
-.. testoutput::
-  
