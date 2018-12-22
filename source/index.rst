@@ -6,6 +6,13 @@
 FreeCAD Scripting Examples
 ==========================
 
+.. |date| date::
+.. |time| date:: %H:%M
+
+
+Generated |date| |time|
+with FreeCAD |FCversion|
+
 Contents:
 
 .. toctree::
