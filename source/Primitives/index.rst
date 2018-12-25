@@ -30,14 +30,6 @@ Primitive Examples
 
    [...
 
-.. testcode::
-
-   print(FreeCAD.Version())
-
-.. testoutput::
-
-   ['0', '17', ...
-
 .. include:: box.rst
 .. include:: sphere.rst
 .. include:: cone.rst
