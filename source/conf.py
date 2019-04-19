@@ -51,11 +51,15 @@ FCversion = FreeCAD.Version()
 # and is different in release vs daily
 # FCversion = FCversion[0] + '.' + FCversion[1]  + '.' + FCversion[2]+ '  '  + FCversion[4]
 FCversion = str(FCversion)
+r1 = '.. |FCversion| replace:: %s' % FCversion
 
 un = os.uname()
 un = un[0] + ' ' + un[2] + ' ' +  un[4]
+r2 = '.. |un| replace:: %s' % un
 
-rst_prolog ='.. |FCversion| replace:: %s' % FCversion
+rst_prolog ='\n' + r1 + '\n' + r2 + '\n'
+
+#rst_prolog ='.. |FCversion| replace:: %s' % FCversion
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -140,6 +144,13 @@ html_theme = 'default'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #html_theme_options = {}
+#alabaster  html_theme_options = {
+#     'logo_name': True,
+#     'extra_nav_links': True,
+#     'show_related':  True 
+#     }
+#     'fixed_sidebar': True,  requires newer version?
+#     'show_relbars': True 
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
