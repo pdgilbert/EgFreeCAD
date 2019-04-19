@@ -1,8 +1,8 @@
 
-.. index:: Foil
+.. index:: Foil Design Project
 
-Foil
-----
+Foil Design Project
+===================
 
 Project to extend a (hydro-) foil profile over a wing span outline.
    
@@ -10,8 +10,9 @@ Project to extend a (hydro-) foil profile over a wing span outline.
    
    #from __future__ import unicode_literals
    from FreeCAD import Base
-   #import Draft, Part
+   import Draft  # for Draft.makeWire
    import Part, math
+   import os
    
    class foil():
        
@@ -200,7 +201,7 @@ Project to extend a (hydro-) foil profile over a wing span outline.
            
            self.profile = self.profile(profileDAT, doc=doc, source=source)
    
-       def loadLeadTrail(self, source="/home/paul/CAD/foil/test.sweepPath"):
+       def loadLeadTrail(self, source="test.sweepPath"):
            """read Lead and Trailing edge data from file and return it."""
            doc =  []
            leadingEdge =  []
@@ -225,21 +226,22 @@ Project to extend a (hydro-) foil profile over a wing span outline.
                 
            self.LeadTrail = self.LeadTrail(leadingEdge,trailingEdge, doc=doc, source=source)
    
+   SRC = 'source/Projects/foil/'
    
-   z = foil(file_profile="/home/paul/CAD/foil/H105Coord.dat",
-             file_LeadTrail="/home/paul/CAD/foil/test.sweepPath")
+   z = foil(file_profile   = SRC + "H105Coord.dat",
+            file_LeadTrail = SRC + "test.sweepPath")
    z.show()
    
    #z.showfoil()  
    #z.showProfiles()
    #z.showBspline()
    
-   z2 = foil(file_profile="/home/paul/CAD/foil/H105Coord.dat",
-             file_LeadTrail="/home/paul/CAD/foil/test2.sweepPath")
+   z2 = foil(file_profile   = SRC + "H105Coord.dat",
+             file_LeadTrail = SRC + "test2.sweepPath")
    z2.show()
    
-   z3 = foil(file_profile="/home/paul/CAD/foil/H105Coord.dat",
-             file_LeadTrail="/home/paul/CAD/foil/test3.sweepPath",
+   z3 = foil(file_profile   = SRC + "H105Coord.dat",
+             file_LeadTrail = SRC + "test3.sweepPath",
              maxDegree=3)
    z3.show()
    
@@ -266,24 +268,26 @@ Project to extend a (hydro-) foil profile over a wing span outline.
    Z  = FreeCAD.Vector( 0, 0, 1)
    sp = z3.leadingEdgeBspline()
    
-   zzz = Z.project(sp)
+   # CLEAN THIS UP
+   # no zzz = Z.project(sp)
    zzzz = sp.project(Z)
    
    sp = z3.leadingEdgeBspline()
    zd = sp.discretize(20)
-      def tube(r, w, h, a ):
-         ''' 
-         Generate a (partial) tube with
-         r  outside radius
-         w  wall thickness
-         h  length (height)
-         a  angle of sweep (360 is full circle)
-         e.g.
-         b = tube(6, 2, 10, 90)
-         ''' 
-         b = Part.makeCylinder(r, h, Vector(0,0,0), Vector(0,0,1), a)
-         b = b.cut(Part.makeCylinder(r-w, h, Vector(0,0,0), Vector(0,0,1), a))
-         
-         return(b)
-     
+   
+   def tube(r, w, h, a ):
+      ''' 
+      Generate a (partial) tube with
+      r  outside radius
+      w  wall thickness
+      h  length (height)
+      a  angle of sweep (360 is full circle)
+      e.g.
+      b = tube(6, 2, 10, 90)
+      ''' 
+      b = Part.makeCylinder(r, h, Vector(0,0,0), Vector(0,0,1), a)
+      b = b.cut(Part.makeCylinder(r-w, h, Vector(0,0,0), Vector(0,0,1), a))
+      
+      return(b)
+   
 Put some text in here somewhere

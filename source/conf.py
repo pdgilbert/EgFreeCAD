@@ -15,6 +15,10 @@ import os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
+sys.path.insert(0,'/usr/lib/freecad/lib')
+# possibly Draft can be removed but currently using in foil
+sys.path.insert(0,'/usr/share/freecad/Mod/Draft/')
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -38,11 +42,19 @@ O = Vector(0,0,0)
 X = Vector(1,0,0)
 Y = Vector(0,1,0)
 Z = Vector(0,0,1)
+
 '''
 
 import FreeCAD
 FCversion = FreeCAD.Version()
-FCversion = FCversion[0] + '.' + FCversion[1]  + '.' + FCversion[2]+ '  '  + FCversion[6]
+# Beware that the elements and number of elements in FCversion changes sometimes,
+# and is different in release vs daily
+# FCversion = FCversion[0] + '.' + FCversion[1]  + '.' + FCversion[2]+ '  '  + FCversion[4]
+FCversion = str(FCversion)
+
+un = os.uname()
+un = un[0] + ' ' + un[2] + ' ' +  un[4]
+
 rst_prolog ='.. |FCversion| replace:: %s' % FCversion
 
 # Add any paths that contain templates here, relative to this directory.
@@ -61,7 +73,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'EgFreeCAD'
-copyright = u'2018, Paul Gilbert'
+copyright = u'2018, 2019, Paul Gilbert'
 author = u'Paul Gilbert'
 
 # The version info for the project you're documenting, acts as replacement for

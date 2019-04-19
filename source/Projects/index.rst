@@ -1,19 +1,12 @@
-.. toctree::
-   :hidden:
-
-   self
-   Projects/index
-   Projects/foil/index
 
 .. index:: Projects
+.. index:: Projects/foil
 
 Projects
 ========
 
-.. include:: index.rst
+This part of the document illustrates more substantial FreeCAD scripting examples. 
 
+.. toctree::
 
-Projects Summary
-----------------
-
-This part of the document illustrates severalmore substantial FreeCAD scripting examples. 
+   foil/index
