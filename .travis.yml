@@ -1,0 +1,65 @@
+# compare this with 2piQA/.travis.yml 
+ 
+# use containers (so no sudo)
+sudo: false
+
+language: python
+
+cache: pip
+# and Sphinx and FreeCAD 
+#  directories:
+#     - /usr/lib/freecad/lib
+#     - ${HOME}/.FreeCAD/???
+
+# trigger on pushes to master branch
+branches:
+  only:
+   - master
+
+#specify multiple parallel jobs
+matrix:
+    include:
+        - python: 2.7
+          env: FREECAD=freecad
+        - python: 2.7
+          env: FREECAD=freecad-daily
+
+#        - python: 3.6
+#          env: FREECAD=freecad
+#        - python: 3.6
+#          env: FREECAD=freecad-daily
+
+install:
+  - echo sphinx-build is 
+  - which sphinx-build
+  - echo freecad is 
+  - which freecad
+  - echo freecad-daily is 
+  - which freecad-daily
+  - echo freecad is ${FREECAD}
+  - pip install -U pip ${FREECAD}
+
+#  - pip install -U pip Sphinx
+
+script:
+  - OS_TAG=`uname -i`_`uname -o`
+  - echo OS_TAG is ${OS_TAG} 
+  - echo PWD is ${PWD} 
+  - which sphinx-build
+  - cd EgFreeCAD
+  - make doctest
+  - make html
+
+# need next depending on deploy of html
+#  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${FREECAD}/${OS_TAG}
+#  - cd ${FREECAD}/${OS_TAG}
+#  - git checkout  ${FREECAD}/${OS_TAG}
+
+
+# deploy html to ??
+after_success:
+  - echo ${FREECAD}/${OS_TAG} success
+
+#  - git push # origin HEAD:${FREECAD}/${OS_TAG}
+
+
