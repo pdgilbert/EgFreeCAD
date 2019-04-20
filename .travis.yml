@@ -35,6 +35,7 @@ install:
   - which sphinx-build
   - sphinx-build --version
 
+  - export FREECAD=freecad
   - echo FREECAD is ${FREECAD}
   - pip install -U pip ${FREECAD}
   - which ${FREECAD}
