@@ -1,4 +1,5 @@
-# compare this with 2piQA/.travis.yml 
+# compare this with 2piQA/.travis.yml
+# hooks on github may need adjustment.
  
 # use containers (so no sudo)
 sudo: false
