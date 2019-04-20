@@ -39,10 +39,24 @@ matrix:
 before_install:
   - sudo add-apt-repository ppa:freecad-maintainers/freecad-stable
   #- sudo add-apt-repository ppa:freecad-maintainers/freecad-daily
-  - sudo apt-get update
+  - sudo apt-get update -q
   - sudo apt-get install -y freecad
   
 install:
+  # Install Anaconda
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+    else
+      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+    fi
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda config --add channels conda-forge
+  - conda update -q conda
+
   - pip install -U sphinx
 #  - pip3 install -U sphinx
   - which sphinx-build
