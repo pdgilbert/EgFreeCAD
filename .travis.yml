@@ -21,10 +21,10 @@ branches:
 matrix:
     include:
         - python: 2.7
-          env: FREECAD=freecad
-        - python: 2.7
-          env: FREECAD=freecad-daily
-
+#          env: FREECAD=freecad
+#        - python: 2.7
+#          env: FREECAD=freecad-daily
+#
 #        - python: 3.6
 #          env: FREECAD=freecad
 #        - python: 3.6
