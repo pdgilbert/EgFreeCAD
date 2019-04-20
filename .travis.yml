@@ -31,22 +31,20 @@ matrix:
 #          env: FREECAD=freecad-daily
 
 install:
-  - echo sphinx-build is 
+  - pip install -U sphinx
   - which sphinx-build
-  - echo freecad is 
-  - which freecad
-  - echo freecad-daily is 
-  - which freecad-daily
-  - echo freecad is ${FREECAD}
-  - pip install -U pip ${FREECAD}
+  - sphinx-build --version
 
-#  - pip install -U pip Sphinx
+  - echo FREECAD is ${FREECAD}
+  - pip install -U pip ${FREECAD}
+  - which ${FREECAD}
+
+#  - ${FREECAD} --console --version this still opens a window
 
 script:
   - OS_TAG=`uname -i`_`uname -o`
   - echo OS_TAG is ${OS_TAG} 
   - echo PWD is ${PWD} 
-  - which sphinx-build
   - cd EgFreeCAD
   - make doctest
   - make html
