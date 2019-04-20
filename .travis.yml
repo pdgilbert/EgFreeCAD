@@ -30,15 +30,36 @@ matrix:
 #        - python: 3.6
 #          env: FREECAD=freecad-daily
 
+#It might be possible to use FreeCAD AppImage but then Sphinx needs to find 
+# python libraries inside the AppImage, or sphinx needs to run inside the image.
+
+# this ppa seems to be out-of-date
+# https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-daily
+
+before_install:
+  - sudo add-apt-repository ppa:freecad-maintainers/freecad-stable
+  #- sudo add-apt-repository ppa:freecad-maintainers/freecad-daily
+  - sudo apt-get update
+  - sudo apt-get install -y freecad
+  
 install:
   - pip install -U sphinx
+#  - pip3 install -U sphinx
   - which sphinx-build
   - sphinx-build --version
 
-  - export FREECAD=freecad
-  - echo FREECAD is ${FREECAD}
-  - pip install -U pip ${FREECAD}
-  - which ${FREECAD}
+#  - export FREECAD=freecad
+#  - echo FREECAD is ${FREECAD}
+#  - pip install -U pip ${FREECAD}
+#  - which ${FREECAD}
+#https://github.com/FreeCAD/FreeCAD.git
+#  - wget https://github.com/AppImage/AppImageUpdate/releases/download/continuous/appimageupdatetool-x86_64.AppImage
+#  - chmod +x ./appimageupdatetool-x86_64.AppImage
+
+#  - wget https://github.com/FreeCAD/FreeCAD/releases/download/0.18.1/FreeCAD_0.18-16110-Linux-Conda_Py3Qt5_glibc2.12-x86_64.AppImage
+#  - chmod +x ./FreeCAD*.AppImage
+
+#  - ./appimageupdatetool.AppImage path/to/old/FreeCAD.AppImage ./path/to/updated/FreeCAD.AppImage
 
 #  - ${FREECAD} --console --version this still opens a window
 
