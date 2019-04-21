@@ -39,8 +39,8 @@ matrix:
 before_install:
   - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable
 #  - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
-  - sudo apt-get update --yes
-  - sudo apt-get install--yes  freecad
+  - sudo apt-get update  --yes
+  - sudo apt-get install --yes  freecad
   
 #  # Install Anaconda
 #  - echo PYTHON_VERSION $PYTHON_VERSION
