@@ -19,11 +19,11 @@ Primitive Examples
    print(sys.version)   # or sys.version_info
 
 .. testoutput::
-
-    2.7.12...
+   :options: +SKIP
 
 .. testcode::
 
+   import sys
    print(sys.path) # this will give output
 
 .. testoutput::

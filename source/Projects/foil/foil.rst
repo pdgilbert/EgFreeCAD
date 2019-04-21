@@ -225,6 +225,13 @@ Project to extend a (hydro-) foil profile over a wing span outline.
                     doc.append(ln)
                 
            self.LeadTrail = self.LeadTrail(leadingEdge,trailingEdge, doc=doc, source=source)
+
+.. testoutput::
+
+
+BREAK THE NEXT UP INTO PIECES AND CLEAN UP.
+
+.. testcode::
    
    SRC = 'source/Projects/foil/'
    
@@ -274,6 +281,88 @@ Project to extend a (hydro-) foil profile over a wing span outline.
    
    sp = z3.leadingEdgeBspline()
    zd = sp.discretize(20)
+
+.. testoutput::
+
+    loading profile.
+    loading leading and trailing edges.
+    calculating aprox. tangent (rotation) of the leading edge.
+    building profileList.
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 0.0),Vector (2.0, 0.0, 0.0),-0.0
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 3.0),Vector (2.0, 0.0, 0.0),-5.7105931375
+    rotated profile 2.0
+    scaled profile 1.0
+    ld, tr - ld, -r Vector (0.5, 0.0, 5.0),Vector (1.0, 0.0, 0.0),-20.5560452196
+    rotated profile 1.0
+    scaled profile 0.01
+    ld, tr - ld, -r Vector (1.5, 0.0, 7.0),Vector (0.0, 0.0, 0.0),-0.0
+    rotated profile 0.01
+    making EdgeBsplines.
+    making foil.
+    loading profile.
+    loading leading and trailing edges.
+    calculating aprox. tangent (rotation) of the leading edge.
+    building profileList.
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 0.0),Vector (2.0, 0.0, 0.0),-0.0
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 3.0),Vector (2.0, 0.0, 0.0),-0.0
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 4.0),Vector (2.0, 0.0, 0.0),-0.0
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 5.0),Vector (2.0, 0.0, 0.0),-5.7105931375
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.2, 6.0),Vector (2.0, 0.0, 0.0),-14.0362434679
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.5, 7.0),Vector (2.0, 0.0, 0.0),-16.699244234
+    rotated profile 2.0
+    making EdgeBsplines.
+    making foil.
+    loading profile.
+    loading leading and trailing edges.
+    calculating aprox. tangent (rotation) of the leading edge.
+    building profileList.
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 0.0),Vector (2.0, 0.0, 0.0),-0.0
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 1.0),Vector (2.0, 0.0, 0.0),-0.0
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 2.0),Vector (2.0, 0.0, 0.0),-0.0
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 3.0),Vector (2.0, 0.0, 0.0),-0.0
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.0, 4.0),Vector (2.0, 0.0, 0.0),-2.86240522611
+    rotated profile 2.0
+    scaled profile 2.0
+    ld, tr - ld, -r Vector (0.0, 0.1, 5.0),Vector (2.0, 0.0, 0.0),-16.2539170582
+    rotated profile 2.0
+    scaled profile 1.7
+    ld, tr - ld, -r Vector (0.3, 0.5, 6.0),Vector (1.7, 0.0, 0.0),-35.3242998776
+    rotated profile 1.7
+    scaled profile 1.3
+    ld, tr - ld, -r Vector (0.7, 0.9, 6.5),Vector (1.3, 0.0, 0.0),-68.3222184824
+    rotated profile 1.3
+    scaled profile 0.05
+    ld, tr - ld, -r Vector (1.9, 1.5, 6.75),Vector (0.050000000000000044, 0.0, 0.0),-79.4446195339
+    rotated profile 0.05
+    making EdgeBsplines.
+    making foil.
+
+NOT SURE WHY NEXT IS HERE.  
+
+.. testcode::
    
    def tube(r, w, h, a ):
       ''' 
@@ -289,5 +378,8 @@ Project to extend a (hydro-) foil profile over a wing span outline.
       b = b.cut(Part.makeCylinder(r-w, h, Vector(0,0,0), Vector(0,0,1), a))
       
       return(b)
-   
-Put some text in here somewhere
+
+.. testoutput::
+
+
+PUT SOME TEXT IN HERE SOMEWHERE
