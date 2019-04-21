@@ -36,27 +36,36 @@ matrix:
 # this ppa seems to be out-of-date
 # https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-daily
 
-before_install:
-  - sudo add-apt-repository ppa:freecad-maintainers/freecad-stable
-  #- sudo add-apt-repository ppa:freecad-maintainers/freecad-daily
-  - sudo apt-get update -q
-  - sudo apt-get install -y freecad
+#before_install:
+  - sudo add-apt-repository --assume-yes ppa:freecad-maintainers/freecad-stable
+#  - sudo add-apt-repository --assume-yes ppa:freecad-maintainers/freecad-daily
+#  - sudo apt-get update --assume-yes
+#  - sudo apt-get install--assume-yes  freecad
   
 install:
-  # Install Anaconda
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
-    else
-      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-    fi
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda config --add channels conda-forge
-  - conda update -q conda
+#  # Install Anaconda
+#  - echo PYTHON_VERSION $PYTHON_VERSION
+#  - echo TRAVIS_PYTHON_VERSION $TRAVIS_PYTHON_VERSION
+#  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+#      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+#    else
+#      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+#    fi
+#  - bash miniconda.sh -b -p $HOME/miniconda
+#  - export PATH="$HOME/miniconda/bin:$PATH"
+#  - hash -r
+#  - conda config --set always_yes yes --set changeps1 no
+#  - conda update -q conda
+#  - conda config --add channels conda-forge
+#  - conda update -q conda
+#conda create -n FC_test freecad
+#source activate FC_test
+#conda init bash # nodifies .bashrc
+#conda activate  FC_test
+#bash
+#conda deactivate # removes modifications to .bashrc
 
+install:
   - pip install -U sphinx
 #  - pip3 install -U sphinx
   - which sphinx-build
