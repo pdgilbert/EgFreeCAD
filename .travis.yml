@@ -36,13 +36,12 @@ matrix:
 # this ppa seems to be out-of-date
 # https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-daily
 
-#before_install:
+before_install:
   - sudo add-apt-repository --assume-yes ppa:freecad-maintainers/freecad-stable
 #  - sudo add-apt-repository --assume-yes ppa:freecad-maintainers/freecad-daily
-#  - sudo apt-get update --assume-yes
-#  - sudo apt-get install--assume-yes  freecad
+  - sudo apt-get update --assume-yes
+  - sudo apt-get install--assume-yes  freecad
   
-install:
 #  # Install Anaconda
 #  - echo PYTHON_VERSION $PYTHON_VERSION
 #  - echo TRAVIS_PYTHON_VERSION $TRAVIS_PYTHON_VERSION
