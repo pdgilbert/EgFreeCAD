@@ -13,10 +13,10 @@ language: python
 # pip and R packages can be cached.
 #Sphinx and FreeCAD packages?
 
-# This should be enable if pip is used
+# This should be enabled if pip is used
 #cache: pip
+
 #  directories:
-#     - /usr/lib/freecad/lib
 #     - ${HOME}/.FreeCAD/???
 
 # trigger on pushes to master branch
