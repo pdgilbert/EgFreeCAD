@@ -37,10 +37,10 @@ matrix:
 # https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-daily
 
 before_install:
-  - sudo add-apt-repository --assume-yes ppa:freecad-maintainers/freecad-stable
-#  - sudo add-apt-repository --assume-yes ppa:freecad-maintainers/freecad-daily
-  - sudo apt-get update --assume-yes
-  - sudo apt-get install--assume-yes  freecad
+  - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable
+#  - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
+  - sudo apt-get update --yes
+  - sudo apt-get install--yes  freecad
   
 #  # Install Anaconda
 #  - echo PYTHON_VERSION $PYTHON_VERSION
