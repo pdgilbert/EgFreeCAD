@@ -27,7 +27,7 @@ branches:
 #specify multiple parallel jobs
 matrix:
     include:
-        - name" "freecad - python 2.7"
+        - name: "freecad - python 2.7"
           python: 2.7
 #          env: FREECAD=freecad
 #        - python: 2.7
