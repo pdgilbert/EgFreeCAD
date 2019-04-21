@@ -48,6 +48,9 @@ matrix:
 # inside the image.
 
 #Draft attempt at using AppImage:
+# run AppImage to run freecad. Updating the image is only useful if the old
+# image is cached, and it is not clear there is any advantage when cache is
+# loaded over the network.
 #  - wget https://github.com/AppImage/AppImageUpdate/releases/download/continuous/appimageupdatetool-x86_64.AppImage
 #  - chmod +x ./appimageupdatetool-x86_64.AppImage
 #  - wget https://github.com/FreeCAD/FreeCAD/releases/download/0.18.1/FreeCAD_0.18-16110-Linux-Conda_Py3Qt5_glibc2.12-x86_64.AppImage
@@ -110,7 +113,7 @@ script:
   - echo OS_TAG is ${OS_TAG} 
   - echo PWD is ${PWD} 
 
-  - PYTHONPATH= ${PWD}/lib:${PYTHONPATH}
+  - export PYTHONPATH =${PWD}/lib:${PYTHONPATH}
   - echo PYTHONPATH is ${PYTHONPATH} 
 
   - make doctest
