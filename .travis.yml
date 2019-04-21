@@ -41,6 +41,7 @@ before_install:
 #  - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
   - sudo apt-get update  --yes
   - sudo apt-get install --yes  freecad
+  - sudo apt-get install --yes  sphinx
   
 #  # Install Anaconda
 #  - echo PYTHON_VERSION $PYTHON_VERSION
@@ -65,9 +66,10 @@ before_install:
 #conda deactivate # removes modifications to .bashrc
 
 install:
-  - pip install -U sphinx
+#  - pip install -U sphinx
 #  - pip3 install -U sphinx
   - which sphinx-build
+#/home/travis/virtualenv/python2.7.14/bin/sphinx-build
   - sphinx-build --version
 
 #  - export FREECAD=freecad
@@ -89,7 +91,6 @@ script:
   - OS_TAG=`uname -i`_`uname -o`
   - echo OS_TAG is ${OS_TAG} 
   - echo PWD is ${PWD} 
-  - cd EgFreeCAD
   - make doctest
   - make html
 
