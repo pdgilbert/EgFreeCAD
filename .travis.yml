@@ -101,6 +101,11 @@ before_install:
   - sudo apt-get install --yes  freecad
 
 install:
+  - echo python is 
+  - which python
+  - echo python3 is 
+  - which python3
+
   - which sphinx-build
   - sphinx-build --version
 
@@ -113,7 +118,7 @@ script:
   - echo OS_TAG is ${OS_TAG} 
   - echo PWD is ${PWD} 
 
-  - export PYTHONPATH =${PWD}/lib:${PYTHONPATH}
+  - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo PYTHONPATH is ${PYTHONPATH} 
 
   - make doctest
