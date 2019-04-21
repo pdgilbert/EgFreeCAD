@@ -41,7 +41,7 @@ before_install:
 #  - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
   - sudo apt-get update  --yes
   - sudo apt-get install --yes  sphinx-common python-sphinx python3-sphinx
-  - sudo apt-get install --yes  python-alabaster python3-alabaster
+#  - sudo apt-get install --yes  python-alabaster python3-alabaster
   - sudo apt-get install --yes  freecad
   
 #  # Install Anaconda
