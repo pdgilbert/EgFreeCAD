@@ -29,7 +29,7 @@ matrix:
     include:
         - name: "freecad - python 2.7"
           python: 2.7
-          env: FREECAD=0.18.1
+          env: FREECAD="freecad"
 
         - name: "freecad - python 3.6"
           python: 3.6
@@ -124,8 +124,8 @@ script:
   - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
   - python  --version
-  - if [ v${TRAVIS_PYTHON_VERSION} = 'v2.7' ]  ; then echo 2.7; fi
-  - if [ v${TRAVIS_PYTHON_VERSION} = 'v3.6' ]  ; then echo 3.6; fi
+  - if [ v${FREECAD} = 'freecad' ]  ; then echofreecad; fi
+  - if [ v${FREECAD} = 'freecad-daily' ]  ; then echo freecad-daily; fi
   - echo PWD is ${PWD} 
   - OS_TAG=`uname -i`_`uname -o`
   - echo OS_TAG is ${OS_TAG} 
@@ -134,12 +134,10 @@ script:
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo PYTHONPATH is ${PYTHONPATH} 
 
-  - make BUILDDIR=build_Python-${TRAVIS_PYTHON_VERSION} doctest
-  - make BUILDDIR=build_Python-${TRAVIS_PYTHON_VERSION} html
+  - export BUILD=build_Python-${TRAVIS_PYTHON_VERSION}
 
-  - echo name is ${name} 
-  - echo NAME is ${NAME} 
-
+  - make BUILDDIR=${BUILD} doctest
+  - make BUILDDIR=${BUILD} html
 
 # need next depending on deploy of html
 #  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${FREECAD}/${OS_TAG}
