@@ -14,6 +14,8 @@ Generated |date| |time| on |un|
 
 using FreeCAD |FCversion|
 
+and Python version |PYversion|
+
 Contents:
 
 .. toctree::

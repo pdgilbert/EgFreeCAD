@@ -50,14 +50,16 @@ FCversion = FreeCAD.Version()
 # Beware that the elements and number of elements in FCversion changes sometimes,
 # and is different in release vs daily
 # FCversion = FCversion[0] + '.' + FCversion[1]  + '.' + FCversion[2]+ '  '  + FCversion[4]
-FCversion = str(FCversion)
 r1 = '.. |FCversion| replace:: %s' % FCversion
 
 un = os.uname()
 un = un[0] + ' ' + un[2] + ' ' +  un[4]
 r2 = '.. |un| replace:: %s' % un
 
-rst_prolog ='\n' + r1 + '\n' + r2 + '\n'
+PYversion = str(sys.version)
+r3 = '.. |PYversion| replace:: %s' % PYversion
+
+rst_prolog ='\n' + r1 + '\n' + r2 + '\n' + r3 + '\n'
 
 #rst_prolog ='.. |FCversion| replace:: %s' % FCversion
 
