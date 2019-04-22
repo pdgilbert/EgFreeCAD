@@ -30,11 +30,11 @@ matrix:
         - name: "freecad - python 2.7"
           python: 2.7
 #          env: FREECAD=freecad
+        - python: 3.6
+#          env: FREECAD=freecad
 #        - python: 2.7
 #          env: FREECAD=freecad-daily
 #
-#        - python: 3.6
-#          env: FREECAD=freecad
 #        - python: 3.6
 #          env: FREECAD=freecad-daily
 
@@ -114,6 +114,10 @@ install:
 
 
 script:
+  - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
+  - if [ v${TRAVIS_PYTHON_VERSION} = 'v2.7' ]  ; then echo 2.7; fi
+  - if [ v${TRAVIS_PYTHON_VERSION} = 'v3.6' ]  ; then echo 3.6; fi
+  - echo PWD is ${PWD} 
   - OS_TAG=`uname -i`_`uname -o`
   - echo OS_TAG is ${OS_TAG} 
   - echo PWD is ${PWD} 
