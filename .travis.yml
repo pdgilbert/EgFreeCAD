@@ -30,13 +30,18 @@ matrix:
         - name: "freecad - python 2.7"
           python: 2.7
           env: FREECAD=0.18.1
-        - python: 3.6
-          env: FREECAD=0.18.1
-#        - python: 2.7
-#          env: FREECAD=freecad-daily
+
+        - name: "freecad - python 3.6"
+          python: 3.6
+          env: FREECAD="freecad"
+
+#        - name: "freecad-daily - python 2.7"
+#          python: 2.7
+#          env: FREECAD="freecad-daily"
 #
-#        - python: 3.6
-#          env: FREECAD=freecad-daily
+#        - name: "freecad-daily - python 3.6"
+#          python: 3.6
+#          env: FREECAD="freecad-daily"
 
 # Notes about methods for installing dependencies follow, then install.
 # See also  https://docs.travis-ci.com/user/installing-dependencies/
@@ -104,9 +109,9 @@ install:
   - which sphinx-build
   - sphinx-build --version
 
+  - echo FREECAD is ${FREECAD}
   - FREECAD_VERSION=`./freecad--version`
-  - echo FREECAD is ${FREECAD_VERSION}
-#  - ${FREECAD} --console --version this still opens a window
+  - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
 
 script:
