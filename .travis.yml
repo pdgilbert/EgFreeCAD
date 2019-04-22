@@ -112,13 +112,14 @@ install:
   - echo PWD is ${PWD}
   - ls 
   - echo FREECAD is ${FREECAD}
-#  - FREECAD_VERSION=`./freecad--version`
-#  - echo FREECAD_VERSION is ${FREECAD_VERSION}
+  - FREECAD_VERSION=`./freecad--version ${FREECAD}`
+  - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
 
 script:
   - echo FREECAD is ${FREECAD}
-  - FREECAD_VERSION=`./freecad--version`
+  - FREECAD_VERSION=`./freecad--version ${FREECAD}`
+
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
   - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
