@@ -29,9 +29,9 @@ matrix:
     include:
         - name: "freecad - python 2.7"
           python: 2.7
-#          env: FREECAD=freecad
+          env: FREECAD=0.18.1
         - python: 3.6
-#          env: FREECAD=freecad
+          env: FREECAD=0.18.1
 #        - python: 2.7
 #          env: FREECAD=freecad-daily
 #
@@ -101,20 +101,17 @@ before_install:
   - sudo apt-get install --yes  freecad
 
 install:
-  - echo python is 
-  - which python
-  - echo python3 is 
-  - which python3
-
   - which sphinx-build
   - sphinx-build --version
 
-  - echo FREECAD is ${FREECAD}
+  - FREECAD_VERSION=`./freecad--version`
+  - echo FREECAD is ${FREECAD_VERSION}
 #  - ${FREECAD} --console --version this still opens a window
 
 
 script:
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
+  - python  --version
   - if [ v${TRAVIS_PYTHON_VERSION} = 'v2.7' ]  ; then echo 2.7; fi
   - if [ v${TRAVIS_PYTHON_VERSION} = 'v3.6' ]  ; then echo 3.6; fi
   - echo PWD is ${PWD} 
@@ -125,8 +122,8 @@ script:
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo PYTHONPATH is ${PYTHONPATH} 
 
-  - make doctest
-  - make html
+  - make BUILDDIR=build_Python-${TRAVIS_PYTHON_VERSION} doctest
+  - make BUILDDIR=build_Python-${TRAVIS_PYTHON_VERSION} html
 
   - echo name is ${name} 
   - echo NAME is ${NAME} 

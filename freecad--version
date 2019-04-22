@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# usage:
+#ZZ=`./freecad--version`
+
+
+CMD="import sys;[sys.stdout.write(ln.split(' ')[1].split(',')[0]) for ln in sys.stdin]; sys.stdout.flush()"
+
+freecad --console <<EOF | head -n 1  | python -c "$CMD" 
+quit()
+EOF
