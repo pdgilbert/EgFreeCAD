@@ -3,9 +3,10 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-#SPHINXBUILD   = /usr/bin/sphinx-build
-PYTHON = python
-SPHINXBUILD   = ${PYTHON} -c "import sys; from sphinx import main; sys.exit(main(sys.argv))"
+SPHINXBUILD   = /usr/bin/sphinx-build
+#PYTHON = python
+#PYTHON = python3
+#SPHINXBUILD   = ${PYTHON} -c "import sys; from sphinx import main; sys.exit(main(sys.argv))"
 PAPER         =
 BUILDDIR      = build
 
