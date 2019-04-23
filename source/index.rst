@@ -1,3 +1,4 @@
+
 .. sphinxplay documentation master file, Modified from file created by
    sphinx-quickstart on Fri Dec 14 14:51:37 2018.
    You can adapt this file completely to your liking, but it should at least
@@ -37,3 +38,70 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. index:: Environmet Details
+
+Environmet Details
+------------------
+
+Freecad version |FCversion|
+
+.. testcode::
+
+   import FreeCAD
+   print(FreeCAD.Version())
+
+.. testoutput::
+   :options: +SKIP
+
+
+Environment variable FREECAD setting |FREECAD|
+
+.. testcode::
+
+   import os
+   print(os.environ['FREECAD'])
+
+.. testoutput::
+   :options: +SKIP
+
+
+Python version |PYversion|
+
+.. testcode::
+
+   import sys
+   print(sys.version)   # or sys.version_info
+
+.. testoutput::
+   :options: +SKIP
+
+Python path
+
+.. testcode::
+
+   import os
+   print(os.environ['PYTHONPATH'])
+
+.. testoutput::
+   :options: +SKIP
+
+OS version |un|
+
+.. testcode::
+
+   import os
+   print(os.uname())
+
+.. testoutput::
+   :options: +SKIP
+
+OS Path
+
+.. testcode::
+
+   import sys
+   print(sys.path) # this will give output
+
+.. testoutput::
+
+   [...

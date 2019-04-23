@@ -6,7 +6,7 @@
 
 version="0.1"
 
-usage="Usage:\n ./freecadPythonCheck \$\{BUILD\}\n ./freecadPythonCheck build\n"
+usage="Usage:\n ./freecadPythonCheck build-dir\n ./freecadPythonCheck build\n"
 
 case $# in
     0)echo "${usage}"; exit 1 ;;
@@ -23,6 +23,7 @@ case ${1} in
 esac
 
 echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
+echo Comparing with python in  $1/html/index.html
 
 ZZ=`grep "Python version" $1/html/index.html`
 echo Python version used in html build $ZZ

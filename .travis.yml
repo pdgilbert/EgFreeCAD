@@ -124,8 +124,8 @@ script:
   - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
   - python  --version
-  - if [ v${FREECAD} = 'freecad' ]  ; then echofreecad; fi
-  - if [ v${FREECAD} = 'freecad-daily' ]  ; then echo freecad-daily; fi
+  - if [ v${FREECAD} = 'vfreecad' ]  ; then echo freecad; fi
+  - if [ v${FREECAD} = 'vfreecad-daily' ]  ; then echo freecad-daily; fi
   - echo PWD is ${PWD} 
   - OS_TAG=`uname -i`_`uname -o`
   - echo OS_TAG is ${OS_TAG} 

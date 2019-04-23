@@ -45,23 +45,29 @@ Z = Vector(0,0,1)
 
 '''
 
+rst_prolog ='\n'
+
 import FreeCAD
 FCversion = FreeCAD.Version()
 # Beware that the elements and number of elements in FCversion changes sometimes,
 # and is different in release vs daily
 # FCversion = FCversion[0] + '.' + FCversion[1]  + '.' + FCversion[2]+ '  '  + FCversion[4]
-r1 = '.. |FCversion| replace:: %s' % FCversion
+
+rst_prolog += '.. |FCversion| replace:: %s' % FCversion + '\n'
 
 un = os.uname()
 un = un[0] + ' ' + un[2] + ' ' +  un[4]
-r2 = '.. |un| replace:: %s' % un
+rst_prolog += '.. |un| replace:: %s' % un + '\n'
 
-PYversion = str(sys.version)
-r3 = '.. |PYversion| replace:: %s' % PYversion
+#PYversion = str(sys.version)
+rst_prolog += '.. |PYversion| replace:: %s' % str(sys.version) + '\n'
 
-rst_prolog ='\n' + r1 + '\n' + r2 + '\n' + r3 + '\n'
+# note that the shell setting needs to be exported, or
+#     make FREECAD="freecad" html
 
-#rst_prolog ='.. |FCversion| replace:: %s' % FCversion
+rst_prolog += '.. |FREECAD| replace:: %s' % str(os.environ['FREECAD']) + '\n'
+
+rst_prolog +='\n'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
