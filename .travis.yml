@@ -100,18 +100,18 @@ matrix:
 
 before_install:
   - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable
-#  - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
+  - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
   - sudo apt-get update  -q
   - sudo apt-get install --yes  sphinx-common python-sphinx python3-sphinx
 #  - sudo apt-get install --yes  python-alabaster python3-alabaster
-  - sudo apt-get install --yes  freecad
+  - sudo apt-get install --yes  freecad  freecad-daily
 
 install:
   - which sphinx-build
   - sphinx-build --version
 
   - echo PWD is ${PWD}
-  - ls 
+#  - ls 
   - echo FREECAD is ${FREECAD}
   - FREECAD_VERSION=`./freecad--version ${FREECAD}`
   - echo FREECAD_VERSION is ${FREECAD_VERSION}
