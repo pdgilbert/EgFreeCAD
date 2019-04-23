@@ -139,9 +139,7 @@ script:
   - make BUILDDIR=${BUILD} doctest
   - make BUILDDIR=${BUILD} html
 
-  - echo cross-check:
-  - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
-  - grep "Python version" ${BUILD}/html/index.html
+  - ./freecadPythonCheck ${BUILD}
 
 # need next depending on deploy of html
 #  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${FREECAD}/${OS_TAG}
