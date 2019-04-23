@@ -31,14 +31,15 @@ matrix:
           python: 2.7
           env: FREECAD="freecad"
 
-        - name: "freecad - python 3.6"
-          python: 3.6
-          env: FREECAD="freecad"
+#  this is still not using freecad with python 3
+#        - name: "freecad - python 3.6"
+#          python: 3.6
+#          env: FREECAD="freecad"
 
-#        - name: "freecad-daily - python 2.7"
-#          python: 2.7
-#          env: FREECAD="freecad-daily"
-#
+        - name: "freecad-daily - python 2.7"
+          python: 2.7
+          env: FREECAD="freecad-daily"
+
 #        - name: "freecad-daily - python 3.6"
 #          python: 3.6
 #          env: FREECAD="freecad-daily"
@@ -136,8 +137,8 @@ script:
 
   - export BUILD=build_Python-${TRAVIS_PYTHON_VERSION}
 
-  - make BUILDDIR=${BUILD} doctest
-  - make BUILDDIR=${BUILD} html
+  - make BUILDDIR=${BUILD} FREECAD=${FREECAD} doctest
+  - make BUILDDIR=${BUILD} FREECAD=${FREECAD} html
 
   - ./freecadPythonCheck ${BUILD}
 
