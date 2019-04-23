@@ -23,3 +23,11 @@ esac
 ${1} --console <<EOF | head -n 1  | python -c "$CMD" 
 quit()
 EOF
+
+rc=$?
+
+#echo "return code $rc xx"
+if [ $rc != 0 ]  ; then
+  echo " return code $rc . Probably freecad/freecad-daily not found."
+fi
+exit $rc
