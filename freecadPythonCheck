@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# check version of python used by Sphinx/freecad as  written
+# in ${BUILD}/html/index.html and compare with what was suppose to be used.
+# Return an error if they are not the same
+
+version="0.1"
+
+usage="Usage:\n ./freecadPythonCheck \$\{BUILD\}\n ./freecadPythonCheck build\n"
+
+case $# in
+    0)echo "${usage}"; exit 1 ;;
+    1) ;;
+    *) echo "${usage}"; exit 1 ;;
+  esac
+
+case ${1} in
+  -h|--help)
+    echo "${usage}"; exit 0 ;;
+  -v|--version)
+    echo "${version}"; exit 0 ;;
+  *)   break ;;
+esac
+
+echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
+
+ZZ=`grep "Python version" $1/html/index.html`
+echo Python version used in html build $ZZ
+
+CMD="import sys;[sys.stdout.write('.'.join(ln.split(' ')[3].split('.')[0:2])) for ln in sys.stdin]"
+
+ZZZ=`echo  ${ZZ} | python -c "$CMD" `
+
+if [ v${ZZZ} = v${TRAVIS_PYTHON_VERSION} ]  ; then
+  exit 0  ; 
+else 
+  echo "Error. Not using correct Python version (using ${ZZZ})"
+  exit 1  ; 
+fi
