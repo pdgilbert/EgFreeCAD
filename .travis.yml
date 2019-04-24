@@ -1,0 +1,159 @@
+# compare this with 2piQA/.travis.yml
+# hooks on github may need adjustment.
+ 
+# use containers (so no sudo)
+sudo: false
+
+language: python
+
+#  from https://docs.travis-ci.com/user/caching/
+# Large files that are quick to install but slow to download do not benefit 
+# from caching, as they take as long to download from the cache as from the 
+# original source: do not cache Debian packages.
+# pip and R packages can be cached.
+#Sphinx and FreeCAD packages?
+
+# This should be enabled if pip is used
+#cache: pip
+
+#  directories:
+#     - ${HOME}/.FreeCAD/???
+
+# trigger on pushes to master branch
+branches:
+  only:
+   - master
+
+#specify multiple parallel jobs
+matrix:
+    include:
+        - name: "freecad - python 2.7"
+          python: 2.7
+          env: FC="freecad"
+
+#  this is still not using freecad with python 3
+#        - name: "freecad - python 3.6"
+#          python: 3.6
+#          env: FC="freecad"
+
+        - name: "freecad-daily - python 2.7"
+          python: 2.7
+          env: FC="freecad-daily"
+
+#        - name: "freecad-daily - python 3.6"
+#          python: 3.6
+#          env: FC="freecad-daily"
+
+# Notes about methods for installing dependencies follow, then install.
+# See also  https://docs.travis-ci.com/user/installing-dependencies/
+# Currently apt-get seems prefered. It is done in before_install: whereas
+# some of the other options might be done in install:.
+
+# It might be possible to use FreeCAD AppImage but then Sphinx needs to find 
+# the FreeCAD python libraries inside the AppImage, or sphinx needs to run
+# inside the image.
+
+#Draft attempt at using AppImage:
+# run AppImage to run freecad. Updating the image is only useful if the old
+# image is cached, and it is not clear there is any advantage when cache is
+# loaded over the network.
+#  - wget https://github.com/AppImage/AppImageUpdate/releases/download/continuous/appimageupdatetool-x86_64.AppImage
+#  - chmod +x ./appimageupdatetool-x86_64.AppImage
+#  - wget https://github.com/FreeCAD/FreeCAD/releases/download/0.18.1/FreeCAD_0.18-16110-Linux-Conda_Py3Qt5_glibc2.12-x86_64.AppImage
+#  - chmod +x ./FreeCAD*.AppImage
+#  - ./appimageupdatetool.AppImage path/to/old/FreeCAD.AppImage ./path/to/updated/FreeCAD.AppImage
+
+
+# It would be possible to use Condo, but that seems to generate library 
+# downloads almost as big as apt upgrade, so will be very slow. Draft attempt:
+  
+#  # Install Anaconda
+#  - echo PYTHON_VERSION $PYTHON_VERSION
+#  - echo TRAVIS_PYTHON_VERSION $TRAVIS_PYTHON_VERSION
+#  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+#      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+#    else
+#      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+#    fi
+#  - bash miniconda.sh -b -p $HOME/miniconda
+#  - export PATH="$HOME/miniconda/bin:$PATH"
+#  - hash -r
+#  - conda config --set always_yes yes --set changeps1 no
+#  - conda update -q conda
+#  - conda config --add channels conda-forge
+#  - conda update -q conda
+#  - conda create -n FC_test freecad
+#  - conda init bash # nodifies .bashrc
+#  - conda activate  FC_test
+#  - bash
+#  - conda deactivate # removes modifications to .bashrc
+
+# pip can be used? but put things in different directory apt-get,
+# so, at least,  PATH and PYTHONPATH need adjustment. Draft:
+#  - pip install -U sphinx
+#  - pip3 install -U sphinx
+#   # installs in /home/travis/virtualenv/python2.7.14/bin/sphinx-build
+#  - pip install -U pip freecad
+
+# this ppa seems to be out-of-date ?
+# https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-daily
+
+before_install:
+  - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable
+  - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
+  - sudo apt-get update  -q
+  - sudo apt-get install --yes  sphinx-common python-sphinx python3-sphinx
+#  - sudo apt-get install --yes  python-alabaster python3-alabaster
+  - sudo apt-get install --yes  freecad  freecad-daily
+
+install:
+  - which sphinx-build
+  - sphinx-build --version
+
+  - echo PWD is ${PWD}
+#  - ls 
+  - echo FREECAD is ${FC}
+  - FREECAD_VERSION=`./freecad--version ${FC}`
+  - echo FREECAD_VERSION is ${FREECAD_VERSION}
+
+
+script:
+  - echo FREECAD should be ${FC}
+  - FREECAD_VERSION=`./freecad--version ${FC}`
+
+  - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
+  - echo FREECAD_VERSION is ${FREECAD_VERSION}
+
+  - python  --version
+  - if [ v${FC} = 'vfreecad' ]  ; then echo freecad; fi
+  - if [ v${FC} = 'vfreecad-daily' ]  ; then echo freecad-daily; fi
+  - echo PWD is ${PWD} 
+  - OS_TAG=`uname -i`_`uname -o`
+  - echo OS_TAG is ${OS_TAG} 
+  - echo PWD is ${PWD} 
+
+  - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
+  - echo PYTHONPATH is ${PYTHONPATH} 
+
+  - export BUILD=build_${FC}/Python-${TRAVIS_PYTHON_VERSION}
+
+  - echo Sphinx building with BUILDDIR=${BUILD} FREECAD=${FC}  
+  - make BUILDDIR=${BUILD} FREECAD=${FC} doctest
+  - make BUILDDIR=${BUILD} FREECAD=${FC} html
+
+#  confirm this actually used the correct python
+  - ./freecadPythonCheck ${BUILD}
+
+# need next depending on deploy of html
+#  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${BUILD}
+#  - cd ${BUILD}
+#  - git checkout  ${BUILD}
+
+# deploy html to ??
+after_success:
+  - echo ${FC}  ${OS_TAG} success
+  - echo html in ${BUILD}/html
+
+#  - git push # origin HEAD:${FC}/${OS_TAG}
+
+
