@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Needle &mdash; EgFreeCAD 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EgFreeCAD 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Simple Constructs" href="index.html" />
+    <link rel="next" title="Projects" href="../Projects/index.html" />
+    <link rel="prev" title="Tube" href="tube.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Projects/index.html" title="Projects"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tube.html" title="Tube"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Simple Constructs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="needle">
+<span id="index-0"></span><h1>Needle<a class="headerlink" href="#needle" title="Permalink to this headline">¶</a></h1>
+<p># main shaft</p>
+<p>a = Part.makeCylinder(1.0, 55, Vector(0, 0, 0), Vector(1, 0, 0), 360)
+a = a.fuse(Part.makeSphere(1.0))
+# Part.show(a)</p>
+<p># bent end shaft and point</p>
+<p>b = Part.makeCylinder(1.0, 5, Vector(0, 0, 0), Vector(0, 0, 1), 360)
+b1  = Part.makeCone(1.0, 0.3, 4)
+b1.translate(Vector(0, 0, 5))
+b2 = Part.makeSphere(0.3)
+b2.translate(Vector(0, 0, 5+4))
+b = b.fuse([b1, b2])
+b.rotate(Vector(0, 0, 0), Vector(0.5, 1, 0), 90)
+b.translate(Vector(55, 0, 0))
+# Part.show(b)</p>
+<p># fill between shafts</p>
+<p>c = Part.makeSphere(1.0)
+c.translate(Vector(55, 0, 0))
+# Part.show(c)</p>
+<p>a = a.fuse([b, c])</p>
+<p># Part.show(a)</p>
+<p>O = Vector(0, 0, 0)
+X = Vector(1, 0, 0)
+Y = Vector(0, 1, 0)
+Z = Vector(0, 0, 1)</p>
+<p># hole for thread</p>
+<p># center origin, X , Y radii, default orientation  normal to z-axis
+e = Part.Ellipse(O, 5, 0.4).toShape()
+e.translate(Vector(6, 0, -1))
+d = Part.Face(Part.Wire(e)).extrude(Vector(0, 0, 5))
+#Part.show(d)</p>
+<p>h = a.cut(d)
+#Part.show(h)</p>
+<p>#  smooth thread hole edges</p>
+<p># cannot get fillet to work with these edges
+#edges = []
+#for e in h.Edges :
+#   if (len(e.Vertexes) is 1) and e.Vertexes[0].Point[2] in (1.0, -1.0) :
+#       edges.append(e)
+#
+#h = h.makeFillet(0.3, edges)</p>
+<p># so cut out another ellipse across the top of the hole
+# This leaves somewhat sharp edges
+#This works in Freecad, but printing is a real problem because of the long
+# bridge, and the sides areery narrow. Might try with a smaller nozzle.
+# However, even without it the edges are too small to print with 0.4mm nozzle,
+# or I have to make other adjustments I have not yet figured out.</p>
+<p># e = Part.Ellipse(Vector(0, 0, 0), 6, 0.3).toShape()
+# e.rotate(O,  X,  90)  # ceter at origin, about x-axis
+# e.translate(Vector(6, -2, -1))
+# d = Part.Face(Part.Wire(e)).extrude(Vector(0, 5, 0))
+# #Part.show(d)
+# h = h.cut(d)
+#
+# d.translate(Vector(0, 0, 2))
+# h = h.cut(d)</p>
+<p>#Part.show(h)</p>
+<dl class="docutils">
+<dt>m = MeshPart.meshFromShape(Shape= h,</dt>
+<dd>LinearDeflection=0.1, AngularDeflection=0.523599, Relative=False)</dd>
+</dl>
+<p># why both of these ?
+Mesh.export([m],  &#8220;needle.stl&#8221;)
+m.write(Filename =&#8221;needle.stl&#8221;)</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tube.html"
+                        title="previous chapter">Tube</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Projects/index.html"
+                        title="next chapter">Projects</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/SimpleConstructs/needle.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Projects/index.html" title="Projects"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tube.html" title="Tube"
+             >previous</a> |</li>
+        <li><a href="../index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Simple Constructs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2018, 2019, Paul Gilbert.
+      Last updated on Apr 24, 2019.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
