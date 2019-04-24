@@ -141,27 +141,35 @@ script:
   - make BUILDDIR=${BUILD} FREECAD=${FC} doctest
   - make BUILDDIR=${BUILD} FREECAD=${FC} html
 
-#  confirm this actually used the correct python
+  #  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
 
-# need next depending on deploy of html
+# The diffiult part of deploy is that build happens on master (or elsewhere)
+#  but the html and other output needs to go on branch gh-pages
+# used to be some trickes were needed, but now I think deploy: handles it.
+
+# may need somethin like next for deploy of html
 #  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${BUILD}
 #  - cd ${BUILD}
 #  - git checkout  ${BUILD}
 
-# deploy html to ??
-after_success:
-  - echo ${FC}  ${OS_TAG} success
-  - echo html in ${BUILD}/html
+#  - git push # origin HEAD:${BUILD}
 
-#  - git push # origin HEAD:${FC}/${OS_TAG}
+
+# after_success:  # can be used to deploy to unsupported Providers 
+#  - echo ${FC}  ${OS_TAG} success
+#  - echo html in ${BUILD}/html
 
 # see https://docs.travis-ci.com/user/deployment/pages/
+#   https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A
 
 deploy:
+  verbose: true
   provider: pages
   skip_cleanup: true #otherwise files created during the build are deleted
   github_token: $GITHUB_TOKEN  # Set in the settings page of  repository
   keep_history: true  # maybe false for this??
+  # on: provides condtions on which to deploy
   on:
-    branch: gh-pages
+    branch: master
+  target_branch: gh-pages
