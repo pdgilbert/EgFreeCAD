@@ -135,7 +135,7 @@ script:
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo PYTHONPATH is ${PYTHONPATH} 
 
-  - export BUILD=build_Python-${TRAVIS_PYTHON_VERSION}
+  - export BUILD=build_/${FC}/Python-${TRAVIS_PYTHON_VERSION}
 
   - echo Sphinx building with BUILDDIR=${BUILD} FREECAD=${FC}  
   - make BUILDDIR=${BUILD} FREECAD=${FC} doctest
@@ -145,13 +145,14 @@ script:
   - ./freecadPythonCheck ${BUILD}
 
 # need next depending on deploy of html
-#  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${FREECAD}/${OS_TAG}
-#  - cd ${FREECAD}/${OS_TAG}
-#  - git checkout  ${FREECAD}/${OS_TAG}
+#  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${BUILD}
+#  - cd ${BUILD}
+#  - git checkout  ${BUILD}
 
 # deploy html to ??
 after_success:
-  - echo ${FREECAD}/${OS_TAG} success
+  - echo ${FC}  ${OS_TAG} success
+  - echo html in ${BUILD}/html
 
 #  - git push # origin HEAD:${FC}/${OS_TAG}
 
