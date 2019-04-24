@@ -156,4 +156,12 @@ after_success:
 
 #  - git push # origin HEAD:${FC}/${OS_TAG}
 
+# see https://docs.travis-ci.com/user/deployment/pages/
 
+deploy:
+  provider: pages
+  skip_cleanup: true #otherwise files created during the build are deleted
+  github_token: $GITHUB_TOKEN  # Set in the settings page of  repository
+  keep_history: true  # maybe false for this??
+  on:
+    branch: gh-pages
