@@ -29,20 +29,20 @@ matrix:
     include:
         - name: "freecad - python 2.7"
           python: 2.7
-          env: FREECAD="freecad"
+          env: FC="freecad"
 
 #  this is still not using freecad with python 3
 #        - name: "freecad - python 3.6"
 #          python: 3.6
-#          env: FREECAD="freecad"
+#          env: FC="freecad"
 
         - name: "freecad-daily - python 2.7"
           python: 2.7
-          env: FREECAD="freecad-daily"
+          env: FC="freecad-daily"
 
 #        - name: "freecad-daily - python 3.6"
 #          python: 3.6
-#          env: FREECAD="freecad-daily"
+#          env: FC="freecad-daily"
 
 # Notes about methods for installing dependencies follow, then install.
 # See also  https://docs.travis-ci.com/user/installing-dependencies/
@@ -112,21 +112,21 @@ install:
 
   - echo PWD is ${PWD}
 #  - ls 
-  - echo FREECAD is ${FREECAD}
-  - FREECAD_VERSION=`./freecad--version ${FREECAD}`
+  - echo FREECAD is ${FC}
+  - FREECAD_VERSION=`./freecad--version ${FC}`
   - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
 
 script:
-  - echo FREECAD is ${FREECAD}
-  - FREECAD_VERSION=`./freecad--version ${FREECAD}`
+  - echo FREECAD should be ${FC}
+  - FREECAD_VERSION=`./freecad--version ${FC}`
 
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
   - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
   - python  --version
-  - if [ v${FREECAD} = 'vfreecad' ]  ; then echo freecad; fi
-  - if [ v${FREECAD} = 'vfreecad-daily' ]  ; then echo freecad-daily; fi
+  - if [ v${FC} = 'vfreecad' ]  ; then echo freecad; fi
+  - if [ v${FC} = 'vfreecad-daily' ]  ; then echo freecad-daily; fi
   - echo PWD is ${PWD} 
   - OS_TAG=`uname -i`_`uname -o`
   - echo OS_TAG is ${OS_TAG} 
@@ -137,9 +137,11 @@ script:
 
   - export BUILD=build_Python-${TRAVIS_PYTHON_VERSION}
 
-  - make BUILDDIR=${BUILD} FREECAD=${FREECAD} doctest
-  - make BUILDDIR=${BUILD} FREECAD=${FREECAD} html
+  - echo Sphinx building with BUILDDIR=${BUILD} FREECAD=${FC}  
+  - make BUILDDIR=${BUILD} FREECAD=${FC} doctest
+  - make BUILDDIR=${BUILD} FREECAD=${FC} html
 
+#  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
 
 # need next depending on deploy of html
@@ -151,6 +153,6 @@ script:
 after_success:
   - echo ${FREECAD}/${OS_TAG} success
 
-#  - git push # origin HEAD:${FREECAD}/${OS_TAG}
+#  - git push # origin HEAD:${FC}/${OS_TAG}
 
 

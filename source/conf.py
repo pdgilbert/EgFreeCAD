@@ -45,30 +45,38 @@ Z = Vector(0,0,1)
 
 '''
 
-rst_prolog ='\n'
-
 import FreeCAD
 FCversion = FreeCAD.Version()
 # Beware that the elements and number of elements in FCversion changes sometimes,
 # and is different in release vs daily
 # FCversion = FCversion[0] + '.' + FCversion[1]  + '.' + FCversion[2]+ '  '  + FCversion[4]
 
-rst_prolog += '.. |FCversion| replace:: %s' % FCversion + '\n'
+r1 = '.. |FCversion| replace:: %s' % FCversion
 
 un = os.uname()
 un = un[0] + ' ' + un[2] + ' ' +  un[4]
-rst_prolog += '.. |un| replace:: %s' % un + '\n'
+r2 = '.. |un| replace:: %s' % un
 
-#PYversion = str(sys.version)
-rst_prolog += '.. |PYversion| replace:: %s' % str(sys.version) + '\n'
+PYversion = sys.version[0:39]
+r3 = '.. |PYversion| replace:: %s' % PYversion
 
 # note that the shell setting needs to be exported, or
 #     make FREECAD="freecad" html
 
-rst_prolog += '.. |FREECAD| replace:: %s' % str(os.environ['FREECAD']) + '\n'
+FC = os.environ['FREECAD']
+r4 = '.. |FC| replace:: %s' % str(FC)
 
-rst_prolog +='\n'
+PYpath = os.environ['PYTHONPATH']
+r5 = '.. |PYpath| replace:: %s' % str(PYpath)
 
+OSpath = sys.path
+r6 = '.. |OSpath| replace:: %s' % str(OSpath)
+
+rst_prolog = '\n' +  r1 + '\n\n'  + r2 + '\n\n' + r3+ '\n\n' + r4 + '\n\n' + r5 + '\n\n' + r6 + '\n\n'
+
+print("in conf.py")
+print("FC is "+ FC)
+print("rst_prolog is " + rst_prolog)
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 

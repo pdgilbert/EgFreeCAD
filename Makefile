@@ -1,5 +1,8 @@
 # Makefile for Sphinx documentation
 #
+#  eg
+#     make BUILDDIR=build/Python2-freecad FREECAD="freecad" html
+#     make BUILDDIR=build/Python2-freecad-daily FREECAD="freecad-daily" html
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
@@ -58,6 +61,7 @@ clean:
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
+	@echo "Build finished using $(SPHINXBUILD) and options $(ALLSPHINXOPTS)."
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
 .PHONY: dirhtml
@@ -199,6 +203,7 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
+	@echo " Using $(SPHINXBUILD) and options $(ALLSPHINXOPTS)"
 
 .PHONY: coverage
 coverage:

@@ -43,23 +43,23 @@ Indices and tables
 Environmet Details
 ------------------
 
+Environment variable FREECAD setting |FC|
+
+.. testcode::
+
+   import os
+   print(os.environ['FREECAD'])
+
+.. testoutput::
+   :options: +SKIP
+
+
 Freecad version |FCversion|
 
 .. testcode::
 
    import FreeCAD
    print(FreeCAD.Version())
-
-.. testoutput::
-   :options: +SKIP
-
-
-Environment variable FREECAD setting |FREECAD|
-
-.. testcode::
-
-   import os
-   print(os.environ['FREECAD'])
 
 .. testoutput::
    :options: +SKIP
@@ -75,7 +75,7 @@ Python version |PYversion|
 .. testoutput::
    :options: +SKIP
 
-Python path
+Python path |PYpath|
 
 .. testcode::
 
@@ -95,12 +95,12 @@ OS version |un|
 .. testoutput::
    :options: +SKIP
 
-OS Path
+OS Path |OSpath|
 
 .. testcode::
 
    import sys
-   print(sys.path) # this will give output
+   print(sys.path) 
 
 .. testoutput::
 
