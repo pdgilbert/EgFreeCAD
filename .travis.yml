@@ -135,7 +135,7 @@ script:
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo PYTHONPATH is ${PYTHONPATH} 
 
-  - export BUILD=build_/${FC}/Python-${TRAVIS_PYTHON_VERSION}
+  - export BUILD=build_${FC}/Python-${TRAVIS_PYTHON_VERSION}
 
   - echo Sphinx building with BUILDDIR=${BUILD} FREECAD=${FC}  
   - make BUILDDIR=${BUILD} FREECAD=${FC} doctest
