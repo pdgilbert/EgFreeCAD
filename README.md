@@ -3,11 +3,11 @@ FreeCAD scripting examples with testing
 
 Still trying to figure out github pages.
 
-Test this absolute link to yml file. 
-<a href="https://github.com/pdgilbert/EgFreeCAD/travis.yml">abs travis.yml</a>
+Test this absolute link to source/index.rst. 
+<a href="https://github.com/pdgilbert/EgFreeCAD/source/index.rst">abs index.rst</a>
 and this rel one
-<a href="travis.yml">rel travis.yml</a>.
+<a href="source/index.rst">rel index.rst</a>.
 
 And do directories show
-<a href="https://github.com/pdgilbert/EgFreeCAD/source">abs source dir</a>
-and <a href="source">rel source dir</a>.
+<a href="https://github.com/pdgilbert/EgFreeCAD/source/">abs source dir</a>
+and <a href="source/">rel source dir</a>.
