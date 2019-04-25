@@ -1,8 +1,8 @@
 # Makefile for Sphinx documentation
 #
 #  eg
-#     make BUILDDIR=build/Python2-freecad FREECAD="freecad" html
-#     make BUILDDIR=build/Python2-freecad-daily FREECAD="freecad-daily" html
+#     make BUILDDIR=build_freecad/Python2       FREECAD="freecad"       html
+#     make BUILDDIR=build_freecad-daily/Python2 FREECAD="freecad-daily" html
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
@@ -12,6 +12,7 @@ SPHINXBUILD   = /usr/bin/sphinx-build
 #SPHINXBUILD   = ${PYTHON} -c "import sys; from sphinx import main; sys.exit(main(sys.argv))"
 PAPER         =
 BUILDDIR      = build
+FREECAD       = freecad
 
 # User-friendly check for sphinx-build
 #ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)

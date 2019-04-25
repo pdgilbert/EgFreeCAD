@@ -169,10 +169,13 @@ after_success:  # can be used for customized deploy or to unsupported Providers
   - git add ${BUILD}
   - git commit -am "commiting after build."
   - git status
-  # working with detached head (because Travis chekout used a commit rather 
+  # use tightly scoped key
+  - git remote set-url origin https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git
+  #https://pdgilbert:${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git
+  # working with detached head (because Travis checkout used a commit rather 
   # than a branch) so origin HEAD needs to be specified to get a branch.
-  # Specify master if deploy is used, because otherwise it clobbers the
-  # saved builds from other jobs.
+  # Specify master if deploy is used, because otherwise other jobs clobbers the
+  # saved builds on gh-pages.
   - git push  origin HEAD:gh-pages #  --quiet --set-upstream ??
   - git status
   - echo html pushed to in ${BUILD}/html on gh-pages branch
