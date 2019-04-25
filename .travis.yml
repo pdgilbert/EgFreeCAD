@@ -164,24 +164,29 @@ script:
 #to cleanup
 #git push origin --delete ${BUILD}
 
-after_success:  # can be used to deploy to unsupported Providers 
+after_success:  # can be used for customized deploy or to unsupported Providers 
   - git status
   - git add ${BUILD}
   - git commit -am "commiting after build."
   - git status
-  - git push   #  --quiet --set-upstream ??
-  - echo html pushed to in ${BUILD}/html
+  # working with detached head (because Travis chekout used a commit rather 
+  # than a branch) so origin HEAD needs to be specified to get a branch.
+  # Specify master if deploy is used, because otherwise it clobbers the
+  # saved builds from other jobs.
+  - git push  origin HEAD:gh-pages #  --quiet --set-upstream ??
+  - git status
+  - echo html pushed to in ${BUILD}/html on gh-pages branch
 
 # see https://docs.travis-ci.com/user/deployment/pages/
 #   https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A
 
-deploy:
-  verbose: true
-  provider: pages
-  skip_cleanup: true #otherwise files created during the build are deleted
-  github_token: "${GITHUB_TOKEN}"  # Set in the settings page of  repository
-  keep_history: true  # maybe false for this??
-  # on: provides conditions on which to deploy
-  on:
-    branch: master
-  target_branch: gh-pages
+#deploy:
+#  verbose: true
+#  provider: pages
+#  skip_cleanup: true #otherwise files created during the build are deleted
+#  github_token: "${GITHUB_TOKEN}"  # Set in the settings page of  repository
+#  keep_history: true  # maybe false for this??
+#  # on: provides conditions on which to deploy
+#  on:
+#    branch: master
+#  target_branch: gh-pages
