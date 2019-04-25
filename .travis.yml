@@ -144,9 +144,12 @@ script:
   #  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
 
-# The diffiult part of deploy is that build happens on master (or elsewhere)
-#  but the html and other output needs to go on branch gh-pages
-# used to be some trickes were needed, but now I think deploy: handles it.
+# One difficult part of deploy is that build happens on master (or elsewhere)
+# but the html and other output needs to go on branch gh-pages.
+# It used to be some tricks were needed, but now I think deploy: handles this.
+# Another problem is that results from freecad vs freecad-daily can clobber one
+# another (build dir gets cleaned) and also clobber the top level intro page
+# which is generated from README.md.
 
 # may need somethin like next for deploy of html
 #  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${BUILD}
