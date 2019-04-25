@@ -38,10 +38,10 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. index:: Environmet Details
+.. index:: Environment Details
 
-Environmet Details
-------------------
+Environment Details
+-------------------
 
 Environment variable FREECAD setting |FC|
 
