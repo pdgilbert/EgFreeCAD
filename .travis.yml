@@ -156,6 +156,8 @@ script:
 #  - cd ${BUILD}
 #  - git checkout  ${BUILD}
 
+#  - git symbolic-ref HEAD
+
 #Beware: This creates a new branch called ${BUILD} on origin if it does not 
 #exist, and pushes to it without creating the branch locally.
 #  - git push origin HEAD:${BUILD}
@@ -163,14 +165,12 @@ script:
 #git push origin --delete ${BUILD}
 
 after_success:  # can be used to deploy to unsupported Providers 
-  - git symbolic-ref HEAD
   - git status
+  - git add ${BUILD}
   - git commit -am "commiting after build."
   - git status
-#  - git push
-##  - git push --quiet --set-upstream ??
-#  - echo ${FC}  ${OS_TAG} success
-#  - echo html in ${BUILD}/html
+  - git push   #  --quiet --set-upstream ??
+  - echo html pushed to in ${BUILD}/html
 
 # see https://docs.travis-ci.com/user/deployment/pages/
 #   https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A

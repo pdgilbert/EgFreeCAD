@@ -1,7 +1,11 @@
 # EgFreeCAD
 FreeCAD scripting examples with testing
 
-Still trying to figure out github pages. This is README.md from master branch again.
+Still trying to figure out github pages. This is README.md from master branch again, and again.
+
+Notes: 
+From the respoistory view of README.md the absolute link works, going to the gh page,  and the relative link does not, giving 404.
+From the gh page view of README.md converted to index.html, both work.
 
 Absolute link 
 <a href="https://pdgilbert.github.io/EgFreeCAD/index.html">abs index to self</a>.
