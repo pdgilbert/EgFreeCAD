@@ -165,17 +165,17 @@ script:
 #git push origin --delete ${BUILD}
 
 after_success:  # can be used for customized deploy or to unsupported Providers 
-  - git status
   - git add ${BUILD}
   - git commit -am "commiting after build."
   - git status
   # use tightly scoped key
   - git remote set-url origin https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git
-  #https://pdgilbert:${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git
+  - git fetch
+  - git pull   
   # working with detached head (because Travis checkout used a commit rather 
   # than a branch) so origin HEAD needs to be specified to get a branch.
-  # Specify master if deploy is used, because otherwise other jobs clobbers the
-  # saved builds on gh-pages.
+  # Specify master if deploy is used below, because otherwise other jobs
+  #  clobber the saved builds on gh-pages.
   - git push  origin HEAD:gh-pages #  --quiet --set-upstream ??
   - git status
   - echo html pushed to in ${BUILD}/html on gh-pages branch
