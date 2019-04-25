@@ -164,19 +164,27 @@ script:
 #to cleanup
 #git push origin --delete ${BUILD}
 
+#See https://git-scm.com/docs/git-push#NOTE ABOUT FAST-FORWARDS
+# regarding conflict between jobs committing. Since Travis matrix of jobs are
+# building in different directories I think I can use --rebase in
+# place of merge.
+ 
 after_success:  # can be used for customized deploy or to unsupported Providers 
   - git add ${BUILD}
   - git commit -am "commiting after build."
   - git status
   # use tightly scoped key
   - git remote set-url origin https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git
+  - git checkout gh-pages
   - git fetch
-  - git pull   
+  - git pull   --rebase 
+  - git status
   # working with detached head (because Travis checkout used a commit rather 
   # than a branch) so origin HEAD needs to be specified to get a branch.
   # Specify master if deploy is used below, because otherwise other jobs
   #  clobber the saved builds on gh-pages.
-  - git push  origin HEAD:gh-pages #  --quiet --set-upstream ??
+  #- git push  origin HEAD:gh-pages #  --quiet --set-upstream ??
+  - git push  
   - git status
   - echo html pushed to in ${BUILD}/html on gh-pages branch
 
