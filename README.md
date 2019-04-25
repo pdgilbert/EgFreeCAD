@@ -1,10 +1,12 @@
 # EgFreeCAD
 FreeCAD scripting examples with testing
 
-Still trying to figure out github pages. This is README.md from master branch.
+Still trying to figure out github pages. This is README.md from master branch again.
 
-Absolute links seem to be a problem but rel ones work
-<a href="source/index.rst">rel index.rst</a>.
+Absolute link 
+<a href="https://pdgilbert.github.io/EgFreeCAD/index.html">abs index to self</a>.
+rel one
+<a href="index.html">rel index to self</a>.
 
 And no luck listng files in a directory.
 

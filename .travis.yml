@@ -151,15 +151,24 @@ script:
 # another (build dir gets cleaned) and also clobber the top level intro page
 # which is generated from README.md.
 
-# may need somethin like next for deploy of html
+# may need something like next for deploy of html
 #  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${BUILD}
 #  - cd ${BUILD}
 #  - git checkout  ${BUILD}
 
-#  - git push # origin HEAD:${BUILD}
+#Beware: This creates a new branch called ${BUILD} on origin if it does not 
+#exist, and pushes to it without creating the branch locally.
+#  - git push origin HEAD:${BUILD}
+#to cleanup
+#git push origin --delete ${BUILD}
 
-
-# after_success:  # can be used to deploy to unsupported Providers 
+after_success:  # can be used to deploy to unsupported Providers 
+  - git symbolic-ref HEAD
+  - git status
+  - git commit -am "commiting after build."
+  - git status
+#  - git push
+##  - git push --quiet --set-upstream ??
 #  - echo ${FC}  ${OS_TAG} success
 #  - echo html in ${BUILD}/html
 
@@ -172,7 +181,7 @@ deploy:
   skip_cleanup: true #otherwise files created during the build are deleted
   github_token: "${GITHUB_TOKEN}"  # Set in the settings page of  repository
   keep_history: true  # maybe false for this??
-  # on: provides condtions on which to deploy
+  # on: provides conditions on which to deploy
   on:
     branch: master
   target_branch: gh-pages
