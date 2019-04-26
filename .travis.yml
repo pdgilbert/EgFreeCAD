@@ -103,7 +103,7 @@ before_install:
   - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
   - sudo apt-get update  -q
   - sudo apt-get install --yes  sphinx-common python-sphinx python3-sphinx
-  - phinx-build --version
+  - sphinx-build --version
   - ls /usr/share/sphinx
 #  install does not seem to put a default into /usr/share/sphinx_rtd_theme/
   - ls /usr/share/sphinx/themes/
