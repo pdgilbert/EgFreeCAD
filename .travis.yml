@@ -104,6 +104,8 @@ before_install:
   - sudo apt-get update  -q
   - sudo apt-get install --yes  sphinx-common python-sphinx python3-sphinx
 #  - sudo apt-get install --yes  python-alabaster python3-alabaster
+  - sudo apt-get install --yes  sphinc-rtd-theme-common python-rtd-theme-common
+  - sudo apt-get install --yes  python3-rtd-theme-common
   - sudo apt-get install --yes  freecad  freecad-daily
 
 install:
