@@ -181,18 +181,26 @@ script:
 # use tightly scoped key
 
 after_success:  # can be used for customized deploy or to unsupported Providers 
-  - mv ${BUILD} new${BUILD}
+   #BUILD=build_${FC}/Python-${TRAVIS_PYTHON_VERSION}
+  - echo $PWD
+  - ls
+  - mkdir -p NewBuild
+  - mv ${BUILD}/*  NewBuild
   - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git
+  - cd EgFreeCAD
   - git checkout gh-pages
   - git status
   - mkdir -p ${BUILD}
-  - cp -r new${BUILD}/*  ${BUILD}
+  - cp -r ../NewBuild/*  ${BUILD}
+  - echo $PWD
+  - ls
   - git add ${BUILD}
+  - git status 
   - git commit -am "commiting new build."
   - git status 
   - git push  
   - git status
-  - echo  pushed ${BUILD}/html on gh-pages branch
+  - echo  pushed ${BUILD} on gh-pages branch
 
 # see https://docs.travis-ci.com/user/deployment/pages/
 #   https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A
