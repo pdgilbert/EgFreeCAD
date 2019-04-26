@@ -1,0 +1,488 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Foil Design Project &mdash; EgFreeCAD 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="EgFreeCAD 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Projects" href="../index.html" />
+    <link rel="next" title="Foil Design Project" href="foil.html" />
+    <link rel="prev" title="Projects" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="foil.html" title="Foil Design Project"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Projects"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Projects</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="foil-design-project">
+<span id="index-0"></span><h1>Foil Design Project<a class="headerlink" href="#foil-design-project" title="Permalink to this headline">¶</a></h1>
+<p>Project to extend a (hydro-) foil profile over a wing span outline.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#from __future__ import unicode_literals</span>
+<span class="kn">from</span> <span class="nn">FreeCAD</span> <span class="kn">import</span> <span class="n">Base</span>
+<span class="kn">import</span> <span class="nn">Draft</span>  <span class="c"># for Draft.makeWire</span>
+<span class="kn">import</span> <span class="nn">Part</span><span class="o">,</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">class</span> <span class="nc">foil</span><span class="p">():</span>
+
+    <span class="k">class</span> <span class="nc">profile</span><span class="p">():</span>
+       <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profileDAT</span><span class="p">,</span> <span class="n">doc</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">profileDAT</span> <span class="o">=</span> <span class="n">profileDAT</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">doc</span>        <span class="o">=</span> <span class="n">doc</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">source</span>     <span class="o">=</span> <span class="n">source</span>
+
+    <span class="k">class</span> <span class="nc">LeadTrail</span><span class="p">():</span>
+       <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">leadingEdge</span><span class="p">,</span> <span class="n">trailingEdge</span><span class="p">,</span> <span class="n">doc</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">leadingEdge</span>  <span class="o">=</span> <span class="n">leadingEdge</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">trailingEdge</span> <span class="o">=</span> <span class="n">trailingEdge</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">doc</span>          <span class="o">=</span> <span class="n">doc</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">source</span>       <span class="o">=</span> <span class="n">source</span>
+
+    <span class="k">class</span> <span class="nc">construction</span><span class="p">():</span>
+       <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profileList</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">leadingEdgeBspline</span><span class="p">,</span> <span class="n">tailingEdgeBspline</span><span class="p">):</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">profileList</span>        <span class="o">=</span> <span class="n">profileList</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span>           <span class="o">=</span> <span class="n">rotation</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">leadingEdgeBspline</span> <span class="o">=</span> <span class="n">leadingEdgeBspline</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">tailingEdgeBspline</span> <span class="o">=</span> <span class="n">tailingEdgeBspline</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_profile</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">file_LeadTrail</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                  <span class="n">profile</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">LeadTrail</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">foil</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">maxDegree</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Define a foil object with source file and construction information.</span>
+<span class="sd">        The init method can specify source files file_profile, file_LeadTrail</span>
+<span class="sd">        in which case they are loaded then constuction and foil are calculated.</span>
+<span class="sd">        Otherwise ...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c">#   if not (-90 &lt;= lat &lt;= 90):</span>
+        <span class="c">#      raise ValueError(&quot;must have  -90 &lt;=  latitude &lt;= 90&quot;)</span>
+
+        <span class="k">if</span> <span class="n">file_profile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loadProfileDAT</span><span class="p">(</span><span class="n">file_profile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">profile</span>  <span class="o">=</span>  <span class="n">profile</span> <span class="c">#CLASS IS NOT EXTERNAL</span>
+            <span class="c">#self.profile(profileDAT, doc = profile_doc, source = file_profile)</span>
+
+        <span class="k">if</span> <span class="n">file_LeadTrail</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loadLeadTrail</span><span class="p">(</span><span class="n">file_LeadTrail</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">profile</span>  <span class="o">=</span>  <span class="n">profile</span> <span class="c">#CLASS IS NOT EXTERNAL</span>
+            <span class="c">#self.LeadTrail= self.LeadTrail(leadingEdge, trailingEdge,</span>
+            <span class="c">#                doc = LeadTrail_doc, source = file_LeadTrail)</span>
+
+        <span class="c"># Tried to use Part.BSplineCurve on the LeadingEdge and then makePipeShell</span>
+        <span class="c">#   self.foil = Part.Wire(</span>
+        <span class="c">#     self.construction.leadingEdgeBspline).makePipeShell(</span>
+        <span class="c">#       self.construction.profileList, True, False) #makeSolid, isFrenet)</span>
+        <span class="c"># but it gives twists and ripples in the trailing edge.</span>
+        <span class="c"># Just lofting the profiles seems to work better.</span>
+
+        <span class="c">#print(&quot;making traj wire.&quot;)</span>
+        <span class="c">#traj = Part.BSplineCurve()</span>
+        <span class="c">#traj.interpolate(self.LeadTrail.leadingEdge)</span>
+        <span class="c">#leadingEdgeBspline = Part.Wire(traj.toShape())</span>
+
+        <span class="k">def</span> <span class="nf">scaledBspline</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">sc</span><span class="p">):</span>
+           <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">sc</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">sc</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">sc</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dat</span><span class="p">]</span>
+           <span class="n">prof</span><span class="o">=</span><span class="n">Part</span><span class="o">.</span><span class="n">BSplineCurve</span><span class="p">()</span>
+           <span class="n">prof</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+           <span class="n">prof</span><span class="o">=</span><span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">prof</span><span class="o">.</span><span class="n">toShape</span><span class="p">())</span>
+           <span class="k">return</span> <span class="n">prof</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;calculating aprox. tangent (rotation) of the leading edge.&quot;</span><span class="p">)</span>
+        <span class="c">#angle adjustment Position is at leadingEndge rotate around cord.</span>
+        <span class="c"># The angle from X-Y plane determined by angle between tangent to</span>
+        <span class="c"># leadingEdgeBspline and Z axis</span>
+        <span class="c"># this should really be the projection of the tangent onto the</span>
+        <span class="c"># plane defined by the cord being its normal. but for foils with the</span>
+        <span class="c"># cord aproximately in the direction of the X axis this will be aprox Dy/Dz.</span>
+        <span class="c"># Ends are one-sided tangent aprox, interior points use two adjacent</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">LeadTrail</span><span class="o">.</span><span class="n">leadingEdge</span>
+        <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Z</span><span class="o">.</span><span class="n">getAngle</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span>  <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ln</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+           <span class="n">rotation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">getAngle</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">rotation</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">getAngle</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">ln</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">e</span><span class="p">[</span><span class="n">ln</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;building profileList.&quot;</span><span class="p">)</span>
+        <span class="n">profileList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ld</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">r</span>  <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">LeadTrail</span><span class="o">.</span><span class="n">leadingEdge</span><span class="p">,</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="n">LeadTrail</span><span class="o">.</span><span class="n">trailingEdge</span><span class="p">,</span> <span class="n">rotation</span><span class="p">):</span>
+           <span class="c">#  zero case at tip cause scaling and rotation problems</span>
+           <span class="n">sc</span> <span class="o">=</span> <span class="n">ld</span><span class="o">.</span><span class="n">distanceToPoint</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+           <span class="k">if</span> <span class="n">sc</span> <span class="o">&lt;</span> <span class="mf">1e-2</span> <span class="p">:</span>
+              <span class="n">sc</span> <span class="o">=</span>  <span class="mf">1e-2</span>
+              <span class="n">r</span>  <span class="o">=</span> <span class="mf">0.0</span>
+           <span class="n">p</span>  <span class="o">=</span> <span class="n">scaledBspline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">profileDAT</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+           <span class="k">print</span><span class="p">(</span><span class="s">&quot;scaled profile &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sc</span><span class="p">))</span>
+           <span class="n">p</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="n">ld</span><span class="p">))</span>
+           <span class="c">#angle adjustment</span>
+           <span class="c"># ld - tr or tr - ld reverse rotationBase.</span>
+           <span class="c">#FreeCADError: Unknown C++ exception</span>
+           <span class="k">print</span><span class="p">(</span><span class="s">&quot;ld, tr - ld, -r &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ld</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tr</span> <span class="o">-</span> <span class="n">ld</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="p">))</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="p">):</span> <span class="n">p</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">ld</span><span class="p">,</span> <span class="n">tr</span> <span class="o">-</span> <span class="n">ld</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span><span class="p">)</span>
+           <span class="n">profileList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+           <span class="k">print</span><span class="p">(</span><span class="s">&quot;rotated profile &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sc</span><span class="p">))</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;making EdgeBsplines.&quot;</span><span class="p">)</span>
+        <span class="n">tj</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">BSplineCurve</span><span class="p">()</span>
+        <span class="n">tj</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">LeadTrail</span><span class="o">.</span><span class="n">leadingEdge</span><span class="p">)</span>
+        <span class="n">leadingEdgeBspline</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">tj</span><span class="o">.</span><span class="n">toShape</span><span class="p">())</span>
+
+        <span class="n">tj</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">BSplineCurve</span><span class="p">()</span>
+        <span class="n">tj</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">LeadTrail</span><span class="o">.</span><span class="n">trailingEdge</span><span class="p">)</span>
+        <span class="n">trailingEdgeBspline</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">tj</span><span class="o">.</span><span class="n">toShape</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">construction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">construction</span><span class="p">(</span><span class="n">profileList</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span>
+                             <span class="n">leadingEdgeBspline</span><span class="p">,</span> <span class="n">trailingEdgeBspline</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;making foil.&quot;</span><span class="p">)</span>
+        <span class="c">#           Part.makeLoft(profileList, solid, ruled, closed, maxDegree)</span>
+        <span class="c"># The default maxDegree 5, and even 3, puts extra wabbles in straight edges,</span>
+        <span class="c"># unless there are many profiles. 1 seems enough for simple foil shapes.</span>
+        <span class="c"># It could be increased or made a parameter for more twisted shapes.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">foil</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeLoft</span><span class="p">(</span><span class="n">profileList</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span>  <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">maxDegree</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">foil</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;Extract the foil FreeCAD object.&quot;&quot;&quot;</span>
+       <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">foil</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">profileDAT</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;Extract profileDAT.&quot;&quot;&quot;</span>
+       <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">profileDAT</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">profileList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;Extract profileList.&quot;&quot;&quot;</span>
+       <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">construction</span><span class="o">.</span><span class="n">profileList</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;Extract rotation.&quot;&quot;&quot;</span>
+       <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">construction</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">leadingEdgeBspline</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;Extract leadingEdgeBspline.&quot;&quot;&quot;</span>
+       <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">construction</span><span class="o">.</span><span class="n">leadingEdgeBspline</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">trailingEdgeBspline</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;Extract trailingEdgeBspline.&quot;&quot;&quot;</span>
+       <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">construction</span><span class="o">.</span><span class="n">trailingEdgeBspline</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">showProfiles</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;FreeCAD plot of profileList.&quot;&quot;&quot;</span>
+       <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">construction</span><span class="o">.</span><span class="n">profileList</span><span class="p">:</span> <span class="n">Part</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+       <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">showfoil</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;FreeCAD plot of foil.&quot;&quot;&quot;</span>
+       <span class="n">Part</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">foil</span><span class="p">)</span>
+       <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">showfoil2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;FreeCAD plot of foil.&quot;&quot;&quot;</span>
+       <span class="n">Part</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">foil2</span><span class="p">)</span>
+       <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+       <span class="sd">&quot;&quot;&quot;FreeCAD plot of foil, spline, and profiles.&quot;&quot;&quot;</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">showProfiles</span><span class="p">()</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">showfoil</span><span class="p">()</span>
+       <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">loadProfileDAT</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;read profile from a dat file and return it.&quot;&quot;&quot;</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">profileDAT</span> <span class="o">=</span>  <span class="p">[]</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;loading profile.&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+              <span class="n">ln</span> <span class="o">=</span>  <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+              <span class="n">ln</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span>  <span class="n">ln</span><span class="p">]</span>
+              <span class="c">#print(ln)</span>
+              <span class="k">try</span> <span class="p">:</span>
+                 <span class="n">X</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ln</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                 <span class="n">Y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ln</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                 <span class="c">#print(X, Y)</span>
+                 <span class="n">profileDAT</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">))</span>
+              <span class="k">except</span> <span class="p">:</span>
+                 <span class="n">doc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">profile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">(</span><span class="n">profileDAT</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">loadLeadTrail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s">&quot;test.sweepPath&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;read Lead and Trailing edge data from file and return it.&quot;&quot;&quot;</span>
+        <span class="n">doc</span> <span class="o">=</span>  <span class="p">[]</span>
+        <span class="n">leadingEdge</span> <span class="o">=</span>  <span class="p">[]</span>
+        <span class="n">trailingEdge</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;loading leading and trailing edges.&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+              <span class="n">ln</span> <span class="o">=</span>  <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+              <span class="n">ln</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span>  <span class="n">ln</span><span class="p">]</span>
+              <span class="c">#print(ln)</span>
+              <span class="k">try</span> <span class="p">:</span>
+                 <span class="n">X</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ln</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                 <span class="n">Y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ln</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                 <span class="n">Z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ln</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                 <span class="n">leadingEdge</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">))</span>
+                 <span class="n">X</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ln</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                 <span class="n">Y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ln</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+                 <span class="n">Z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ln</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+                 <span class="n">trailingEdge</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">))</span>
+              <span class="k">except</span> <span class="p">:</span>
+                 <span class="n">doc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">LeadTrail</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">LeadTrail</span><span class="p">(</span><span class="n">leadingEdge</span><span class="p">,</span><span class="n">trailingEdge</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>
+</pre></div>
+</div>
+<p>BREAK THE NEXT UP INTO PIECES AND CLEAN UP.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SRC</span> <span class="o">=</span> <span class="s">&#39;source/Projects/foil/&#39;</span>
+
+<span class="n">z</span> <span class="o">=</span> <span class="n">foil</span><span class="p">(</span><span class="n">file_profile</span>   <span class="o">=</span> <span class="n">SRC</span> <span class="o">+</span> <span class="s">&quot;H105Coord.dat&quot;</span><span class="p">,</span>
+         <span class="n">file_LeadTrail</span> <span class="o">=</span> <span class="n">SRC</span> <span class="o">+</span> <span class="s">&quot;test.sweepPath&quot;</span><span class="p">)</span>
+<span class="n">z</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c">#z.showfoil()</span>
+<span class="c">#z.showProfiles()</span>
+<span class="c">#z.showBspline()</span>
+
+<span class="n">z2</span> <span class="o">=</span> <span class="n">foil</span><span class="p">(</span><span class="n">file_profile</span>   <span class="o">=</span> <span class="n">SRC</span> <span class="o">+</span> <span class="s">&quot;H105Coord.dat&quot;</span><span class="p">,</span>
+          <span class="n">file_LeadTrail</span> <span class="o">=</span> <span class="n">SRC</span> <span class="o">+</span> <span class="s">&quot;test2.sweepPath&quot;</span><span class="p">)</span>
+<span class="n">z2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">z3</span> <span class="o">=</span> <span class="n">foil</span><span class="p">(</span><span class="n">file_profile</span>   <span class="o">=</span> <span class="n">SRC</span> <span class="o">+</span> <span class="s">&quot;H105Coord.dat&quot;</span><span class="p">,</span>
+          <span class="n">file_LeadTrail</span> <span class="o">=</span> <span class="n">SRC</span> <span class="o">+</span> <span class="s">&quot;test3.sweepPath&quot;</span><span class="p">,</span>
+          <span class="n">maxDegree</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">z3</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c"># intersection of line and a plane</span>
+
+<span class="n">Z</span>  <span class="o">=</span> <span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">p1</span> <span class="o">=</span> <span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">p4</span> <span class="o">=</span> <span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c"># p is a surface (plane but bounded by points p*) because face=True</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Draft</span><span class="o">.</span><span class="n">makeWire</span><span class="p">([</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">],</span> <span class="n">closed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">face</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">zzz</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeLine</span><span class="p">(</span><span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">dist</span><span class="p">,</span><span class="n">point</span><span class="p">,</span><span class="n">geom</span><span class="o">=</span><span class="n">zzz</span><span class="o">.</span><span class="n">distToShape</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">Shape</span><span class="p">)</span>
+<span class="n">dist</span>
+<span class="n">point</span>
+<span class="n">geom</span>
+
+<span class="c"># project vector onto spline</span>
+
+<span class="n">Z</span>  <span class="o">=</span> <span class="n">FreeCAD</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sp</span> <span class="o">=</span> <span class="n">z3</span><span class="o">.</span><span class="n">leadingEdgeBspline</span><span class="p">()</span>
+
+<span class="c"># CLEAN THIS UP</span>
+<span class="c"># no zzz = Z.project(sp)</span>
+<span class="n">zzzz</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+
+<span class="n">sp</span> <span class="o">=</span> <span class="n">z3</span><span class="o">.</span><span class="n">leadingEdgeBspline</span><span class="p">()</span>
+<span class="n">zd</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">discretize</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>loading profile.
+loading leading and trailing edges.
+calculating aprox. tangent (rotation) of the leading edge.
+building profileList.
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 0.0),Vector (2.0, 0.0, 0.0),-0.0
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 3.0),Vector (2.0, 0.0, 0.0),-5.7105931375
+rotated profile 2.0
+scaled profile 1.0
+ld, tr - ld, -r Vector (0.5, 0.0, 5.0),Vector (1.0, 0.0, 0.0),-20.5560452196
+rotated profile 1.0
+scaled profile 0.01
+ld, tr - ld, -r Vector (1.5, 0.0, 7.0),Vector (0.0, 0.0, 0.0),-0.0
+rotated profile 0.01
+making EdgeBsplines.
+making foil.
+loading profile.
+loading leading and trailing edges.
+calculating aprox. tangent (rotation) of the leading edge.
+building profileList.
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 0.0),Vector (2.0, 0.0, 0.0),-0.0
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 3.0),Vector (2.0, 0.0, 0.0),-0.0
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 4.0),Vector (2.0, 0.0, 0.0),-0.0
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 5.0),Vector (2.0, 0.0, 0.0),-5.7105931375
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.2, 6.0),Vector (2.0, 0.0, 0.0),-14.0362434679
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.5, 7.0),Vector (2.0, 0.0, 0.0),-16.699244234
+rotated profile 2.0
+making EdgeBsplines.
+making foil.
+loading profile.
+loading leading and trailing edges.
+calculating aprox. tangent (rotation) of the leading edge.
+building profileList.
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 0.0),Vector (2.0, 0.0, 0.0),-0.0
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 1.0),Vector (2.0, 0.0, 0.0),-0.0
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 2.0),Vector (2.0, 0.0, 0.0),-0.0
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 3.0),Vector (2.0, 0.0, 0.0),-0.0
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.0, 4.0),Vector (2.0, 0.0, 0.0),-2.86240522611
+rotated profile 2.0
+scaled profile 2.0
+ld, tr - ld, -r Vector (0.0, 0.1, 5.0),Vector (2.0, 0.0, 0.0),-16.2539170582
+rotated profile 2.0
+scaled profile 1.7
+ld, tr - ld, -r Vector (0.3, 0.5, 6.0),Vector (1.7, 0.0, 0.0),-35.3242998776
+rotated profile 1.7
+scaled profile 1.3
+ld, tr - ld, -r Vector (0.7, 0.9, 6.5),Vector (1.3, 0.0, 0.0),-68.3222184824
+rotated profile 1.3
+scaled profile 0.05
+ld, tr - ld, -r Vector (1.9, 1.5, 6.75),Vector (0.050000000000000044, 0.0, 0.0),-79.4446195339
+rotated profile 0.05
+making EdgeBsplines.
+making foil.
+</pre></div>
+</div>
+<p>NOT SURE WHY NEXT IS HERE.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tube</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">a</span> <span class="p">):</span>
+   <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">   Generate a (partial) tube with</span>
+<span class="sd">   r  outside radius</span>
+<span class="sd">   w  wall thickness</span>
+<span class="sd">   h  length (height)</span>
+<span class="sd">   a  angle of sweep (360 is full circle)</span>
+<span class="sd">   e.g.</span>
+<span class="sd">   b = tube(6, 2, 10, 90)</span>
+<span class="sd">   &#39;&#39;&#39;</span>
+   <span class="n">b</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCylinder</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">)</span>
+   <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeCylinder</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">))</span>
+
+   <span class="k">return</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>
+</pre></div>
+</div>
+<p>PUT SOME TEXT IN HERE SOMEWHERE</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Projects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="foil.html"
+                        title="next chapter">Foil Design Project</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/Projects/foil/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="foil.html" title="Foil Design Project"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Projects"
+             >previous</a> |</li>
+        <li><a href="../../index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Projects</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2018, 2019, Paul Gilbert.
+      Last updated on Apr 26, 2019.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
