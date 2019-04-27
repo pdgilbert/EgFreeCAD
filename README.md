@@ -12,7 +12,7 @@ From respoistory README.md
 
 <a href="https://pdgilbert.github.io/EgFreeCAD/index.html">Absolute link to web site</a>.
 
-<a href="index.html">Relative link to web site</a>.
+<a href="index.html">Relative link to repository gh-pages branch source file index.html</a>.
 
 And no luck listng files in a directory.
 
