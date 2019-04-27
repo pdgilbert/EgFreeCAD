@@ -195,9 +195,6 @@ after_success:  # can be used for customized deploy or to unsupported Providers
   - mkdir -p ${BUILD}
   - cp -r ../NewBuild/*  ${BUILD}
   - echo $PWD
-  # this stops gh-pages from processing with jekyll and preventing Sphinx css
-  - touch   ${BUILD}/html/.nojekyll
-  - git add ${BUILD}/html/.nojekyll
   - ls
   - git add ${BUILD}
   - git status 
