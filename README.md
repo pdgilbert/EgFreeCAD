@@ -3,13 +3,14 @@ FreeCAD scripting examples with testing.
 
 (This is a work in progress.)<P>
 
-Most people will want to look at the results produced which are at the
+Most people will want to look at the results produced by the builds,
+which are at the
 <a href="https://pdgilbert.github.io/EgFreeCAD/index.html">EgFreeCAD Page</a>.
 
 The source code for these documents and examples is maintained on github at
 <a href="https://github.com/pdgilbert/EgFreeCAD/">EgFreeCAD</a>.
 
-##Notes on this Github Pages setup
+## Notes on this Github Pages setup
 
 (See also the 
 [master branch *README.md* file](https://github.com/pdgilbert/EgFreeCAD/) ).
