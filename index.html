@@ -1,57 +1,45 @@
 <TITLE>EgFreeCAD</TITLE>
 
-<H1>FreeCAD scripting examples with testing</H1>
+<H1>EgFreeCAD</H1>
+<H2>FreeCAD scripting examples with testing</H2>
 
-Still trying to figure out github pages. This is index.html from gh-pages branch.
+(This is a work in progress.)<P>
 
-The links to generated gh-pages should be<P>
-<a href="build_freecad/Python-2.7/html">RELfor freecad with Python-2.7</a>, 
+The links below go to documents generated with Sphinx using different versions
+of FreeCAD and Python. The documents include extensive use of Sphinx doctest
+so if the generated document is here then you can be relatively certain that
+the examples will work in the indicated version of FreeCAD and Python.<P>
 
-<a href="build_freecad/Python-3.6/html">for freecad with Python-3.6</a>, 
+<table>
+ <tr>
+  <th>FreeCAD version</th>
+  <th>Python 2.7</th>
+  <th>Python 3.6</th>
+ </tr>
+ <tr>
+  <th>FreeCAD</th>
+  <th><a href="build_freecad/Python-2.7/html">view</a></th>
+  <th><a href="build_freecad/Python-3.6/html">view</a></th>
+ </tr>
+ <tr>
+  <th>FreeCAD-daily</th>
+  <th><a href="build_freecad-daily/Python-2.7/html">view</a></th>
+  <th><a href="build_freecad-daily/Python-3.6/html">view</a></th>
+ </tr>
+</table>
 
-<a href="https://pdgilbert.github.io/EgFreeCAD/build_freecad-daily/Python-2.7/html">ABS for freecad-daily with Python-2.7<
-/a>,
- 
-and
+<a href="build_freecad/Python-2.7/html">freecad with Python-2.7</a><P>
 
-<a href="build_freecad-daily/Python-3.6/html">for freecad-daily with Python-3.6<
-/a>.
-
-or in markdown syntax
-
-[for freecad-daily with Python-3.6](build_freecad-daily/Python-2.7/html)
-
-```
- and ![Image](src)
-```
-
-<H2>Notes on this Github Pages setup:</H2>
-
-This <i>index.html</i> file is in the top level directory of the repository gh-pages branch. It is also necessary to have a file <i>.nojekyll</i> in that directory (no file contents necessary) in order that the Sphinx builds do not get processed by Jekyll and lose their CSS setup. The additional result of the <i>.nojekyll</i> file is that the <i>README.md</i> file does not get processed into an <i>index.html</i> file for the website top leval. So an <i>index.html</i> file is needed.
- 
-Relative links on this page
-<a href="index.html">go to the web site (this page)</a>.
-It is also possible to use markdown syntax `[text](url)` as in
-
-[go to the web site (this page)](index.html), and for images
-
-```
- ![Image](src)
-```
-
-The links to Sphinx build pages (should) work with relative links from this page. 
-
-To go to the the 
-<a href="https://github.com/pdgilbert/EgFreeCAD/tree/gh-pages">repository gh-pages branch source files</a>
-it is necessary to use absolute links.
-
-<B>See also:</B><P>
-
-Notes on <a href="https://github.com/pdgilbert/EgFreeCAD/tree/gh-pages/README.md">gh-pages branch and Travis work flow</a> in gh-pages README.md
+<a href="build_freecad/Python-3.6/html">freecad with Python-3.6</a><P> 
 
 
-Absolute links from this page 
-<a href="https://pdgilbert.github.io/EgFreeCAD/index.html">go to the web site</a>
+The interaction of git, Travis, Sphinx, FreeCAD versions, Python versions, 
+and Github Pages gets a bit messy sometimes, so this page is being 
+designed on the KISS principle.<P>
 
-So far no luck listing files in a directory on the web site.<P>
+Notes on this Github Page setup, the gh-pages branch, and Travis work 
+flow are in the
+<a href="https://github.com/pdgilbert/EgFreeCAD/tree/gh-pages/README.md">gh-pages README.md</a> file<P>
 
+The source code for these documents and examples is maintained on github at
+<a href="https://github.com/pdgilbert/EgFreeCAD/">EgFreeCAD</a>.
