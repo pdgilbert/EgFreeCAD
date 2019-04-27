@@ -13,7 +13,8 @@ The source code for these documents and examples is maintained on github at
 ##  Notes on this Github Pages setup
 
 (See also the 
-[master branch *README.md* file](https://github.com/pdgilbert/EgFreeCAD/) ).
+[master branch *README.md* file](https://github.com/pdgilbert/EgFreeCAD/README.md) )
+for notes on the Travis work flow.
 
 The notes here are mainly for anyone who might be trying to implement 
 a similar setup. (And to remind myself how it works.)
