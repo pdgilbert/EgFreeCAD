@@ -39,9 +39,7 @@ So an <i>index.html</i> file is needed.
 I have so far had no luck listng files in a directory, which would be useful
 for looking at doctest results.
 
-[go to the web site (this page)](index.html)
-
-It is possible to link to Sphinx build pages with relative links from
+It is possible to link to Sphinx build pages with absolute links from
 this *README.md* file, for example, 
-[go to the FreeCAD/Python 2.7 build](build_freecad/Python-2.7/html).
+[go to the FreeCAD/Python 2.7 build.](https://pdgilbert.github.io/EgFreeCAD/build_freecad/Python-2.7/html)
 
