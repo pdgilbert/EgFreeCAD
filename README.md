@@ -10,7 +10,7 @@ which are at the
 The source code for these documents and examples is maintained on github at
 <a href="https://github.com/pdgilbert/EgFreeCAD/">EgFreeCAD</a>.
 
-## H2 Notes on this Github Pages setup
+##  Notes on this Github Pages setup
 
 (See also the 
 [master branch *README.md* file](https://github.com/pdgilbert/EgFreeCAD/) ).
