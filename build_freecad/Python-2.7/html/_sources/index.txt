@@ -11,11 +11,9 @@ FreeCAD Scripting Examples
 .. |date| date::
 .. |time| date:: %H:%M
 
-Generated |date| |time| on |un|
+.. Generated |date| |time| on |un|
 
-using FreeCAD |FCversion|
-
-and Python version |PYversion|
+Built |date| with |FC| and Python |PYv| (See Environment Details)
 
 Contents:
 
@@ -43,8 +41,6 @@ Indices and tables
 Environment Details
 -------------------
 
-Environment variable FREECAD setting |FC|
-
 .. testcode::
 
    import os
@@ -53,8 +49,8 @@ Environment variable FREECAD setting |FC|
 .. testoutput::
    :options: +SKIP
 
+|FC|
 
-Freecad version |FCversion|
 
 .. testcode::
 
@@ -64,8 +60,8 @@ Freecad version |FCversion|
 .. testoutput::
    :options: +SKIP
 
+|FCversion|
 
-Python version |PYversion|
 
 .. testcode::
 
@@ -75,7 +71,8 @@ Python version |PYversion|
 .. testoutput::
    :options: +SKIP
 
-Python path |PYpath|
+|PYversion|
+
 
 .. testcode::
 
@@ -85,7 +82,7 @@ Python path |PYpath|
 .. testoutput::
    :options: +SKIP
 
-OS version |un|
+|PYpath|
 
 .. testcode::
 
@@ -95,7 +92,8 @@ OS version |un|
 .. testoutput::
    :options: +SKIP
 
-OS Path |OSpath|
+|un|
+
 
 .. testcode::
 
@@ -105,3 +103,5 @@ OS Path |OSpath|
 .. testoutput::
 
    [...
+
+|OSpath|
