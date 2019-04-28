@@ -13,6 +13,8 @@ FreeCAD Scripting Examples
 
 .. Generated |date| |time| on |un|
 
+.. N.B. changes to next line will require changes to script freecadPythonCheck
+
 Built |date| with |FC| and Python |PYv| (See Environment Details)
 
 Contents:
