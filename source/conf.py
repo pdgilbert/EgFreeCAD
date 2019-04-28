@@ -64,7 +64,7 @@ rst_prolog += '\n\n'  +  '.. |un| replace:: %s' %  str(os.uname())
 
 rst_prolog += '\n\n'  +  '.. |PYversion| replace:: %s' %  sys.version[0:39]
 
-rst_prolog += '\n\n'  +  '.. |PYv| replace:: %s' %  sys.version[0:7]
+rst_prolog += '\n\n'  +  '.. |PYv| replace:: %s' %  sys.version[0:6]
 
 rst_prolog += '\n\n'  +  '.. |PYpath| replace:: %s' %  os.environ['PYTHONPATH']
 
