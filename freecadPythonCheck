@@ -25,10 +25,11 @@ esac
 echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
 echo Comparing with python in  $1/html/index.html
 
-ZZ=`grep "Python version" $1/html/index.html`
+ZZ=`grep "and Python" $1/html/index.html`
 echo Python version used in html build $ZZ
 
-CMD="import sys;[sys.stdout.write('.'.join(ln.split(' ')[3].split('.')[0:2])) for ln in sys.stdin]"
+# 7th word on line (6 counting from 0)
+CMD="import sys;[sys.stdout.write('.'.join(ln.split(' ')[6].split('.')[0:2])) for ln in sys.stdin]"
 
 ZZZ=`echo  ${ZZ} | python -c "$CMD" `
 
