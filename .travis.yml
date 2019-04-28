@@ -1,6 +1,3 @@
-# compare this with 2piQA/.travis.yml
-# hooks on github may need adjustment.
- 
 # use containers (so no sudo)
 sudo: false
 
@@ -15,9 +12,6 @@ language: python
 
 # This should be enabled if pip is used
 #cache: pip
-
-#  directories:
-#     - ${HOME}/.FreeCAD/???
 
 # trigger on pushes to master branch
 branches:
@@ -130,9 +124,6 @@ script:
   - if [ v${FC} = 'vfreecad' ]  ; then echo freecad; fi
   - if [ v${FC} = 'vfreecad-daily' ]  ; then echo freecad-daily; fi
   - echo PWD is ${PWD} 
-  - OS_TAG=`uname -i`_`uname -o`
-  - echo OS_TAG is ${OS_TAG} 
-  - echo PWD is ${PWD} 
 
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo PYTHONPATH is ${PYTHONPATH} 
@@ -146,39 +137,26 @@ script:
   #  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
 
-# One difficult part of deploy is that build happens on master (or elsewhere)
+# Note that the build happens on master (or elsewhere)
 # but the html and other output needs to go on branch gh-pages.
-# It used to be some tricks were needed, but now I think deploy: handles this.
-# Another problem is that results from freecad vs freecad-daily can clobber one
-# another (build dir gets cleaned) and also clobber the top level intro page
-# which is generated from README.md.
+# Deploy looks after that but 
+# another problem is that results from freecad vs freecad-daily can clobber one
+# another (build dir gets cleaned) and also clobber the top level files
+# index.html and README.md.
 
-# may need something like next for deploy of html
-#  - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git  ${BUILD}
-#  - cd ${BUILD}
-#  - git checkout  ${BUILD}
-
+# This did not work very well:
 #  - git symbolic-ref HEAD
-
 #Beware: This creates a new branch called ${BUILD} on origin if it does not 
 #exist, and pushes to it without creating the branch locally.
 #  - git push origin HEAD:${BUILD}
 #to cleanup
 #git push origin --delete ${BUILD}
-
 #See https://git-scm.com/docs/git-push#NOTE ABOUT FAST-FORWARDS
-# regarding conflict between jobs committing. Since Travis matrix of jobs are
-# building in different directories I think I can use --rebase in
-# place of merge.
-
+# Since Travis matrix of jobs are
+# building in different directories could use --rebase in place of merge.
 #  - git remote set-url origin #https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git
 #  - git fetch
 #  - git pull   --rebase 
-# working with detached head (because Travis checkout used a commit rather 
-# than a branch) so origin HEAD needs to be specified to get a branch.
-# Specify master if deploy is used below, because otherwise other jobs
-#  clobber the saved builds on gh-pages.
-#- git push  origin HEAD:gh-pages #  --quiet --set-upstream ??
 
 # use tightly scoped key
 
@@ -206,7 +184,6 @@ after_success:  # can be used for customized deploy or to unsupported Providers
 
 # see https://docs.travis-ci.com/user/deployment/pages/
 #   https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A
-
 #deploy:
 #  verbose: true
 #  provider: pages
