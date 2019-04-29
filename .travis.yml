@@ -21,21 +21,21 @@ branches:
 #specify multiple parallel jobs
 matrix:
     include:
-        - name: "freecad - python 2.7"
-          python: 2.7
+        - name: "freecad - python 2"
+          python: 2
           env: FC="freecad"
 
 #  this is still not using freecad with python 3
-#        - name: "freecad - python 3.6"
-#          python: 3.6
+#        - name: "freecad - python 3"
+#          python: 3
 #          env: FC="freecad"
 
-        - name: "freecad-daily - python 2.7"
-          python: 2.7
+        - name: "freecad-daily - python 2"
+          python: 2
           env: FC="freecad-daily"
 
-#        - name: "freecad-daily - python 3.6"
-#          python: 3.6
+#        - name: "freecad-daily - python 3"
+#          python: 3
 #          env: FC="freecad-daily"
 
 # Notes about methods for installing dependencies follow, then install.
@@ -107,18 +107,16 @@ install:
   - sphinx-build --version
 
   - echo PWD is ${PWD}
-#  - ls 
   - echo FREECAD is ${FC}
-  - FREECAD_VERSION=`./freecad--version ${FC}`
-  - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
 
 script:
+  # FREECAD_VERSION not currently used, may need in future for archiving
   - echo FREECAD should be ${FC}
   - FREECAD_VERSION=`./freecad--version ${FC}`
+  - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
-  - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
   - python  --version
   - if [ v${FC} = 'vfreecad' ]  ; then echo freecad; fi
@@ -126,15 +124,22 @@ script:
   - echo PWD is ${PWD} 
 
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
-  - echo PYTHONPATH is ${PYTHONPATH} 
+  - echo   PYTHONPATH is ${PYTHONPATH} 
 
-  - export BUILD=build_${FC}/Python-${TRAVIS_PYTHON_VERSION}
+  - export PYTHON=python${TRAVIS_PYTHON_VERSION}
+  - echo   PYTHON is ${PYTHON} 
 
-  - echo Sphinx building with BUILDDIR=${BUILD} FREECAD=${FC}  
-  - make BUILDDIR=${BUILD} FREECAD=${FC} doctest
-  - make BUILDDIR=${BUILD} FREECAD=${FC} html
+  # Makefile now will do this construct of BUILD by default, so BUILDDIR does
+  #  not need to be specified, but it is needed below for freecadPythonCheck
+  #  so probably better  to specify it here
+  - export BUILD=build_${FC}/${PYTHON}
+
+  - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
+  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
+  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
 
   #  confirm this actually used the correct python
+  #- ./freecadPythonCheck ${FC}/${PYTHON}
   - ./freecadPythonCheck ${BUILD}
 
 # Note that the build happens on master (or elsewhere)
@@ -161,7 +166,7 @@ script:
 # use tightly scoped key
 
 after_success:  # can be used for customized deploy or to unsupported Providers 
-   #BUILD=build_${FC}/Python-${TRAVIS_PYTHON_VERSION}
+   #BUILD=build_${FC}/python-${TRAVIS_PYTHON_VERSION}
   - echo $PWD
   - ls
   - mkdir -p NewBuild

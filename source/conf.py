@@ -48,7 +48,19 @@ Z = Vector(0,0,1)
 
 '''
 
-import FreeCAD
+# if import FreeCAD fails nothing is going to work, so exit with error code.
+try:
+    import FreeCAD
+except ImportError:
+    print('PYTHONPATH')
+    print(os.environ['PYTHONPATH'])
+    print('')
+    print('sys.path')
+    print(str(sys.path))
+    print('')
+    print('using ' + os.environ['PYTHON'])
+    print('FreeCAD module not found. Aborting.')
+    raise SystemExit('FreeCAD module not found. Aborting.')
 
 rst_prolog = '\n\n' + '.. |FC| replace:: %s' % str(FC)
 
@@ -70,8 +82,8 @@ rst_prolog += '\n\n'  +  '.. |PYpath| replace:: %s' %  os.environ['PYTHONPATH']
 
 rst_prolog += '\n\n'  +  '.. |OSpath| replace:: %s' %  str(sys.path)
 
-print("in conf.py")
-print("rst_prolog is " + rst_prolog)
+#print("in conf.py")
+#print("rst_prolog is " + rst_prolog)
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

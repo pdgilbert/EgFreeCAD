@@ -1,28 +1,28 @@
 # Makefile for Sphinx documentation
 #
 #  eg
-#     make BUILDDIR=build_freecad/Python2       FREECAD="freecad"       html
+#     make PYTHON=python2   FREECAD="freecad"  html
+#     make PYTHON=python2 BUILDDIR=build_freecad/Python2       FREECAD="freecad"       html
 #     make BUILDDIR=build_freecad-daily/Python2 FREECAD="freecad-daily" html
-#     make #PYTHON = python3 BUILDDIR=build_freecad/Python3       FREECAD="freecad"       html
-#     make #PYTHON = python3 BUILDDIR=build_freecad-daily/Python3 FREECAD="freecad-daily" html
-
-# KeyError: 'FREECAD' happens if FREECAD= is not specified as above.
-#  The default does not seem to be working
+#     make PYTHON=python3 BUILDDIR=build_freecad/python3       FREECAD="freecad"       html
+#     make PYTHON=python3 BUILDDIR=build_freecad-daily/python3 FREECAD="freecad-daily" html
 
 # You can set these variables from the command line.
+export PYTHON   := python2
+
 SPHINXOPTS    =
-SPHINXBUILD   = /usr/bin/sphinx-build
-#PYTHON = python
-#PYTHON = python3
-#SPHINXBUILD   = ${PYTHON} -c "import sys; from sphinx import main; sys.exit(main(sys.argv))"
+#SPHINXBUILD   = /usr/bin/sphinx-build
+SPHINXBUILD   = ${PYTHON} -c 'import sys; from sphinx import main; sys.exit(main(sys.argv))'
 PAPER         =
-BUILDDIR      = build
+
 export FREECAD := freecad
 
+BUILDDIR      := "build_${FREECAD}/${PYTHON}"
+
 # User-friendly check for sphinx-build
-ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
-$(error The '$(SPHINXBUILD)' command was not found. Make sure you have Sphinx installed, then set the SPHINXBUILD environment variable to point to the full path of the '$(SPHINXBUILD)' executable. Alternatively you can add the directory with the executable to your PATH. If you don't have Sphinx installed, grab it from http://sphinx-doc.org/)
-endif
+#ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
+#$(error The '$(SPHINXBUILD)' command was not found. Make sure you have Sphinx installed, then set the SPHINXBUILD environment variable to point to the full path of the '$(SPHINXBUILD)' executable. Alternatively you can add the directory with the executable to your PATH. If you don't have Sphinx installed, grab it from http://sphinx-doc.org/)
+#endif
 
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4

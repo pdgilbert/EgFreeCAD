@@ -17,7 +17,8 @@ FreeCAD Scripting Examples
 
 Built |date| with |FC| and Python |PYv| (See Environment Details)
 
-Contents:
+Table of Contents
+-----------------
 
 .. toctree::
 
