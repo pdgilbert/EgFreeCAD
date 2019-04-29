@@ -102,12 +102,11 @@ before_install:
   - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable
   - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
   - sudo apt-get update  -q
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
-      - sudo apt-get install --yes  freecad  freecad-daily
-    else
-    fi
-      sudo apt install freecad-common freecad-runtime freecad-python3 libfreecad-python3-0.18
-    fi
+  #- if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+  #    sudo apt-get install --yes  freecad  freecad-daily
+  #  else
+  - sudo apt install freecad-common freecad-runtime freecad-python3 libfreecad-python3-0.18
+  #  fi
 
 install:
   - which sphinx-build
