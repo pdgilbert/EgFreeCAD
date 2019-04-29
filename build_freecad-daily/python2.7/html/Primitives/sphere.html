@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sphere &mdash; EgFreeCAD 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EgFreeCAD 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Primitive Examples" href="index.html" />
+    <link rel="next" title="Cone" href="cone.html" />
+    <link rel="prev" title="Box" href="box.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="cone.html" title="Cone"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="box.html" title="Box"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Primitive Examples</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sphere">
+<span id="index-0"></span><h1>Sphere<a class="headerlink" href="#sphere" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">S</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCircle</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">S2</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S2</span><span class="p">)</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCircle</span><span class="p">(</span><span class="mf">5.5</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">S</span><span class="o">.</span><span class="n">Curve</span><span class="o">.</span><span class="n">Radius</span> <span class="o">!=</span> <span class="mf">5.0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Circle radius should be 5.0.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">S</span><span class="o">.</span><span class="n">Curve</span><span class="o">.</span><span class="n">Center</span> <span class="o">!=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Circle Center should be origin.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">S</span><span class="o">.</span><span class="n">Curve</span><span class="o">.</span><span class="n">Axis</span>   <span class="o">!=</span> <span class="n">Z</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Circle axis should be Z axis.&quot;</span><span class="p">)</span>
+
+<span class="c"># circle is symmetic</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">S2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S2</span><span class="p">)</span>
+<span class="n">S2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">S2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span>  <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">s2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A sphere can be constructed by revolving a circle</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">C</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCircle</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c"># at origin, normal to z axis, one edge, no faces</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">C</span><span class="o">.</span><span class="n">isClosed</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Object C is not a closed loop&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="mi">1</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">Edges</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Circle should have 1 edge.&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="mi">0</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">Faces</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Circle should have no faces.&quot;</span><span class="p">)</span>
+
+<span class="n">C2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Face</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">C2</span><span class="o">.</span><span class="n">Faces</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Circle with interior should have 1 face.&quot;</span><span class="p">)</span>
+
+<span class="n">C2x</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">(</span><span class="n">C2</span><span class="o">.</span><span class="n">Faces</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://www.freecadweb.org/wiki/Part_Revolve">https://www.freecadweb.org/wiki/Part_Revolve</a>
+revolve a face should give a solid</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">S2</span> <span class="o">=</span> <span class="n">C2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="mi">360</span><span class="p">)</span>
+<span class="c">#Part.show(S2)</span>
+<span class="n">S2</span> <span class="o">=</span> <span class="n">C2x</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<span class="c">#Part.show(S2)</span>
+<span class="c">#  THIS IS NOT SHOWING PROPERLY</span>
+<span class="n">S2</span> <span class="o">=</span> <span class="n">C2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<span class="n">S2</span> <span class="o">=</span> <span class="n">C2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="box.html"
+                        title="previous chapter">Box</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="cone.html"
+                        title="next chapter">Cone</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/Primitives/sphere.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="cone.html" title="Cone"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="box.html" title="Box"
+             >previous</a> |</li>
+        <li><a href="../index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Primitive Examples</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2018, 2019, Paul Gilbert.
+      Last updated on Apr 29, 2019.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

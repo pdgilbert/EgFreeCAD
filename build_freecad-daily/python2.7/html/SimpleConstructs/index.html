@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simple Constructs &mdash; EgFreeCAD 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EgFreeCAD 0.1 documentation" href="../index.html" />
+    <link rel="next" title="Tube" href="tube.html" />
+    <link rel="prev" title="Torus" href="../Primitives/torus.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tube.html" title="Tube"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Primitives/torus.html" title="Torus"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="simple-constructs">
+<span id="index-0"></span><h1>Simple Constructs<a class="headerlink" href="#simple-constructs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tube">
+<span id="index-1"></span><h2>Tube<a class="headerlink" href="#tube" title="Permalink to this headline">¶</a></h2>
+<p>Now test function to make a tube generated along the z-axis</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tube</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">a</span> <span class="p">):</span>
+   <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">   Generate a (partial) tube with</span>
+<span class="sd">   r  outside radius</span>
+<span class="sd">   w  wall thickness</span>
+<span class="sd">   h  length (height)</span>
+<span class="sd">   a  angle of sweep (360 is full circle)</span>
+<span class="sd">   e.g.</span>
+<span class="sd">   b = tube(6, 2, 10, 90)</span>
+<span class="sd">   &#39;&#39;&#39;</span>
+   <span class="n">b</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCylinder</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">)</span>
+   <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeCylinder</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">))</span>
+
+   <span class="k">return</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Outside 6,  wall 2, length 10, angle of sweep  360 (round tube)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">tb</span> <span class="o">=</span> <span class="n">tube</span><span class="p">(</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<span class="n">tb2</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">tb2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">tb</span><span class="p">,</span>  <span class="n">tb2</span><span class="p">)</span>   <span class="c"># symmetric normal to z-axis</span>
+<span class="n">tb2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">tb</span><span class="p">,</span>  <span class="n">tb2</span><span class="p">)</span>  <span class="c"># not symmetric normal to x-axis</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>TEST generate a tube by revolving a rectangle (vs cutting two cylindars above)</dt>
+<dd># edge1 = Part.makeLine((0,0,0), (10,0,0))</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">rect</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makePolygon</span><span class="p">([</span>
+     <span class="n">Vector</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">Vector</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">Vector</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)])</span>
+
+<span class="n">tb3</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<span class="c"># Part.show(tb3)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">tb</span><span class="p">,</span>  <span class="n">tb3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># outside 6,  wall 2, length 10, angle of sweep  90 (1/4 round)</span>
+
+<span class="n">tb</span> <span class="o">=</span> <span class="n">tube</span><span class="p">(</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">tb</span><span class="p">,</span>  <span class="n">tube</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">tb</span><span class="p">,</span> <span class="n">tube</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">line</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">edge</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">Length</span> <span class="o">!=</span> <span class="mf">10.0</span> <span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s">&#39;bad&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">CenterOfMass</span> <span class="o">!=</span> <span class="n">Vector</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s">&#39;bad&#39;</span><span class="p">)</span>
+
+
+<span class="n">edge1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeLine</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">edge2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeLine</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">wire1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">([</span><span class="n">edge1</span><span class="p">,</span><span class="n">edge2</span><span class="p">])</span>
+<span class="n">edge3</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeLine</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">edge4</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeLine</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">wire2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">([</span><span class="n">edge3</span><span class="p">,</span><span class="n">edge4</span><span class="p">])</span>
+<span class="n">wire3</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">([</span><span class="n">wire1</span><span class="p">,</span><span class="n">wire2</span><span class="p">])</span>
+<span class="n">wire3</span><span class="o">.</span><span class="n">Edges</span>
+
+<span class="c">#Part.show(wire3)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="needle">
+<span id="index-2"></span><h2>Needle<a class="headerlink" href="#needle" title="Permalink to this headline">¶</a></h2>
+<p># main shaft</p>
+<p>a = Part.makeCylinder(1.0, 55, Vector(0, 0, 0), Vector(1, 0, 0), 360)
+a = a.fuse(Part.makeSphere(1.0))
+# Part.show(a)</p>
+<p># bent end shaft and point</p>
+<p>b = Part.makeCylinder(1.0, 5, Vector(0, 0, 0), Vector(0, 0, 1), 360)
+b1  = Part.makeCone(1.0, 0.3, 4)
+b1.translate(Vector(0, 0, 5))
+b2 = Part.makeSphere(0.3)
+b2.translate(Vector(0, 0, 5+4))
+b = b.fuse([b1, b2])
+b.rotate(Vector(0, 0, 0), Vector(0.5, 1, 0), 90)
+b.translate(Vector(55, 0, 0))
+# Part.show(b)</p>
+<p># fill between shafts</p>
+<p>c = Part.makeSphere(1.0)
+c.translate(Vector(55, 0, 0))
+# Part.show(c)</p>
+<p>a = a.fuse([b, c])</p>
+<p># Part.show(a)</p>
+<p>O = Vector(0, 0, 0)
+X = Vector(1, 0, 0)
+Y = Vector(0, 1, 0)
+Z = Vector(0, 0, 1)</p>
+<p># hole for thread</p>
+<p># center origin, X , Y radii, default orientation  normal to z-axis
+e = Part.Ellipse(O, 5, 0.4).toShape()
+e.translate(Vector(6, 0, -1))
+d = Part.Face(Part.Wire(e)).extrude(Vector(0, 0, 5))
+#Part.show(d)</p>
+<p>h = a.cut(d)
+#Part.show(h)</p>
+<p>#  smooth thread hole edges</p>
+<p># cannot get fillet to work with these edges
+#edges = []
+#for e in h.Edges :
+#   if (len(e.Vertexes) is 1) and e.Vertexes[0].Point[2] in (1.0, -1.0) :
+#       edges.append(e)
+#
+#h = h.makeFillet(0.3, edges)</p>
+<p># so cut out another ellipse across the top of the hole
+# This leaves somewhat sharp edges
+#This works in Freecad, but printing is a real problem because of the long
+# bridge, and the sides areery narrow. Might try with a smaller nozzle.
+# However, even without it the edges are too small to print with 0.4mm nozzle,
+# or I have to make other adjustments I have not yet figured out.</p>
+<p># e = Part.Ellipse(Vector(0, 0, 0), 6, 0.3).toShape()
+# e.rotate(O,  X,  90)  # ceter at origin, about x-axis
+# e.translate(Vector(6, -2, -1))
+# d = Part.Face(Part.Wire(e)).extrude(Vector(0, 5, 0))
+# #Part.show(d)
+# h = h.cut(d)
+#
+# d.translate(Vector(0, 0, 2))
+# h = h.cut(d)</p>
+<p>#Part.show(h)</p>
+<dl class="docutils">
+<dt>m = MeshPart.meshFromShape(Shape= h,</dt>
+<dd>LinearDeflection=0.1, AngularDeflection=0.523599, Relative=False)</dd>
+</dl>
+<p># why both of these ?
+Mesh.export([m],  &#8220;needle.stl&#8221;)
+m.write(Filename =&#8221;needle.stl&#8221;)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Simple Constructs</a><ul>
+<li><a class="reference internal" href="#tube">Tube</a></li>
+<li><a class="reference internal" href="#needle">Needle</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Primitives/torus.html"
+                        title="previous chapter">Torus</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tube.html"
+                        title="next chapter">Tube</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/SimpleConstructs/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tube.html" title="Tube"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../Primitives/torus.html" title="Torus"
+             >previous</a> |</li>
+        <li><a href="../index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2018, 2019, Paul Gilbert.
+      Last updated on Apr 29, 2019.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
