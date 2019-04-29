@@ -2,6 +2,7 @@
 #
 #  eg
 #     make PYTHON=python2   FREECAD="freecad"  html
+#     make PYTHON=python3   FREECAD="freecad"  html
 #     make PYTHON=python2 BUILDDIR=build_freecad/Python2       FREECAD="freecad"       html
 #     make BUILDDIR=build_freecad-daily/Python2 FREECAD="freecad-daily" html
 #     make PYTHON=python3 BUILDDIR=build_freecad/python3       FREECAD="freecad"       html

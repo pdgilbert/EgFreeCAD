@@ -89,12 +89,14 @@ matrix:
 #   # installs in /home/travis/virtualenv/python2.7.14/bin/sphinx-build
 #  - pip install -U pip freecad
 
-# this ppa seems to be out-of-date ?
+# sheck here to see if the ppa is up-to-date
+# https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-stable
 # https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-daily
 
 before_install:
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
-  - sudo apt-get install --yes  sphinx-common python-sphinx python3-sphinx
+  #- sudo apt-get install --yes  python-sphinx  sphinx-common
+  - sudo apt-get install --yes   python3-sphinx sphinx-common
   - sphinx-build --version
   #  note this install is for travis but pages are served from github, so the
   #  theme should be in repository source/_static.    
@@ -136,13 +138,16 @@ script:
   #- ls /usr/lib/python2.7.6
   # so  /usr/lib/python2.7 is needed
 
+  - ls /usr/lib/${PYTHON}
+  - ls /usr/lib/${PYTHON}/dist-packages
+
   - export PYTHONPATH=/usr/lib/${PYTHON}/dist-packages:${PYTHONPATH}
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo   PYTHONPATH is ${PYTHONPATH} 
 
-  # - ${PYTHON} -c 'import os, sys ; print(str(sys.path))'
-  # - ${PYTHON} -c 'import sphinx, sys ; print(str(sys.path))'
-  # - ${PYTHON} -c 'import sphinx, sys ; print(sphinx.__file__)'
+  - ${PYTHON} -c 'import os, sys ; print(str(sys.path))'
+  - ${PYTHON} -c 'import sphinx, sys ; print(str(sys.path))'
+  - ${PYTHON} -c 'import sphinx, sys ; print(sphinx.__file__)'
   #  gives/usr/lib/python2.7/dist-packages/sphinx/__init__.pyc
 
   # Makefile now will do this construct of BUILD by default, so BUILDDIR does
