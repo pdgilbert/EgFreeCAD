@@ -124,6 +124,7 @@ script:
   
   - python2 -c 'import os, sys ; print(str(sys.path))'
   - python2 -c 'import sphinx ; print(str(sys.path))'
+  - python2 -c 'import sphinx ; print(sphinx.__file__)'
 
   - python  --version
   - if [ v${FC} = 'vfreecad' ]  ; then echo freecad; fi
@@ -138,6 +139,7 @@ script:
 
   - ${PYTHON} -c 'import os, sys ; print(str(sys.path))'
   - ${PYTHON} -c 'import sphinx ; print(str(sys.path))'
+  - ${PYTHON} -c 'import sphinx ; print(sphinx.__file__)'
 
   # Makefile now will do this construct of BUILD by default, so BUILDDIR does
   #  not need to be specified, but it is needed below for freecadPythonCheck
@@ -153,6 +155,10 @@ script:
   #  confirm this actually used the correct python
   #- ./freecadPythonCheck ${FC}/${PYTHON}
   - ./freecadPythonCheck ${BUILD}
+
+  - python2 -c 'import os, sys ; print(str(sys.path))'
+  - python2 -c 'import sphinx ; print(str(sys.path))'
+  - python2 -c 'import sphinx ; print(sphinx.__file__)'
 
 # Note that the build happens on master (or elsewhere)
 # but the html and other output needs to go on branch gh-pages.
