@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Misc testing of how to use Sphinx &mdash; EgFreeCAD 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="EgFreeCAD 0.1 documentation" href="index.html" />
+    <link rel="next" title="Appendix: Functions in Module testEqual" href="Appendix.html" />
+    <link rel="prev" title="Foil Design Project" href="Projects/foil/foil.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Appendix.html" title="Appendix: Functions in Module testEqual"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Projects/foil/foil.html" title="Foil Design Project"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="misc-testing-of-how-to-use-sphinx">
+<span id="index-0"></span><h1>Misc testing of how to use Sphinx<a class="headerlink" href="#misc-testing-of-how-to-use-sphinx" title="Permalink to this headline">¶</a></h1>
+<p>what is func vs function  :py:func: 2 * 2</p>
+<p>The <tt class="xref py py-func docutils literal"><span class="pre">whatever()</span></tt> provides highlighting.</p>
+<p>##   print(sys.path) # this will give output</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>show python attached modules::
+.. doctest:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">())</span>
+<span class="go">[...</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>[...
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>[...
+</pre></div>
+</div>
+<p>Or inline</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">())</span>
+<span class="go">[...</span>
+</pre></div>
+</div>
+<p>But I still have not been able to print the actual output rather than expected.</p>
+<p>The value  is :py:print:dir()</p>
+<p>Doctest example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>testcode/testoutput example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>        <span class="c"># this will give no output!</span>
+<span class="k">print</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span>  <span class="c"># this will give output</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>4
+</pre></div>
+</div>
+<p>reST doctest blocks are simply doctests put into a paragraph of their own, like</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="mi">1</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>Some more documentation text.
+Note though that you cannot have blank lines in reST doctest blocks.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Projects/foil/foil.html"
+                        title="previous chapter">Foil Design Project</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Appendix.html"
+                        title="next chapter">Appendix: Functions in Module testEqual</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Misc.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Appendix.html" title="Appendix: Functions in Module testEqual"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Projects/foil/foil.html" title="Foil Design Project"
+             >previous</a> |</li>
+        <li><a href="index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2018, 2019, Paul Gilbert.
+      Last updated on Apr 29, 2019.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
