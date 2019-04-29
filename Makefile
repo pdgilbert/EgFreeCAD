@@ -11,8 +11,8 @@
 export PYTHON   := python2
 
 SPHINXOPTS    =
-SPHINXBUILD   = /usr/bin/sphinx-build
-#SPHINXBUILD   = ${PYTHON} -c 'import sys; from sphinx import main; sys.exit(main(sys.argv))'
+#SPHINXBUILD   = /usr/bin/sphinx-build
+SPHINXBUILD   = ${PYTHON} -c 'import sys; from sphinx import main; sys.exit(main(sys.argv))'
 PAPER         =
 
 export FREECAD := freecad

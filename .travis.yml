@@ -132,7 +132,12 @@ script:
   - echo PWD is ${PWD} 
 
   - export PYTHONPATH=/usr/lib/python2.7/dist-packages:${PYTHONPATH}
-  - ls /usr/lib/python2.7.6
+
+  - ls /usr/lib/python2
+
+  # this fails
+  #- ls /usr/lib/python2.7.6
+  # so  /usr/lib/python2.7 is needed
 
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo   PYTHONPATH is ${PYTHONPATH} 
@@ -141,27 +146,25 @@ script:
   - echo   PYTHON is ${PYTHON} 
 
   - ${PYTHON} -c 'import os, sys ; print(str(sys.path))'
-  - ${PYTHON} -c 'import sphinx ; print(str(sys.path))'
-  - ${PYTHON} -c 'import sphinx ; print(sphinx.__file__)'
+  - ${PYTHON} -c 'import sphinx, sys ; print(str(sys.path))'
+  - ${PYTHON} -c 'import sphinx, sys ; print(sphinx.__file__)'
+  #  gives/usr/lib/python2.7/dist-packages/sphinx/__init__.pyc
 
   # Makefile now will do this construct of BUILD by default, so BUILDDIR does
   #  not need to be specified, but it is needed below for freecadPythonCheck
-  #  so probably better  to specify it here
+  #  and in after_success so probably better  to specify it here
   - export BUILD=build_${FC}/${PYTHON}
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
-  #- make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
-  #- make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
-  - make FREECAD=${FC}  PYTHON=python2 BUILDDIR=${BUILD} doctest
-  - make FREECAD=${FC}  PYTHON=python2 BUILDDIR=${BUILD} html
+  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
+  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
+  #- make FREECAD=${FC}  PYTHON=python2 BUILDDIR=${BUILD} doctest
+  #- make FREECAD=${FC}  PYTHON=python2 BUILDDIR=${BUILD} html
 
   #  confirm this actually used the correct python
   #- ./freecadPythonCheck ${FC}/${PYTHON}
   - ./freecadPythonCheck ${BUILD}
 
-  - python2 -c 'import os, sys ; print(str(sys.path))'
-  - python2 -c 'import sphinx ; print(str(sys.path))'
-  - python2 -c 'import sphinx ; print(sphinx.__file__)'
 
 # Note that the build happens on master (or elsewhere)
 # but the html and other output needs to go on branch gh-pages.
@@ -187,7 +190,7 @@ script:
 # use tightly scoped key
 
 after_success:  # can be used for customized deploy or to unsupported Providers 
-   #BUILD=build_${FC}/python-${TRAVIS_PYTHON_VERSION}
+   #BUILD=build_${FC}/${PYTHON}
   - echo $PWD
   - ls
   - mkdir -p NewBuild
