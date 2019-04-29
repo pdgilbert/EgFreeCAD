@@ -22,20 +22,20 @@ branches:
 matrix:
     include:
         - name: "freecad - python 2"
-          python: 2
+          python: 2.7
           env: FC="freecad"
 
 #  this is still not using freecad with python 3
 #        - name: "freecad - python 3"
-#          python: 3
+#          python: 3.6
 #          env: FC="freecad"
 
         - name: "freecad-daily - python 2"
-          python: 2
+          python: 2.7
           env: FC="freecad-daily"
 
 #        - name: "freecad-daily - python 3"
-#          python: 3
+#          python: 3.6
 #          env: FC="freecad-daily"
 
 # Notes about methods for installing dependencies follow, then install.
@@ -93,6 +93,7 @@ matrix:
 # https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-daily
 
 before_install:
+  - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
   - sudo apt-get install --yes  sphinx-common python-sphinx python3-sphinx
   - sphinx-build --version
   #  note this install is for travis but pages are served from github, so the
