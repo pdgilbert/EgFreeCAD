@@ -136,8 +136,10 @@ script:
   - export BUILD=build_${FC}/${PYTHON}
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
-  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
-  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
+  #- make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
+  #- make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
+  - make FREECAD=${FC}  PYTHON=python2 BUILDDIR=${BUILD} doctest
+  - make FREECAD=${FC}  PYTHON=python2 BUILDDIR=${BUILD} html
 
   #  confirm this actually used the correct python
   #- ./freecadPythonCheck ${FC}/${PYTHON}
