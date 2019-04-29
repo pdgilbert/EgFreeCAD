@@ -80,7 +80,7 @@ rst_prolog += '\n\n'  +  '.. |PYv| replace:: %s' %  sys.version[0:6]
 
 rst_prolog += '\n\n'  +  '.. |PYpath| replace:: %s' %  os.environ['PYTHONPATH']
 
-rst_prolog += '\n\n'  +  '.. |OSpath| replace:: %s' %  str(sys.path)
+rst_prolog += '\n\n'  +  '.. |sysPath| replace:: %s' %  str(sys.path)
 
 print("in conf.py")
 print("rst_prolog is " + rst_prolog)

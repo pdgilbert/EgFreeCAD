@@ -131,6 +131,9 @@ script:
   - if [ v${FC} = 'vfreecad-daily' ]  ; then echo freecad-daily; fi
   - echo PWD is ${PWD} 
 
+  - export PYTHONPATH=/usr/lib/python2.7/dist-packages:${PYTHONPATH}
+  - ls /usr/lib/python2.7.6
+
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo   PYTHONPATH is ${PYTHONPATH} 
 
