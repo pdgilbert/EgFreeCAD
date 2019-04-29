@@ -25,10 +25,10 @@ matrix:
           python: 2.7
           env: FC="freecad"
 
-#  this is still not using freecad with python 3
-#        - name: "freecad - python 3"
-#          python: 3.6
-#          env: FC="freecad"
+#  is thisstill not using freecad with python 3 ??
+        - name: "freecad - python 3"
+          python: 3.6
+          env: FC="freecad"
 
         - name: "freecad-daily - python 2"
           python: 2.7
@@ -119,8 +119,8 @@ script:
 
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
 
-  - which sphinx-build
-  - cat /usr/bin/sphinx-build
+  # - which sphinx-build
+  # - cat /usr/bin/sphinx-build
   - sphinx-build --version
 
   - python  --version
@@ -128,22 +128,21 @@ script:
   - if [ v${FC} = 'vfreecad-daily' ]  ; then echo freecad-daily; fi
   - echo PWD is ${PWD} 
 
-  - export PYTHONPATH=/usr/lib/python2.7/dist-packages:${PYTHONPATH}
+  - export PYTHON=python${TRAVIS_PYTHON_VERSION}
+  - echo   PYTHON is ${PYTHON} 
 
-  # this fails
+  # these fails
   #- ls /usr/lib/python2
   #- ls /usr/lib/python2.7.6
   # so  /usr/lib/python2.7 is needed
 
+  - export PYTHONPATH=/usr/lib/${PYTHON}/dist-packages:${PYTHONPATH}
   - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
   - echo   PYTHONPATH is ${PYTHONPATH} 
 
-  - export PYTHON=python${TRAVIS_PYTHON_VERSION}
-  - echo   PYTHON is ${PYTHON} 
-
-  - ${PYTHON} -c 'import os, sys ; print(str(sys.path))'
-  - ${PYTHON} -c 'import sphinx, sys ; print(str(sys.path))'
-  - ${PYTHON} -c 'import sphinx, sys ; print(sphinx.__file__)'
+  # - ${PYTHON} -c 'import os, sys ; print(str(sys.path))'
+  # - ${PYTHON} -c 'import sphinx, sys ; print(str(sys.path))'
+  # - ${PYTHON} -c 'import sphinx, sys ; print(sphinx.__file__)'
   #  gives/usr/lib/python2.7/dist-packages/sphinx/__init__.pyc
 
   # Makefile now will do this construct of BUILD by default, so BUILDDIR does
@@ -154,11 +153,8 @@ script:
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
   - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
   - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
-  #- make FREECAD=${FC}  PYTHON=python2 BUILDDIR=${BUILD} doctest
-  #- make FREECAD=${FC}  PYTHON=python2 BUILDDIR=${BUILD} html
 
   #  confirm this actually used the correct python
-  #- ./freecadPythonCheck ${FC}/${PYTHON}
   - ./freecadPythonCheck ${BUILD}
 
 
