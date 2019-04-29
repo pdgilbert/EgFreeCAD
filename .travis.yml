@@ -1,4 +1,4 @@
-# use containers (so no sudo)
+# use containers (so no sudo ?)
 sudo: false
 
 language: python
@@ -95,15 +95,19 @@ matrix:
 
 before_install:
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
-  #- sudo apt-get install --yes  python-sphinx  sphinx-common
-  - sudo apt-get install --yes   python3-sphinx sphinx-common
+  - sudo apt-get install --yes  python-sphinx   python3-sphinx sphinx-common
   - sphinx-build --version
   #  note this install is for travis but pages are served from github, so the
   #  theme should be in repository source/_static.    
   - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable
   - sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily
   - sudo apt-get update  -q
-  - sudo apt-get install --yes  freecad  freecad-daily
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+      - sudo apt-get install --yes  freecad  freecad-daily
+    else
+    fi
+      sudo apt install freecad-common freecad-runtime freecad-python3 libfreecad-python3-0.18
+    fi
 
 install:
   - which sphinx-build
