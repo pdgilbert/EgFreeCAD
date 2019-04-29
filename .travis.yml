@@ -119,6 +119,12 @@ script:
 
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
 
+  - which sphinx-build
+  - cat /usr/bin/sphinx-build
+  
+  - python2 -c 'import os, sys ; print(str(sys.path))'
+  - python2 -c 'import sphinx ; print(str(sys.path))'
+
   - python  --version
   - if [ v${FC} = 'vfreecad' ]  ; then echo freecad; fi
   - if [ v${FC} = 'vfreecad-daily' ]  ; then echo freecad-daily; fi
@@ -129,6 +135,9 @@ script:
 
   - export PYTHON=python${TRAVIS_PYTHON_VERSION}
   - echo   PYTHON is ${PYTHON} 
+
+  - ${PYTHON} -c 'import os, sys ; print(str(sys.path))'
+  - ${PYTHON} -c 'import sphinx ; print(str(sys.path))'
 
   # Makefile now will do this construct of BUILD by default, so BUILDDIR does
   #  not need to be specified, but it is needed below for freecadPythonCheck

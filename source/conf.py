@@ -82,8 +82,8 @@ rst_prolog += '\n\n'  +  '.. |PYpath| replace:: %s' %  os.environ['PYTHONPATH']
 
 rst_prolog += '\n\n'  +  '.. |OSpath| replace:: %s' %  str(sys.path)
 
-#print("in conf.py")
-#print("rst_prolog is " + rst_prolog)
+print("in conf.py")
+print("rst_prolog is " + rst_prolog)
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
