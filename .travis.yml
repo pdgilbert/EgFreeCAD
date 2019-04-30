@@ -125,9 +125,7 @@ before_install:
   - if [[ "$BLD" == "fcP3" ]]; then
        export FC="freecad" ;
        export PYTHON=python3 ;
-       travis_fold:start:a1t1
        sudo apt-get install --yes  python3-sphinx sphinx-common ;
-       travis_fold:end:a1t1
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
        sudo apt-get update  -q ;
        sudo apt-get install --yes  freecad ;
@@ -163,7 +161,6 @@ script:
   - echo   PYTHON is ${PYTHON} 
   - ${PYTHON}  --version
 
-  - travis_fold:start:a1t1
   - export PYTHONPATH=${DISPKG}:${PWD}/lib:${PYTHONPATH}
   - echo   PYTHONPATH is ${PYTHONPATH} 
 
@@ -178,8 +175,7 @@ script:
   - export BUILD=build_${FC}/${PYTHON}
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
-  - travis_fold:start:doctest
-  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
+  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest ; travis_fold:start:doctest
   - travis_fold:end:doctest
   - travis_fold:start:html
   - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
