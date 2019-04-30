@@ -23,23 +23,23 @@ matrix:
     include:
         - name: "freecad - python 2"
           python: 2.7
-          env: FC="freecad"
+          FC="freecad"
           env: BLD="fcP2"
 
 #  is thisstill not using freecad with python 3 ??
         - name: "freecad - python 3"
           python: 3.6
-          env: FC="freecad"
+          FC="freecad"
           env: BLD="fcP3"
 
         - name: "freecad-daily - python 2"
           python: 2.7
-          env: FC="freecad-daily"
+          FC="freecad-daily"
           env: BLD="fc-dP2"
 
 #        - name: "freecad-daily - python 3"
 #          python: 3.6
-#          env: FC="freecad-daily"
+#          FC="freecad-daily"
 #          env: BLD="fcd-dP3"
 
 # Notes about methods for installing dependencies follow, then install.
