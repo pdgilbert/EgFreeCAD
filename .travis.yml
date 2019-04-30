@@ -104,8 +104,14 @@ before_install:
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
        sudo apt-get install --yes  freecad  freecad-daily ;
     else
-       sudo apt-get install freecad-common freecad-runtime ;
-       sudo apt-get install freecad-python3 libfreecad-python3-0.18 ;
+       sudo apt-get install freecad-common  ;
+       if [[ $? != 0 ]] ; then apt-cache showpkg freecad-common ; fi
+       sudo apt-get install freecad-runtime ;
+       if [[ $? != 0 ]] ; then apt-cache showpkg freecad-runtime ; fi
+       sudo apt-get install freecad-python3 ;
+       if [[ $? != 0 ]] ; then apt-cache showpkg freecad-python3 ; fi
+       sudo apt-get install libfreecad-python3-0.18 ;
+       if [[ $? != 0 ]] ; then apt-cache showpkg libfreecad-python3-0.18 ; fi
     fi
 
 
