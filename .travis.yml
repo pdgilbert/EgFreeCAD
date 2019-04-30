@@ -111,7 +111,7 @@ before_install:
        sudo apt-cache showpkg freecad ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
     fi
-  - if [[ "BLD" == "fc-dP2" ]]; then
+  - if [[ "$BLD" == "fc-dP2" ]]; then
        export FC="freecad-daily" ;
        export PYTHON=python2 ;
        sudo apt-get install --yes  python-sphinx  sphinx-common ;
