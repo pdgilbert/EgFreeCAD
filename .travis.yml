@@ -98,6 +98,7 @@ matrix:
 # https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-daily
 
 before_install:
+  - cat /etc/*-release
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
   - echo BLD is $BLD
 
@@ -105,8 +106,8 @@ before_install:
        export FC="freecad" ;
        export PYTHON=python2 ;
        sudo apt-get install --yes  python-sphinx  sphinx-common ;
-       #sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
-       #sudo apt-get update  -q ;
+       sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
+       sudo apt-get update  -q ;
        sudo apt-get install --yes  freecad ;
        sudo apt-cache showpkg freecad ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
@@ -115,8 +116,8 @@ before_install:
        export FC="freecad-daily" ;
        export PYTHON=python2 ;
        sudo apt-get install --yes  python-sphinx  sphinx-common ;
-       #sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily ;
-       #sudo apt-get update  -q ;
+       sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily ;
+       sudo apt-get update  -q ;
        sudo apt-get install --yes  freecad-daily ;
        sudo apt-cache showpkg freecad-daily ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
@@ -125,8 +126,8 @@ before_install:
        export FC="freecad" ;
        export PYTHON=python3 ;
        sudo apt-get install --yes  python3-sphinx sphinx-common ;
-       #sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
-       #sudo apt-get update  -q ;
+       sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
+       sudo apt-get update  -q ;
        sudo apt-get install --yes  freecad ;
        sudo apt-cache showpkg freecad ;
        sudo apt-get   install freecad-common  ;
@@ -140,6 +141,8 @@ before_install:
        export DISPKG=`dpkg -L python3-sphinx | grep "dist-packages$"` ; 
     fi
 
+  - apt-cache policy freecad 
+  - apt-cache policy freecad-daily
 
 install:
   - which sphinx-build
