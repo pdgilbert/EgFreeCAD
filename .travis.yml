@@ -101,24 +101,30 @@ before_install:
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
   - echo BLD is $BLD
 
-  - if [[ "$BLD" == "fcP2" ]]; then
+  - if [ "$BLD" == "fcP2" ]; then
+       export FC="freecad" ;
+       export PYTHON=python2 ;
        sudo apt-get install --yes  python-sphinx  sphinx-common ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
-       sudo apt-get update  -q
+       sudo apt-get update  -q ;
        sudo apt-get install --yes  freecad ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
     fi
-  - if [[ "BLD" == "fc-dP2" ]]; then
+  - if [ "BLD" == "fc-dP2" ]; then
+       export FC="freecad-daily" ;
+       export PYTHON=python2 ;
        sudo apt-get install --yes  python-sphinx  sphinx-common ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily ;
-       sudo apt-get update  -q
+       sudo apt-get update  -q ;
        sudo apt-get install --yes  freecad-daily ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
     fi
-  - if [[ "$BLD" == "fcP3" ]]; then
+  - if [ "$BLD" == "fcP3" ]; then
+       export FC="freecad" ;
+       export PYTHON=python3 ;
        sudo apt-get install --yes  python3-sphinx sphinx-common ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
-       sudo apt-get update  -q
+       sudo apt-get update  -q ;
        sudo apt-get install --yes  freecad ;
        sudo apt-get   install freecad-common  ;
        sudo apt-cache showpkg freecad-common ;
@@ -136,28 +142,18 @@ install:
   - which sphinx-build
   - sphinx-build --version
 
-  - echo PWD is ${PWD}
-  - echo FREECAD is ${FC}
-
-
 script:
+  - echo FC is ${FC}
   # FREECAD_VERSION not currently used, may need in future for archiving
-  - echo FREECAD should be ${FC}
   - FREECAD_VERSION=`./freecad--version ${FC}`
   - echo FREECAD_VERSION is ${FREECAD_VERSION}
 
-  - echo FC is ${FC}
   - echo PWD is ${PWD} 
   - sphinx-build --version
 
   - echo TRAVIS_PYTHON_VERSION is $TRAVIS_PYTHON_VERSION
-
-  - export PYTHON=python${TRAVIS_PYTHON_VERSION}
   - echo   PYTHON is ${PYTHON} 
   - ${PYTHON}  --version
-
-  - ls -d /usr/lib/python*/dist-packages
-  - dpkg -L python-sphinx | grep "dist-packages$"
 
   - export PYTHONPATH=${DISPKG}:${PWD}/lib:${PYTHONPATH}
   - echo   PYTHONPATH is ${PYTHONPATH} 
