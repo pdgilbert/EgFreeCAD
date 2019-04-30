@@ -176,7 +176,11 @@ script:
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
   - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest ; travis_fold:start:doctest
+  - RC=$$
   - travis_fold:end:doctest
+  - RED='\033[0;31m'
+  - NC='\033[0m' # No Color
+  - echo -e "${RED}lcommand exited with $RC.${NC}"
   - travis_fold:start:html
   - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
   - travis_fold:end:html
