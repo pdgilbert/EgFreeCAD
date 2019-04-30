@@ -103,15 +103,16 @@ before_install:
   - sudo apt-get update  -q
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
        sudo apt-get install --yes  freecad  freecad-daily ;
-    else
-       sudo apt-get install freecad-common  ;
-       if [[ $? != 0 ]] ; then apt-cache showpkg freecad-common ; fi ;
-       sudo apt-get install freecad-runtime ;
-       if [[ $? != 0 ]] ; then apt-cache showpkg freecad-runtime ; fi ;
-       sudo apt-get install freecad-python3 ;
-       if [[ $? != 0 ]] ; then apt-cache showpkg freecad-python3 ; fi ;
-       sudo apt-get install libfreecad-python3-0.18 ;
-       if [[ $? != 0 ]] ; then apt-cache showpkg libfreecad-python3-0.18 ; fi ;
+    fi
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
+       sudo apt-get   install freecad-common  ;
+       sudo apt-cache showpkg freecad-common ;
+       sudo apt-get   install freecad-runtime ;
+       sudo apt-cache showpkg freecad-runtime ; 
+       sudo apt-get   install freecad-python3 ;
+       sudo apt-cache showpkg freecad-python3 ; 
+       sudo apt-get   install libfreecad-python3-0.18 ;
+       sudo apt-cache showpkg libfreecad-python3-0.18 ;
     fi
 
 
@@ -148,11 +149,18 @@ script:
   #- ls /usr/lib/python2.7.6
   # so  /usr/lib/python2.7 is needed
 
-  - ls /usr/lib/${PYTHON}
-  - ls /usr/lib/${PYTHON}/dist-packages
+  - ls -d /usr/lib/python*/dist-packages
+  - dpkg -L python-sphinx | grep "dist-packages$"
+  
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+       DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"`
+    fi
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
+       DISPKG=`dpkg -L python3-sphinx | grep "dist-packages$"`
+  - dpkg -L python-sphinx | grep "dist-packages$"
 
-  - export PYTHONPATH=/usr/lib/${PYTHON}/dist-packages:${PYTHONPATH}
-  - export PYTHONPATH=${PWD}/lib:${PYTHONPATH}
+
+  - export PYTHONPATH=${DISPKG}:${PWD}/lib:${PYTHONPATH}
   - echo   PYTHONPATH is ${PYTHONPATH} 
 
   - ${PYTHON} -c 'import os, sys ; print(str(sys.path))'
