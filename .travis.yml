@@ -148,6 +148,11 @@ install:
   - which sphinx-build
   - sphinx-build --version
 
+  #- RED='\033[0;31m'
+  - RED='\033[1;91m'
+  - GRN='\033[0;32m'
+  - NC='\033[0m' # No Color
+
 script:
   - echo FC is ${FC}
   # FREECAD_VERSION not currently used, may need in future for archiving
@@ -175,9 +180,6 @@ script:
   - export BUILD=build_${FC}/${PYTHON}
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
-  - RED='\033[0;31m'
-  - GRN='\033[0;32m'
-  - NC='\033[0m' # No Color
   
   - echo 'running doctest...' ; travis_fold:start:doctest
   - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest 
