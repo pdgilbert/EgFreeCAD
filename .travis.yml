@@ -175,15 +175,23 @@ script:
   - export BUILD=build_${FC}/${PYTHON}
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
-  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest ; travis_fold:start:doctest
-  - RC=$$
-  - travis_fold:end:doctest
   - RED='\033[0;31m'
+  - GRN='\033[0;32m'
   - NC='\033[0m' # No Color
-  - echo -e "${RED}lcommand exited with $RC.${NC}"
-  - travis_fold:start:html
+  
+  - echo 'running doctest...' ; travis_fold:start:doctest
+  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest 
+  - RC=$?
+  - COL="$GRN" && [[ $RC != 0 ]] && COL="$RED"
+  - travis_fold:end:doctest
+  - echo -e "${COL}command exited with $RC.${NC}"
+  
+  - echo 'generating html...' ; travis_fold:start:html
   - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
+  - RC=$?
+  - COL="$GRN" && [[ $RC != 0 ]] && COL="$RED"
   - travis_fold:end:html
+  - echo -e "${COL}command exited with $RC.${NC}"
 
   #  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
