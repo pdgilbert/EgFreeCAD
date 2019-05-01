@@ -105,9 +105,9 @@ before_install:
   - if [[ "$BLD" == "fcP2" ]]; then
        export FC="freecad" ;
        export PYTHON=python2 ;
-       sudo apt-get install --yes  python-sphinx  sphinx-common ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
        sudo apt-get update  -q ;
+       sudo apt-get install --yes  python-sphinx  sphinx-common ;
        sudo apt-get install --yes  freecad ;
        sudo apt-cache showpkg freecad ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
@@ -115,9 +115,9 @@ before_install:
   - if [[ "$BLD" == "fc-dP2" ]]; then
        export FC="freecad-daily" ;
        export PYTHON=python2 ;
-       sudo apt-get install --yes  python-sphinx  sphinx-common ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily ;
        sudo apt-get update  -q ;
+       sudo apt-get install --yes  python-sphinx  sphinx-common ;
        sudo apt-get install --yes  freecad-daily ;
        sudo apt-cache showpkg freecad-daily ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
@@ -125,9 +125,9 @@ before_install:
   - if [[ "$BLD" == "fcP3" ]]; then
        export FC="freecad" ;
        export PYTHON=python3 ;
-       sudo apt-get install --yes  python3-sphinx sphinx-common ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
        sudo apt-get update  -q ;
+       sudo apt-get install --yes  python3-sphinx sphinx-common ;
        sudo apt-get install --yes  freecad ;
        sudo apt-cache showpkg freecad ;
        sudo apt-get   install freecad-common  ;
@@ -149,11 +149,6 @@ install:
   - sphinx-build --version
 
 script:
-  #- RED='\033[0;31m'
-  - RED='\033[1;91m'
-  - GRN='\033[0;32m'
-  - NC='\033[0m' # No Color
-
   - echo FC is ${FC}
   # FREECAD_VERSION not currently used, may need in future for archiving
   - FREECAD_VERSION=`./freecad--version ${FC}`
@@ -180,20 +175,24 @@ script:
   - export BUILD=build_${FC}/${PYTHON}
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
+  ##- RED='\033[0;31m'
+  #- RED='\033[1;91m'
+  #- GRN='\033[0;32m'
+  #- NC='\033[0m' # No Color
   
   - echo 'running doctest...' ; travis_fold:start:doctest
   - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest 
   - RC=$?
-  - COL="$GRN" && [[ $RC != 0 ]] && COL="$RED"
+  - COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m"
   - travis_fold:end:doctest
-  - echo -e "${COL}command exited with $RC.${NC}"
+  - echo -e "${COL}command exited with $RC.\033[0m"
   
   - echo 'generating html...' ; travis_fold:start:html
   - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
   - RC=$?
-  - COL="$GRN" && [[ $RC != 0 ]] && COL="$RED"
+  - COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m"
   - travis_fold:end:html
-  - echo -e "${COL}command exited with $RC.${NC}"
+  - echo -e "${COL}command exited with $RC.\033[0m"
 
   #  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
