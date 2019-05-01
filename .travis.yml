@@ -147,6 +147,16 @@ before_install:
 install:
   - which sphinx-build
   - sphinx-build --version
+  - function foldAndColour(){
+      # $1 is command and $2 is name are strings
+      echo $1 ; travis_fold:start:$2
+      eval $1 
+      RC=$?
+      COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m"
+      travis_fold:end:$2
+      echo -e "${COL}command exited with $RC.\033[0m"
+      return ${RC}
+      }
 
 script:
   - echo FC is ${FC}
@@ -180,19 +190,9 @@ script:
   #- GRN='\033[0;32m'
   #- NC='\033[0m' # No Color
   
-  - echo 'running doctest...' ; travis_fold:start:doctest
-  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest 
-  - RC=$?
-  - COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m"
-  - travis_fold:end:doctest
-  - echo -e "${COL}command exited with $RC.\033[0m"
+  - foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest " "run doctest"
   
-  - echo 'generating html...' ; travis_fold:start:html
-  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
-  - RC=$?
-  - COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m"
-  - travis_fold:end:html
-  - echo -e "${COL}command exited with $RC.\033[0m"
+  - foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html " "generate html"
 
   #  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
