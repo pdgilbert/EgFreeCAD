@@ -33,7 +33,7 @@ matrix:
           FC: "freecad"
           env: BLD="fcP2"
 
-#  is thisstill not using freecad with python 3 ??
+#  is this still not using freecad with python 3 ??
         - name: "freecad - python 3"
           python: 3.6
           FC: "freecad"
@@ -44,10 +44,10 @@ matrix:
           FC: "freecad-daily"
           env: BLD="fc-dP2"
 
-#        - name: "freecad-daily - python 3"
-#          python: 3.6
-#          FC: "freecad-daily"
-#          env: BLD="fcd-dP3"
+        - name: "freecad-daily - python 3"
+          python: 3.6
+          FC: "freecad-daily"
+          env: BLD="fc-dP3"
 
 # Notes about methods for installing dependencies follow, then install.
 # See also  https://docs.travis-ci.com/user/installing-dependencies/
