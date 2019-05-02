@@ -145,11 +145,14 @@ install:
       eval $1 ; RC=$?
       COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m"
       travis_fold:end:$2
-      echo -e "${COL}command exited with $RC.\033[0m"
+      echo -e ${COL}The command  \"$1\" exited with $RC.\\033[0m
       return ${RC}
       }
 
+
 script:
+  - foldAndColour "echo this should be green | grep green"  "fold test 1"
+  - foldAndColour "echo this should be red   | grep green"  "fold test 2"
   - echo FC is ${FC}
   # FREECAD_VERSION not currently used, may need in future for archiving
   - FREECAD_VERSION=`./freecad--version ${FC}`
