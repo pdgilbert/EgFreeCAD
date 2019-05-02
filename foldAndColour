@@ -21,7 +21,7 @@ case $# in
 echo $1 ; travis_fold:start:$2 
 eval $1 ; RC=$? 
 
-COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m" 
+COL="\033[0;32m" && test ( $RC != 0 ) && COL="\033[1;91m" 
 travis_fold:end:$2 
 echo -e ${COL}The command  \"$1\" exited with $RC.\\033[0m 
 exit ${RC} 
