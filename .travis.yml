@@ -107,9 +107,10 @@ before_install:
        export PYTHON=python2 ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
        sudo apt-get update  -q ;
-       sudo apt-get install --yes  python-sphinx  sphinx-common ;
        sudo apt-get install --yes  freecad ;
-       sudo apt-cache showpkg freecad ;
+    fi
+  - if [[ "$BLD" == "fcP2" ]]; then
+       sudo apt-get install --yes  python-sphinx  sphinx-common ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
     fi
   - if [[ "$BLD" == "fc-dP2" ]]; then
@@ -117,9 +118,8 @@ before_install:
        export PYTHON=python2 ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily ;
        sudo apt-get update  -q ;
-       sudo apt-get install --yes  python-sphinx  sphinx-common ;
        sudo apt-get install --yes  freecad-daily ;
-       sudo apt-cache showpkg freecad-daily ;
+       sudo apt-get install --yes  python-sphinx  sphinx-common ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
     fi
   - if [[ "$BLD" == "fcP3" ]]; then
@@ -127,22 +127,14 @@ before_install:
        export PYTHON=python3 ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
        sudo apt-get update  -q ;
+       sudo apt-get install --yes  freecad freecad-common freecad-runtime ;
+       sudo apt-get install --yes  freecad-python3   libfreecad-python3-0.18 ;
        sudo apt-get install --yes  python3-sphinx sphinx-common ;
-       sudo apt-get install --yes  freecad ;
-       sudo apt-cache showpkg freecad ;
-       sudo apt-get   install freecad-common  ;
-       sudo apt-cache showpkg freecad-common ;
-       sudo apt-get   install freecad-runtime ;
-       sudo apt-cache showpkg freecad-runtime ; 
-       sudo apt-get   install freecad-python3 ;
-       sudo apt-cache showpkg freecad-python3 ; 
-       sudo apt-get   install libfreecad-python3-0.18 ;
-       sudo apt-cache showpkg libfreecad-python3-0.18 ;
        export DISPKG=`dpkg -L python3-sphinx | grep "dist-packages$"` ; 
     fi
 
-  - apt-cache policy freecad 
-  - apt-cache policy freecad-daily
+  #sudo apt-cache showpkg freecad 
+  - apt-cache policy freecad*
 
 install:
   - which sphinx-build
@@ -150,8 +142,7 @@ install:
   - function foldAndColour(){
       # $1 is command and $2 is name are strings
       echo $1 ; travis_fold:start:$2
-      eval $1 
-      RC=$?
+      eval $1 ; RC=$?
       COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m"
       travis_fold:end:$2
       echo -e "${COL}command exited with $RC.\033[0m"
