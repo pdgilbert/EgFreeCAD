@@ -1,6 +1,8 @@
 # use containers (so no sudo ?)
 sudo: false
 
+dist: xenial
+
 language: python
 
 #  from https://docs.travis-ci.com/user/caching/
