@@ -1,6 +1,9 @@
 # Makefile for Sphinx documentation
 #
-#  eg
+# To set freecad python version may need
+# sudo update-alternatives --config freecad
+#
+#  usga eg
 #     make PYTHON=python2   FREECAD="freecad"  html
 #     make PYTHON=python3   FREECAD="freecad"  html
 #     make PYTHON=python2 BUILDDIR=build_freecad/Python2       FREECAD="freecad"       html
