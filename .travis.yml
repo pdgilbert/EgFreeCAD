@@ -5,9 +5,8 @@ sudo: false
 #  - linux
 #  - osx
 
-dist: 
-   - xenial
-   - trusty
+dist: xenial
+#dist: trusty
 
 language: python
 
