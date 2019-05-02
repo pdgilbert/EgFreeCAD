@@ -136,7 +136,7 @@ before_install:
     fi
 
   #sudo apt-cache showpkg freecad 
-  - apt-cache policy freecad*
+  - sudo apt-cache policy freecad*
 
 install:
   - which sphinx-build
@@ -144,8 +144,9 @@ install:
 
 
 script:
-  - ./foldAndColour "echo this should be green | grep green"  "fold test 1"
-  - ./foldAndColour "echo this should be red   | grep green"  "fold test 2"
+  - ./foldAndColour "echo this should be green | grep green"  "fold_test_1"
+  # next test exits 1, so build fails
+  # - ./foldAndColour "echo this should be red   | grep green"  "fold_test_2"
   - echo FC is ${FC}
   # FREECAD_VERSION not currently used, may need in future for archiving
   - FREECAD_VERSION=`./freecad--version ${FC}`
