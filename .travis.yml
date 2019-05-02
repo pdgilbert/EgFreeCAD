@@ -115,8 +115,6 @@ before_install:
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
        sudo apt-get update  -q ;
        sudo apt-get install --yes  freecad ;
-    fi
-  - if [[ "$BLD" == "fcP2" ]]; then
        sudo apt-get install --yes  python-sphinx  sphinx-common ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
     fi
@@ -134,14 +132,36 @@ before_install:
        export PYTHON=python3 ;
        sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
        sudo apt-get update  -q ;
-       sudo apt-get install --yes  freecad freecad-common freecad-runtime ;
        sudo apt-get install --yes  freecad-python3   libfreecad-python3-0.18 ;
+       sudo apt-get install --yes  freecad freecad-common freecad-runtime ;
        sudo apt-get install --yes  python3-sphinx sphinx-common ;
        export DISPKG=`dpkg -L python3-sphinx | grep "dist-packages$"` ; 
     fi
+  - if [[ "$BLD" == "fc-dP3" ]]; then
+       export FC="freecad-daily" ;
+       export PYTHON=python3 ;
+       sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily ;
+       sudo apt-get update  -q ;
+       sudo apt-get install --yes  freecad-python3   libfreecad-python3-0.18 ;
+       sudo apt-get install --yes  freecad-daily ;
+       sudo apt-get install --yes  python-sphinx  sphinx-common ;
+       export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
+    fi
 
-  - sudo apt-cache showpkg freecad 
-  - sudo apt-cache policy freecad
+  - sudo apt-cache policy  freecad
+  - sudo apt-cache showpkg freecad
+  - sudo apt-cache policy  freecad-common
+  - sudo apt-cache showpkg freecad-common
+  - sudo apt-cache policy  freecad-runtime
+  - sudo apt-cache showpkg freecad-runtime
+  - sudo apt-cache policy  freecad-daily
+  - sudo apt-cache showpkg freecad-daily
+  - sudo apt-cache policy  freecad-python2
+  - sudo apt-cache showpkg freecad-python2
+  - sudo apt-cache policy  freecad-python3
+  - sudo apt-cache showpkg freecad-python3
+  - sudo apt-cache policy  libfreecad-python3-0.18
+  - sudo apt-cache showpkg libfreecad-python3-0.18
 
 install:
   - which sphinx-build
@@ -178,10 +198,10 @@ script:
   - export BUILD=build_${FC}/${PYTHON}
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}    
-  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest " "run doctest"
+  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest " "run_doctest"
   #- make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
 
-  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html " "generate html"
+  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html " "generate_html"
   #- make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
 
   #  confirm this actually used the correct python
