@@ -1,7 +1,7 @@
 # use containers (so no sudo ?)
 sudo: false
 
-#dist: xenial
+dist: xenial
 
 language: python
 
@@ -142,24 +142,10 @@ install:
   - which sphinx-build
   - sphinx-build --version
 
-  ##- RED='\033[0;31m'
-  #- RED='\033[1;91m'
-  #- GRN='\033[0;32m'
-  #- NC='\033[0m' # No Color
-  #- function foldAndColour(){
-  #    # $1 is command and $2 is name are strings ;
-  #    echo $1 ; travis_fold:start:$2 ;
-  #    eval $1 ; RC=$? ;
-  #    COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m" ;
-  #    travis_fold:end:$2 ;
-  #    echo -e ${COL}The command  \"$1\" exited with $RC.\\033[0m ;
-  #    return ${RC} ;
-  #    }
-
 
 script:
-  - foldAndColour "echo this should be green | grep green"  "fold test 1"
-  - foldAndColour "echo this should be red   | grep green"  "fold test 2"
+  - ./foldAndColour "echo this should be green | grep green"  "fold test 1"
+  - ./foldAndColour "echo this should be red   | grep green"  "fold test 2"
   - echo FC is ${FC}
   # FREECAD_VERSION not currently used, may need in future for archiving
   - FREECAD_VERSION=`./freecad--version ${FC}`
