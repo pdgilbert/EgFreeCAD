@@ -1,7 +1,13 @@
 # use containers (so no sudo ?)
 sudo: false
 
-dist: xenial
+#os:
+#  - linux
+#  - osx
+
+dist: 
+   - xenial
+   - trusty
 
 language: python
 
@@ -135,8 +141,8 @@ before_install:
        export DISPKG=`dpkg -L python3-sphinx | grep "dist-packages$"` ; 
     fi
 
-  #sudo apt-cache showpkg freecad 
-  - sudo apt-cache policy freecad*
+  - sudo apt-cache showpkg freecad 
+  - sudo apt-cache policy freecad
 
 install:
   - which sphinx-build
@@ -173,11 +179,11 @@ script:
   - export BUILD=build_${FC}/${PYTHON}
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}    
-  #- ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest " "run doctest"
-  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
+  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest " "run doctest"
+  #- make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
 
-  #- ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html " "generate html"
-  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
+  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html " "generate html"
+  #- make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
 
   #  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
