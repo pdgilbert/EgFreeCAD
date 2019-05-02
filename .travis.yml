@@ -146,15 +146,15 @@ install:
   #- RED='\033[1;91m'
   #- GRN='\033[0;32m'
   #- NC='\033[0m' # No Color
-  - function foldAndColour(){
-      # $1 is command and $2 is name are strings ;
-      echo $1 ; travis_fold:start:$2 ;
-      eval $1 ; RC=$? ;
-      COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m" ;
-      travis_fold:end:$2 ;
-      echo -e ${COL}The command  \"$1\" exited with $RC.\\033[0m ;
-      return ${RC} ;
-      }
+  #- function foldAndColour(){
+  #    # $1 is command and $2 is name are strings ;
+  #    echo $1 ; travis_fold:start:$2 ;
+  #    eval $1 ; RC=$? ;
+  #    COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m" ;
+  #    travis_fold:end:$2 ;
+  #    echo -e ${COL}The command  \"$1\" exited with $RC.\\033[0m ;
+  #    return ${RC} ;
+  #    }
 
 
 script:
@@ -186,9 +186,11 @@ script:
   - export BUILD=build_${FC}/${PYTHON}
 
   - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}    
-  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest " "run doctest"
-  
-  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html " "generate html"
+  #- ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest " "run doctest"
+  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest
+
+  #- ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html " "generate html"
+  - make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html
 
   #  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
