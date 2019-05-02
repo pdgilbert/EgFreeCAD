@@ -1,7 +1,7 @@
 # use containers (so no sudo ?)
 sudo: false
 
-dist: xenial
+#dist: xenial
 
 language: python
 
@@ -141,14 +141,19 @@ before_install:
 install:
   - which sphinx-build
   - sphinx-build --version
+
+  ##- RED='\033[0;31m'
+  #- RED='\033[1;91m'
+  #- GRN='\033[0;32m'
+  #- NC='\033[0m' # No Color
   - function foldAndColour(){
-      # $1 is command and $2 is name are strings
-      echo $1 ; travis_fold:start:$2
-      eval $1 ; RC=$?
-      COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m"
-      travis_fold:end:$2
-      echo -e ${COL}The command  \"$1\" exited with $RC.\\033[0m
-      return ${RC}
+      # $1 is command and $2 is name are strings ;
+      echo $1 ; travis_fold:start:$2 ;
+      eval $1 ; RC=$? ;
+      COL="\033[0;32m" && [[ $RC != 0 ]] && COL="\033[1;91m" ;
+      travis_fold:end:$2 ;
+      echo -e ${COL}The command  \"$1\" exited with $RC.\\033[0m ;
+      return ${RC} ;
       }
 
 
@@ -180,15 +185,10 @@ script:
   #  and in after_success so probably better  to specify it here
   - export BUILD=build_${FC}/${PYTHON}
 
-  - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}  
-  ##- RED='\033[0;31m'
-  #- RED='\033[1;91m'
-  #- GRN='\033[0;32m'
-  #- NC='\033[0m' # No Color
+  - echo Sphinx building with FREECAD=${FC} PYTHON=${PYTHON} BUILDDIR=${BUILD}    
+  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest " "run doctest"
   
-  - foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} doctest " "run doctest"
-  
-  - foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html " "generate html"
+  - ./foldAndColour "make FREECAD=${FC}  PYTHON=${PYTHON} BUILDDIR=${BUILD} html " "generate html"
 
   #  confirm this actually used the correct python
   - ./freecadPythonCheck ${BUILD}
