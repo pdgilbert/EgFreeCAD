@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Appendix: Functions in Module testEqual &mdash; EgFreeCAD 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="EgFreeCAD 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Misc testing of how to use Sphinx" href="Misc.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Misc.html" title="Misc testing of how to use Sphinx"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="appendix-functions-in-module-testequal">
+<h1>Appendix: Functions in Module testEqual<a class="headerlink" href="#appendix-functions-in-module-testequal" title="Permalink to this headline">¶</a></h1>
+<p>These are the functions in module <a class="reference internal" href="#testEqual" title="testEqual"><code class="xref py py-mod docutils literal"><span class="pre">testEqual</span></code></a>, which is used to help verify examples
+in this document.</p>
+<dl class="function">
+<dt id="isEmptyShape">
+<code class="descname">isEmptyShape</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#isEmptyShape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if shape <code class="xref py py-obj docutils literal"><span class="pre">a</span></code> is empty. Return <code class="xref py py-const docutils literal"><span class="pre">True</span></code> if shape is empty,
+<code class="xref py py-const docutils literal"><span class="pre">False</span></code> otherwise. <code class="xref py py-const docutils literal"><span class="pre">True</span></code> is returned if <code class="xref py py-obj docutils literal"><span class="pre">a</span></code>
+is <code class="xref py py-const docutils literal"><span class="pre">None</span></code> (not a shape) but <code class="xref py py-const docutils literal"><span class="pre">False</span></code> for other non-shapes.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="areEqual">
+<code class="descname">areEqual</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#areEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if shapes <code class="xref py py-obj docutils literal"><span class="pre">a</span></code> and <code class="xref py py-obj docutils literal"><span class="pre">b</span></code> are equal. Return <code class="xref py py-const docutils literal"><span class="pre">True</span></code>
+or <code class="xref py py-const docutils literal"><span class="pre">False</span></code>. The main part of this test is based on the observation that
+<code class="xref py py-obj docutils literal"><span class="pre">a.cut(b)</span></code> and <code class="xref py py-func docutils literal"><span class="pre">b.cut(a)()</span></code> should both be empty if the objects are equal.
+The first checks are just for the case where <code class="xref py py-obj docutils literal"><span class="pre">a</span></code> or <code class="xref py py-obj docutils literal"><span class="pre">b</span></code> is empty,
+causing cut to fail.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="testEqual">
+<code class="descname">testEqual</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#testEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if shapes <code class="xref py py-obj docutils literal"><span class="pre">a</span></code> and <code class="xref py py-obj docutils literal"><span class="pre">b</span></code> are equal and raise an exception if they are not.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="testNotEqual">
+<code class="descname">testNotEqual</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#testNotEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if shapes <code class="xref py py-obj docutils literal"><span class="pre">a</span></code> and <code class="xref py py-obj docutils literal"><span class="pre">b</span></code> are equal and raise an exception if they are.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="isSubset">
+<code class="descname">isSubset</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#isSubset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if shape <code class="xref py py-obj docutils literal"><span class="pre">a</span></code> is a subset of <code class="xref py py-obj docutils literal"><span class="pre">b</span></code>. Return <code class="xref py py-const docutils literal"><span class="pre">True</span></code>
+or <code class="xref py py-const docutils literal"><span class="pre">False</span></code>. Equality is considered to be a subset (<code class="xref py py-const docutils literal"><span class="pre">True</span></code>
+is returned). A strict subset (non-equal) is based on the observation that
+<code class="xref py py-obj docutils literal"><span class="pre">a.cut(b)</span></code> is not empty but <code class="xref py py-obj docutils literal"><span class="pre">b.cut(a)</span></code> is empty.
+The first checks are just for case where <code class="xref py py-obj docutils literal"><span class="pre">a</span></code> or <code class="xref py py-obj docutils literal"><span class="pre">b</span></code> is empty,
+causing cut to fail.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="testSubset">
+<code class="descname">testSubset</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#testSubset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if shape <code class="xref py py-obj docutils literal"><span class="pre">a</span></code> is a (non-strict) subset of <code class="xref py py-obj docutils literal"><span class="pre">b</span></code> and raise an
+exception if it is not.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="testNotSubset">
+<code class="descname">testNotSubset</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#testNotSubset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if shape <code class="xref py py-obj docutils literal"><span class="pre">a</span></code> is not a (non-strict) subset of <code class="xref py py-obj docutils literal"><span class="pre">b</span></code> and
+raise an exception if it is.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Misc.html"
+                        title="previous chapter">Misc testing of how to use Sphinx</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Appendix.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Misc.html" title="Misc testing of how to use Sphinx"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2018, 2019, Paul Gilbert.
+      Last updated on May 03, 2019.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+  </body>
+</html>
