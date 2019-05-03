@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &mdash; EgFreeCAD 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="EgFreeCAD 0.1 documentation" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>CLEAN UP BELOW</p>
+<blockquote>
+<div><p>wire3.Length
+&gt; 40.0
+wire3.CenterOfMass
+&gt; Vector (5, 5, 0)
+wire3.isClosed()
+&gt; True
+wire2.isClosed()
+&gt; False</p>
+<p>face = Part.Face(wire3)
+face.Area
+&gt; 99.999999999999972
+face.CenterOfMass
+&gt; Vector (5, 5, 0)
+face.Length
+&gt; 40.0
+face.isValid()
+&gt; True
+sface = Part.Face(wire2)
+face.isValid()
+&gt; False</p>
+<p>arc = Part.Arc(Vector(0,0,0),Vector(0,5,0),Vector(5,5,0))
+arc
+&gt; &lt;Arc object&gt;
+arc_edge = arc.toShape()</p>
+<p>from math import pi
+circle = Part.Circle(Vector(0,0,0),Vector(0,0,1),10)
+arc = Part.Arc(c,0,pi)</p>
+<p>lshape_wire = Part.makePolygon([Vector(0,5,0),Vector(0,0,0),Vector(5,0,0)])</p>
+<dl class="docutils">
+<dt>def makeBCurveEdge(Points):</dt>
+<dd>geomCurve = Part.BezierCurve()
+geomCurve.setPoles(Points)
+edge = Part.Edge(geomCurve)
+return(edge)</dd>
+</dl>
+<p>plane = Part.makePlane(2,2)
+plane
+&gt;&lt;Face object at 028AF990&gt;
+plane = Part.makePlane(2,2, Vector(3,0,0), Vector(0,1,0))
+plane.BoundBox
+&gt; BoundBox (3, 0, 0, 5, 0, 2)</p>
+<p># Generic transformations with matrixes</p>
+<p>myMat = Base.Matrix()
+myMat.move(Vector(2,0,0))
+myMat.rotateZ(math.pi/2)</p>
+<p>myMat.move(2,0,0)
+myMat.move(Vector(2,0,0))</p>
+<p>myShape.trasformShape(myMat)</p>
+<p>myShape.transformGeometry(myMat)</p>
+<p>myMat = Base.Matrix()
+myMat.scale(2,1,1)
+myShape=myShape.transformGeometry(myMat)</p>
+<p>cylinder = Part.makeCylinder(3,10,Vector(0,0,0),Vector(1,0,0))
+sphere = Part.makeSphere(5,Vector(5,0,0))
+diff = cylinder.cut(sphere)</p>
+<p>cylinder1 = Part.makeCylinder(3,10,Vector(0,0,0),Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Vector(5,0,-5),Vector(0,0,1))
+common = cylinder1.common(cylinder2)</p>
+<p>cylinder1 = Part.makeCylinder(3,10,Vector(0,0,0),Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Vector(5,0,-5),Vector(0,0,1))
+fuse = cylinder1.fuse(cylinder2)</p>
+<p>cylinder1 = Part.makeCylinder(3,10,Vector(0,0,0),Vector(1,0,0))
+cylinder2 = Part.makeCylinder(3,10,Vector(5,0,-5),Vector(0,0,1))
+section = cylinder1.section(cylinder2)
+section.Wires
+&gt; []
+section.Edges
+&gt; [&lt;Edge object at 0D87CFE8&gt;, &lt;Edge object at 019564F8&gt;, &lt;Edge object at 0D998458&gt;,</p>
+<blockquote>
+<div>&lt;Edge  object at 0D86DE18&gt;, &lt;Edge object at 0D9B8E80&gt;, &lt;Edge object at 012A3640&gt;,
+&lt;Edge object at 0D8F4BB0&gt;]</div></blockquote>
+<p>circle = Part.makeCircle(10)
+tube = circle.extrude(Vector(0,0,2))</p>
+<p>wire = Part.Wire(circle)
+disc = Part.Face(wire)
+cylinder = disc.extrude(Vector(0,0,2))</p>
+<p>b = Part.makeBox(100,100,100)
+b.Wires
+w = b.Wires[0]
+w
+w.Wires
+w.Vertexes
+Part.show(w)
+w.Edges
+e = w.Edges[0]
+e.Vertexes
+v = e.Vertexes[0]
+v.Point</p>
+<p>box = Part.makeBox(100,100,100)
+anEdge = box.Edges[0]
+print anEdge.Length</p>
+<p>anEdge.tangentAt(0.0)      # tangent direction at the beginning
+anEdge.valueAt(0.0)        # Point at the beginning
+anEdge.valueAt(100.0)      # Point at the end of the edge
+anEdge.derivative1At(50.0) # first derivative of the curve in the middle
+anEdge.derivative2At(50.0) # second derivative of the curve in the middle
+anEdge.derivative3At(50.0) # third derivative of the curve in the middle
+anEdge.centerOfCurvatureAt(50) # center of the curvature for that position
+anEdge.curvatureAt(50.0)   # the curvature
+anEdge.normalAt(50)        # normal vector at that position (if defined)</p>
+<p>Part.show(Part.makeBox(100,100,100))
+Gui.SendMsgToActiveView(&#8220;ViewFit&#8221;)</p>
+<dl class="docutils">
+<dt>for o in Gui.Selection.getSelectionEx():</dt>
+<dd><p class="first">print o.ObjectName
+for s in o.SubElementNames:</p>
+<blockquote>
+<div>print &#8220;name: &#8221;,s</div></blockquote>
+<dl class="last docutils">
+<dt>for s in o.SubObjects:</dt>
+<dd>print &#8220;object: &#8221;,s</dd>
+</dl>
+</dd>
+</dl>
+<p>length = 0.0
+for o in Gui.Selection.getSelectionEx():</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>for s in o.SubObjects:</dt>
+<dd>length += s.Length</dd>
+</dl>
+</div></blockquote>
+<p>print &#8220;Length of the selected edges:&#8221; ,length</p>
+<p>#Complete example: The OCC bottle</p>
+<p>import Part
+import MakeBottle
+bottle = MakeBottle.makeBottle()
+Part.show(bottle)</p>
+<p>bottle2 = bottle.copy
+bottle2.rotate(O, Z, 90)</p>
+<p>import Part, FreeCAD, math
+from FreeCAD import Base</p>
+<dl class="docutils">
+<dt>def makeBottle(myWidth=50.0, myHeight=70.0, myThickness=30.0):</dt>
+<dd><p class="first">aPnt1=Vector(-myWidth/2.,0,0)
+aPnt2=Vector(-myWidth/2.,-myThickness/4.,0)
+aPnt3=Vector(0,-myThickness/2.,0)
+aPnt4=Vector(myWidth/2.,-myThickness/4.,0)
+aPnt5=Vector(myWidth/2.,0,0)</p>
+<p>aArcOfCircle = Part.Arc(aPnt2,aPnt3,aPnt4)
+aSegment1=Part.LineSegment(aPnt1,aPnt2)
+aSegment2=Part.LineSegment(aPnt4,aPnt5)
+aEdge1=aSegment1.toShape()
+aEdge2=aArcOfCircle.toShape()
+aEdge3=aSegment2.toShape()
+aWire=Part.Wire([aEdge1,aEdge2,aEdge3])</p>
+<p>aTrsf=Base.Matrix()
+aTrsf.rotateZ(math.pi) # rotate around the z-axis</p>
+<p>aMirroredWire=aWire.transformGeometry(aTrsf)
+myWireProfile=Part.Wire([aWire,aMirroredWire])
+myFaceProfile=Part.Face(myWireProfile)
+aPrismVec=Vector(0,0,myHeight)
+myBody=myFaceProfile.extrude(aPrismVec)
+myBody=myBody.makeFillet(myThickness/12.0,myBody.Edges)
+neckLocation=Vector(0,0,myHeight)
+neckNormal=Vector(0,0,1)
+myNeckRadius = myThickness / 4.
+myNeckHeight = myHeight / 10
+myNeck = Part.makeCylinder(myNeckRadius,myNeckHeight,neckLocation,neckNormal)
+myBody = myBody.fuse(myNeck)</p>
+<p>faceToRemove = 0
+zMax = -1.0</p>
+<dl class="docutils">
+<dt>for xp in myBody.Faces:</dt>
+<dd><dl class="first last docutils">
+<dt>try:</dt>
+<dd><p class="first">surf = xp.Surface
+if type(surf) == Part.Plane:</p>
+<blockquote class="last">
+<div><p>z = surf.Position.z
+if z &gt; zMax:</p>
+<blockquote>
+<div>zMax = z
+faceToRemove = xp</div></blockquote>
+</div></blockquote>
+</dd>
+<dt>except:</dt>
+<dd>continue</dd>
+</dl>
+</dd>
+</dl>
+<p>myBody = myBody.makeFillet(myThickness/12.0,myBody.Edges)</p>
+<p class="last">return myBody</p>
+</dd>
+</dl>
+<p>el = makeBottle()
+Part.show(el)</p>
+<p>### Box pierced</p>
+<p>import Draft, Part, FreeCAD, math, PartGui, FreeCADGui, PyQt4
+from math import sqrt, pi, sin, cos, asin
+from FreeCAD import Base</p>
+<p>size = 10
+poly = Part.makePolygon( [ (0,0,0), (size, 0, 0), (size, 0, size), (0, 0, size), (0, 0, 0)])</p>
+<p>face1 = Part.Face(poly)
+face2 = Part.Face(poly)
+face3 = Part.Face(poly)
+face4 = Part.Face(poly)
+face5 = Part.Face(poly)
+face6 = Part.Face(poly)</p>
+<p>myMat = FreeCAD.Matrix()
+myMat.rotateZ(math.pi/2)
+face2.transformShape(myMat)
+face2.translate(FreeCAD.Vector(size, 0, 0))</p>
+<p>myMat.rotateZ(math.pi/2)
+face3.transformShape(myMat)
+face3.translate(FreeCAD.Vector(size, size, 0))</p>
+<p>myMat.rotateZ(math.pi/2)
+face4.transformShape(myMat)
+face4.translate(FreeCAD.Vector(0, size, 0))</p>
+<p>myMat = FreeCAD.Matrix()
+myMat.rotateX(-math.pi/2)
+face5.transformShape(myMat)</p>
+<p>face6.transformShape(myMat)
+face6.translate(FreeCAD.Vector(0,0,size))</p>
+<p>myShell = Part.makeShell([face1,face2,face3,face4,face5,face6])</p>
+<p>mySolid = Part.makeSolid(myShell)
+mySolidRev = mySolid.copy()
+mySolidRev.reverse()</p>
+<p>myCyl = Part.makeCylinder(2,20)
+myCyl.translate(FreeCAD.Vector(size/2, size/2, 0))</p>
+<p>cut_part = mySolidRev.cut(myCyl)</p>
+</div></blockquote>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/cleanup.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">EgFreeCAD 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2018, 2019, Paul Gilbert.
+      Last updated on May 03, 2019.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+  </body>
+</html>
