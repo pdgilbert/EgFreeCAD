@@ -33,21 +33,21 @@ matrix:
           FC: "freecad"
           env: BLD="fcP2"
 
-#  is this still not using freecad with python 3 ??
-        - name: "freecad - python 3"
-          python: 3.6
-          FC: "freecad"
-          env: BLD="fcP3"
+#  python 3 needs ubuntu 18.04 (Bionic Beaver)
+        #- name: "freecad - python 3"
+        #  python: 3.6
+        #  FC: "freecad"
+        #  env: BLD="fcP3"
 
         - name: "freecad-daily - python 2"
           python: 2.7
           FC: "freecad-daily"
           env: BLD="fc-dP2"
 
-        - name: "freecad-daily - python 3"
-          python: 3.6
-          FC: "freecad-daily"
-          env: BLD="fc-dP3"
+        #- name: "freecad-daily - python 3"
+        #  python: 3.6
+        #  FC: "freecad-daily"
+        #  env: BLD="fc-dP3"
 
 # Notes about methods for installing dependencies follow, then install.
 # See also  https://docs.travis-ci.com/user/installing-dependencies/
