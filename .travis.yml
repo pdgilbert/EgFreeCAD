@@ -100,9 +100,14 @@ matrix:
 #   # installs in /home/travis/virtualenv/python2.7.14/bin/sphinx-build
 #  - pip install -U pip freecad
 
-# sheck here to see if the ppa is up-to-date
+# check here to see if the ppa is up-to-date
 # https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-stable
 # https://launchpad.net/~freecad-maintainers/+archive/ubuntu/freecad-daily
+
+# May 2, 2019
+# https://forum.freecadweb.org/viewtopic.php?f=4&t=35546&p=305447#p305444
+#Trusty(14.04) is EOL, Xenial(16.04) is only PY2/QT4 (too old to support Python 3 builds)
+#Even for 18.04+ Kurt had to port some stuff from Debian to Ubuntu
 
 before_install:
   - cat /etc/*-release
@@ -127,26 +132,26 @@ before_install:
        sudo apt-get install --yes  python-sphinx  sphinx-common ;
        export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
     fi
-  - if [[ "$BLD" == "fcP3" ]]; then
-       export FC="freecad" ;
-       export PYTHON=python3 ;
-       sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
-       sudo apt-get update  -q ;
-       sudo apt-get install --yes  freecad-python3   libfreecad-python3-0.18 ;
-       sudo apt-get install --yes  freecad freecad-common freecad-runtime ;
-       sudo apt-get install --yes  python3-sphinx sphinx-common ;
-       export DISPKG=`dpkg -L python3-sphinx | grep "dist-packages$"` ; 
-    fi
-  - if [[ "$BLD" == "fc-dP3" ]]; then
-       export FC="freecad-daily" ;
-       export PYTHON=python3 ;
-       sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily ;
-       sudo apt-get update  -q ;
-       sudo apt-get install --yes  freecad-python3   libfreecad-python3-0.18 ;
-       sudo apt-get install --yes  freecad-daily ;
-       sudo apt-get install --yes  python-sphinx  sphinx-common ;
-       export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
-    fi
+  #- if [[ "$BLD" == "fcP3" ]]; then
+  #     export FC="freecad" ;
+  #     export PYTHON=python3 ;
+  #     sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-stable ;
+  #     sudo apt-get update  -q ;
+  #     sudo apt-get install --yes  freecad-python3   libfreecad-python3-0.18 ;
+  #     sudo apt-get install --yes  freecad freecad-common freecad-runtime ;
+  #     sudo apt-get install --yes  python3-sphinx sphinx-common ;
+  #     export DISPKG=`dpkg -L python3-sphinx | grep "dist-packages$"` ; 
+  #  fi
+  #- if [[ "$BLD" == "fc-dP3" ]]; then
+  #     export FC="freecad-daily" ;
+  #     export PYTHON=python3 ;
+  #     sudo add-apt-repository --yes ppa:freecad-maintainers/freecad-daily ;
+  #     sudo apt-get update  -q ;
+  #     sudo apt-get install --yes  freecad-python3   libfreecad-python3-0.18 ;
+  #     sudo apt-get install --yes  freecad-daily ;
+  #     sudo apt-get install --yes  python-sphinx  sphinx-common ;
+  #     export DISPKG=`dpkg -L python-sphinx | grep "dist-packages$"` ; 
+  #  fi
 
   - sudo apt-cache policy  freecad
   - sudo apt-cache showpkg freecad
