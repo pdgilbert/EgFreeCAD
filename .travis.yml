@@ -238,18 +238,22 @@ script:
 
 after_success:  # can be used for customized deploy or to unsupported Providers 
    #BUILD=build_${FC}/${PYTHON}
-  - echo $PWD
+  - echo ${PWD}
+  - echo ${BUILD}
+  - echo ${FC}
+  - echo ${PYTHON}
   - ls
   - mkdir -p NewBuild
   - mv ${BUILD}/*  NewBuild
   - git clone https://${GITHUB_TOKEN}@github.com/pdgilbert/EgFreeCAD.git
   - cd EgFreeCAD
+  - ls ${BUILD}
   - git checkout gh-pages
   - git status
   - mkdir -p ${BUILD}
   - cp -r ../NewBuild/*  ${BUILD}
   - echo $PWD
-  - ls
+  - ls ${BUILD}
   - git add ${BUILD}
   - git status 
   - git commit -am "commiting new build."
