@@ -3,7 +3,7 @@
 <H1>EgFreeCAD</H1>
 <H2>FreeCAD scripting examples with testing</H2>
 
-(This is a work in progress. April, 2019)<P>
+(This is a work in progress. May, 2019)<P>
 
 The view links below go to documents generated with Sphinx using different versions
 of FreeCAD and Python. The documents include extensive use of Sphinx doctest
@@ -20,18 +20,31 @@ the examples will work in the indicated version of FreeCAD and Python.<P>
  <tr>
   <th>FreeCAD</th>
   <th><a href="build_freecad/Python-2.7/html">view</a></th>
-  <th><a href="build_freecad/Python-3.6/html">view</a></th>
+  <th>not yet</th>
  </tr>
  <tr>
   <th>FreeCAD-daily</th>
   <th><a href="build_freecad-daily/Python-2.7/html">view</a></th>
-  <th><a href="build_freecad-daily/Python-3.6/html">view</a></th>
+  <th>not yet</th>
  </tr>
 </table>
 
 <P>
 Eventually I hope to have actual version numbers for FreeCAD indicated above,
 and archived older versions here...<P>
+
+The table above is continuously rebuilt. Some other systems are tested
+occasionally, or have been with older versions of the examples and worked:
+
+<ul>
+  <li>FreeCAD 0.18.1 on Mint 18.1 (Ubuntu xenial) works with Python 2 but not Python 3.</li>
+  <li>FreeCAD 0.17.1 on Ubuntu 14.04 works with Python 2 but not Python 3.</li>
+</ul> 
+
+Other notes:
+<ul>
+  <li>FreeCAD with Python 3 currently requires at least Ubuntu 18.04 (Bionic Beaver) for proper QT support.</li>
+</ul> 
 
 The interaction of git, Travis, Sphinx, FreeCAD versions, Python versions, 
 and Github Pages gets a bit messy sometimes, so this page is being 
@@ -43,6 +56,9 @@ are in the EgFreeCAD
 
 Notes on the Travis work flow are in the EgFreeCAD
 <a href="https://github.com/pdgilbert/EgFreeCAD/README.md">master branch README.md</a> file.<P>
+
+The <a href="https://travis-ci.org/pdgilbert/EgFreeCAD">Travis build job logs</a>
+give details about PPAs, distribution packages, etc.<P>
 
 The source code for these documents and examples is maintained on github at
 <a href="https://github.com/pdgilbert/EgFreeCAD/">EgFreeCAD</a>.
