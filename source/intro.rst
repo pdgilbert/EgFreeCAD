@@ -40,19 +40,29 @@ is translated, whereas
 
    False
 
-Returns :py:const:`False` because the translation of :py:obj:`b` does not affect :py:obj:`a`.
+Returns :py:const:`False` because the translation of :py:obj:`b` 
+does not affect :py:obj:`a`.
 
-To run  examples in this document the path of the :py:mod:`freecad` 
-and :py:mod:`testEqual` module libraries is needed. 
-This should be done before starting python with
-export PYTHONPATH=$PYTHONPATH:/usr/lib/freecad/lib:/path/to/testEqual.
+Examples in this document can be run in a FreeCAD GUI session by cut-and-paste
+into the console, or they can be run in a python session after importing freecad.
+To importing :py:mod:`freecad` into a python session be sure to put it on 
+the python module search path, for example before starting python by using 
+*export PYTHONPATH=$PYTHONPATH:/usr/lib/freecad/lib*.
+
+To run the tests in this document the path of the :py:mod:`testEqual` module 
+library is needed. This can be done before starting python with
+*export PYTHONPATH=$PYTHONPATH:/path/to/testEqual*.
 It can also be done inside a python session using :py:func:`sys.path.append`.
+The :py:mod:`testEqual` module is not needed except to run tests, which are
+mainly for the purpose of confirming that the examples in this document 
+continue to work in new FreeCAD versions. 
 
-Sections of this document use :py:obj:`doctest` :py:obj:`testcode` 
-and :py:obj:`testoutput` directives. 
-If there is any test output then it is displayed in a block below the :py:obj:`testcode`. All tests use the setup code specified in Spinx
-:py:obj:`conf.py` :py:obj:`doctest_global_setup`
-variable, which does
+The source files for sections of this document, available in the EgFreeCAD
+github repository,  use Sphinx :py:obj:`doctest` 
+and :py:obj:`testcode` with :py:obj:`testoutput` directives. 
+If there is any test output then it is displayed in a block below 
+the :py:obj:`testcode`. All tests use the setup code specified in Spinx
+:py:obj:`conf.py` :py:obj:`doctest_global_setup` variable, which does
 
 .. testcode::
 
@@ -61,17 +71,17 @@ variable, which does
    import Part, Mesh, MeshPart
    from testEqual import * 
 
-and also set vectors for the origin and directions :py:obj:`X, Y, and Z`, which are used in several examples.
+and also sets vectors for the origin :py:obj:`o` and points one unit in the
+directions :py:obj:`x, y`, and :py:obj:`z`, which are used in several examples.
 
 .. testcode::
 
-   O = Vector(0,0,0)
-   X = Vector(1,0,0)
-   Y = Vector(0,1,0)
-   Z = Vector(0,0,1)
+   o = Vector(0,0,0)
+   x = Vector(1,0,0)
+   y = Vector(0,1,0)
+   z = Vector(0,0,1)
 
-Examples can be run in a FreeCAD GUI session by cut-and-paste into the console.
-The :py:mod:`testEqual` module is not needed except to run tests, which are
-mainly for the purpose of confirming that the examples in this document 
-continue to work in new FreeCAD versions. 
-However, the :py:obj:`O, X, Y, Z` will be needed in several examples.
+Be sure to set these in your session.
+Some examples indicate :py:obj:`Part.show(something)`. This cammand is
+commented out and not run in the script tests but you may want to use it in 
+a FreeCAD GUI session.

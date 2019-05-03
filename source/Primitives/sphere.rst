@@ -13,17 +13,17 @@ Sphere
    
    if S.Curve.Radius != 5.0 : raise Exception("Circle radius should be 5.0.")
 
-   if S.Curve.Center != Vector(0,0,0) : raise Exception("Circle Center should be origin.")
+   if S.Curve.Center != o : raise Exception("Circle Center should be origin.")
    
-   if S.Curve.Axis   != Z   : raise Exception("Circle axis should be Z axis.")
+   if S.Curve.Axis   != z   : raise Exception("Circle axis should be Z axis.")
       
    # circle is symmetic
 
 .. testcode::
 
-   S2.rotate(O, Z, 180)
+   S2.rotate(o, z, 180)
    testEqual(S, S2)
-   S2.rotate(O, Z, 90)
+   S2.rotate(o, z, 90)
    testEqual(S, S2)
 
 .. testcode::
@@ -35,7 +35,7 @@ Sphere
 
    s  = Part.makeSphere(10)
    s2 = Part.makeSphere(10)
-   s2.rotate(O, Z, 180)
+   s2.rotate(o, z, 180)
    
    testEqual(s, Part.makeSphere(10))
    testNotEqual(s, Part.makeSphere(9))
@@ -66,10 +66,10 @@ revolve a face should give a solid
 
    S2 = C2.revolve(Vector(0,0,0), Vector(1,1,1), 360)  
    #Part.show(S2) 
-   S2 = C2x.revolve(O, X, 360)  
+   S2 = C2x.revolve(o, x, 360)  
    #Part.show(S2) 
    #  THIS IS NOT SHOWING PROPERLY
-   S2 = C2.revolve(O, Y, 360)  
-   S2 = C2.revolve(O, Z, 360)  
+   S2 = C2.revolve(o, y, 360)  
+   S2 = C2.revolve(o, z, 360)  
 
 

@@ -1,6 +1,21 @@
 
 CLEAN UP BELOW
 
+   C1 = Part.Arc( Vector(0,10,0), Vector(-10,0,0), Vector(0,-10,0))
+   C2 = Part.Arc(Vector(30,10,0), Vector(40,0,0),  Vector(30,-10,0))
+   L1 = Part.LineSegment(Vector(0,10,0), Vector(30,10,0))
+   L2 = Part.LineSegment(Vector(30,-10,0), Vector(0,-10,0)) 
+   S1 = Part.Shape([C1,L1,C2,L2]) 
+   
+   W = Part.Wire(S1.Edges)
+   P = W.extrude(Vector(0,0,10)) 
+   # Part.show(P) 
+   
+   testEqual(P, W.extrude(Vector(0,0,10)))
+   testNotEqual(P, W.extrude(Vector(0,0,20))) 
+
+
+
    wire3.Length
    > 40.0
    wire3.CenterOfMass
@@ -150,7 +165,7 @@ CLEAN UP BELOW
    Part.show(bottle)
    
    bottle2 = bottle.copy
-   bottle2.rotate(O, Z, 90)
+   bottle2.rotate(o, z, 90)
    
    import Part, FreeCAD, math
    from FreeCAD import Base
