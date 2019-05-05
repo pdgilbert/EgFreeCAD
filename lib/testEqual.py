@@ -27,12 +27,20 @@ def areEqual(a, b):
    The main part of this test is based on the observation that
    a.cut(b) and b.cut(a) should both be empty if the objects are equal.
    Empty means no Vertexes, Edges, Faces, ... .
-   The first checks are just for case where a or b is empty, so cut will fail.
+   The first check is just for the case where a or b is empty, so cut will fail.
+   The second check is for the case where a and b do not have the same ShapeType.
+   This situation can reult in an empty object even though it should not.
+   For example, cutting the face of a sphere from a solid sphere results in an
+   empty object even though the first is hollow and the second is not. 
    '''
    
    if isEmptyShape(a):
       if isEmptyShape(b): return(True)
       else:          return(False)
+   
+   # punt if one is compound, but really should check if sub objects are same
+   if a.ShapeType !=  'Compound' and b.ShapeType != 'Compound' : 
+      if a.ShapeType != b.ShapeType : return(False)
      
    if not isEmptyShape(a.cut(b)):    return(False)
    if not isEmptyShape(b.cut(a)):    return(False)
