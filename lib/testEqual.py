@@ -22,8 +22,11 @@ def isEmptyShape(a):
 def areEqual(a, b):
    ''' 
    Test if shapes a and b are equal. Return True or False.
+   Equal is in the sense of defining the same object in space,
+   not in the sense of being similar python objects.
    The main part of this test is based on the observation that
    a.cut(b) and b.cut(a) should both be empty if the objects are equal.
+   Empty means no Vertexes, Edges, Faces, ... .
    The first checks are just for case where a or b is empty, so cut will fail.
    '''
    
