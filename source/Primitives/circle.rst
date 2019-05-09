@@ -43,7 +43,7 @@ but translation produces an object that is not equal.
    testNotEqual(c, c2)
 
 
-This circle is at origin, 
+This circle is centered at the origin and is on the plane
 normal to z axis. A circle has one edge and no faces, properties that can
 be checked. 
 
@@ -58,7 +58,7 @@ be checked.
    if 0 != len(C.Solids): raise Exception("Circle should have no solids.")
 
 When constructing a face (two dimensional object) from a circle (one 
-dimensional object) it is uually important that the circle is not a partial 
+dimensional object) it is usually important that the circle is not a partial 
 circle, that is, it forms a complete closed loop. This is also a property 
 that can be checked. 
 

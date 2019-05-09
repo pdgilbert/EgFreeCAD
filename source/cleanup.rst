@@ -1,4 +1,5 @@
 
+
 CLEAN UP BELOW
 
    C1 = Part.Arc( Vector(0,10,0), Vector(-10,0,0), Vector(0,-10,0))

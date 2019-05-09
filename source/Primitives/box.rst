@@ -69,9 +69,11 @@ segments starting at the origin:
    L3 = Part.LineSegment(Vector(1, 100,0), Vector(0, 100, 0))
    L4 = Part.LineSegment(Vector(0, 100, 0), o) 
    sq = Part.Shape([L1, L2, L3, L4]) 
+   # Part.show(sq ) 
    
-   w = Part.Wire(sq.Edges)
-   box2 = w.extrude(Vector(0,0,10)) 
+   f = Part.makeFilledFace(sq.Edges)
+   # Part.show(f) 
+   box2 = f.extrude(Vector(0,0,10)) 
    # Part.show(box2) 
    
    print(areEqual(box1, box2))

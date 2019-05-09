@@ -226,8 +226,6 @@ Project to extend a (hydro-) foil profile over a wing span outline.
                 
            self.LeadTrail = self.LeadTrail(leadingEdge,trailingEdge, doc=doc, source=source)
 
-.. testoutput::
-
 
 BREAK THE NEXT UP INTO PIECES AND CLEAN UP.
 
@@ -378,8 +376,6 @@ NOT SURE WHY NEXT IS HERE.
       b = b.cut(Part.makeCylinder(r-w, h, Vector(0,0,0), Vector(0,0,1), a))
       
       return(b)
-
-.. testoutput::
 
 
 PUT SOME TEXT IN HERE SOMEWHERE

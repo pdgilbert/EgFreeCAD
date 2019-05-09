@@ -41,8 +41,10 @@ TEST generate a tube by revolving a rectangle (vs cutting two cylindars above)
 
    rect = Part.makePolygon([
         Vector(4,0,0), Vector(6,0,0),Vector(6,0,10),Vector(4,0,10), Vector(4,0,0)])
-   
-   tb3 = rect.revolve(o, z, 360)
+
+   rectFace = Part.makeFilledFace(rect.Edges)
+
+   tb3 = rectFace.revolve(o, z, 360)
    # Part.show(tb3)
    testEqual(tb,  tb3)  
 
