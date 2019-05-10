@@ -36,9 +36,8 @@ extensions = [
     'sphinx.ext.coverage',
 ]
 doctest_global_setup = '''
-import FreeCAD
-from FreeCAD import Base, Vector
-import Part, Mesh, MeshPart
+import Part
+from FreeCAD import Vector
 from testEqual import * 
 
 o = Vector(0,0,0)

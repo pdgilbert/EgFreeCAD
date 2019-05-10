@@ -4,8 +4,9 @@
 Ellipse
 -------
 
-Part.Sphere produces a face and Part.makeSphere() produces a solid, but there is 
-not yet a Part.makeEllipsoid() to make a solid.
+:py:func:`Part.Sphere` produces a face and :py:func:`Part.makeSphere` produces 
+a solid, but there is 
+not yet a :py:func:`Part.makeEllipsoid` to make a solid.
 
 
 An ellipsoid can be produced by revolving an ellipse. When the ellipse is not
@@ -14,7 +15,7 @@ filled in (has no faces) then the revolution will be hollow.
 The following shows different ways to use an ellipse to make a solid ellipsoid
 with the general shape of a rugby ball. (It could be made to look like a flying saucer but that will be left to the reader.)
 
-Part.Ellipse().toShape() makes a shape that is an edge with no faces.
+:py:func:`Part.Ellipse().toShape()` makes a shape that is an edge with no faces.
 The ellipsoid  made by revolving this has faces but is not solid (a hollow
 ellipsoid).
 
@@ -167,4 +168,14 @@ This would not need to be rotated, but s2 does not work the way I think
 # e2 = Part.Ellipse(Vector(0.0, 0.0, 6),Vector(0.0, 2, 8), Vector(0.0, 0.0, 8)).toShape()
 #Part.show(e2)
 
-COMPARE ELLIPSOID WITH EQUAL RADII AND A SPHERE
+An ellipsoid with equal radii is a circle a sphere made this way can be compared
+with a sphere  made with :py:func:`makeSphere`.
+
+..testcode::
+
+   eC = Part.Ellipse(o, 5.0, 5.0)
+   edC = Part.makeSolid(Part.makeShell([
+             eC.toShape(0, eC.LastParameter/2).revolve(o, x, 360)  ]))
+   
+   # Part.show(edC)
+   testEqual( edC,Part. makeSphere(5) )

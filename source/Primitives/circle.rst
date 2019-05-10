@@ -5,7 +5,11 @@ Circle
 ------
 
 The default :py:func:`Part.makeCircle(r)` produces a circular line on the
-XY plane with radius r. (A one dimensional object embedded in a two dimensional space).
+XY plane with radius r. (A one dimensional object embedded in a two 
+dimensional plane in three dimensional space). 
+The function :py:func:`Part.Circle(r)` does essentially the same thing but takes
+arguments for the center, normal and radius, and has to be converted to a 
+shape object.
  
 .. testcode::
 
@@ -13,18 +17,24 @@ XY plane with radius r. (A one dimensional object embedded in a two dimensional 
    #Part.show(c)
    c2 = c.copy()
    testEqual(c, c2)
-   testNotEqual(c, Part.makeCircle(5.5))
+   testNotEqual(c, Part.makeCircle(6))
+
+   testEqual(c, Part.Circle(o, z, 5).toShape() )
 
 A circle has attributes that can be checked as follows. 
  
 .. testcode::
   
-   if c.Curve.Radius != 5.0 : raise Exception("Circle radius should be 5.0.")
+   print(c.Curve.Radius == 5.0)
+   print(c.Curve.Center == o )
+   print(c.Curve.Axis   == z )
 
-   if c.Curve.Center != o : raise Exception("Circle Center should be origin.")
-   
-   if c.Curve.Axis   != z   : raise Exception("Circle axis should be Z axis.")
-      
+.. testoutput::
+
+   True
+   True
+   True
+
 Within its plane, a circle is symmetic around its center, so this circle can be
 rotated any number of degrees around the Z-axis and produces an equal object
 
@@ -33,6 +43,8 @@ rotated any number of degrees around the Z-axis and produces an equal object
    c2.rotate(o, z, 180)
    testEqual(c, c2)
    c2.rotate(o, z, 90)
+   testEqual(c, c2)
+   c2.rotate(o, z, 33)
    testEqual(c, c2)
 
 but translation produces an object that is not equal.
@@ -50,12 +62,15 @@ be checked.
 .. testcode::
 
    C = Part.makeCircle(10)
-   
-   if 1 != len(C.Edges): raise Exception("Circle should have 1 edge.")
-   
-   if 0 != len(C.Faces): raise Exception("Circle should have no faces.")
-   
-   if 0 != len(C.Solids): raise Exception("Circle should have no solids.")
+   print( len(C.Edges) )
+   print( len(C.Faces) )
+   print( len(C.Solids) )
+
+.. testoutput::
+
+   1
+   0
+   0
 
 When constructing a face (two dimensional object) from a circle (one 
 dimensional object) it is usually important that the circle is not a partial 
@@ -64,7 +79,11 @@ that can be checked.
 
 .. testcode::
 
-   if not C.isClosed(): raise Exception("Object C is not a closed loop")
+   print( C.isClosed() )
+
+.. testoutput::
+
+   True
 
 A face can be constructed by filling in the circle. For some reason this 
 needs to be converted to a wire first. 
@@ -72,14 +91,14 @@ needs to be converted to a wire first.
 .. testcode::
 
    C2 = Part.Face(Part.Wire(C))
-
-   if 1 != len(C2.Faces): raise Exception("Circle with interior should have 1 face.")
-
-   if 0 != len(C.Solids): raise Exception("Circle with interior should have no solids.")
-  
+   print( C2.ShapeType )
+   print( len(C2.Faces) )
+   print( len(C2.Solids) )
    #Part.show(C2) 
 
-STILL DON'T UNDERSTAND WHAT makeShell DOES
-.. testcode::
+.. testoutput::
 
-   C2x = Part.makeShell(C2.Faces)
+   Face
+   1
+   0
+

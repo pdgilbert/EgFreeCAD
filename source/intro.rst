@@ -80,9 +80,8 @@ the :py:obj:`testcode`. All tests use the setup code specified in Spinx
 
 .. testcode::
 
-   import FreeCAD
-   from FreeCAD import Base, Vector
-   import Part, Mesh, MeshPart
+   import Part
+   from FreeCAD import Vector
    from testEqual import * 
 
 and also sets vectors for the origin :py:obj:`o` and points one unit in the
@@ -100,6 +99,12 @@ Some examples indicate :py:obj:`Part.show(something)`. This command is
 commented out and not run in the script tests but you may want to use it in 
 a FreeCAD GUI session. Beware that you may need to click the icon that
 fits the contents to the screen.
+
+The command  :py:obj:`Part.show(something)` does two things. It opens a FreeCAD
+document (:py:obj:`App.ActiveDocument`) and it opens the GUI  window 
+and displays the object. There is a techincal sense in which *FreeCAD* is really
+the document and GUI. In that sense, the examples here are really about the 
+building blocks in the workbench rather than *FreeCAD* itself.
 
 Additional illustration of the testing functions is provided in the examples.
 See especially *Primitives Examples / Box*.

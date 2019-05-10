@@ -9,7 +9,7 @@ Project to extend a (hydro-) foil profile over a wing span outline.
 .. testcode::
    
    #from __future__ import unicode_literals
-   from FreeCAD import Base
+   from FreeCAD import Vector
    import Draft  # for Draft.makeWire
    import Part, math
    import os
@@ -73,7 +73,7 @@ Project to extend a (hydro-) foil profile over a wing span outline.
            #leadingEdgeBspline = Part.Wire(traj.toShape())
            
            def scaledBspline(dat, sc):
-              z = [FreeCAD.Vector(v[0]*sc, v[1]*sc, v[2]*sc) for v in dat]
+              z = [Vector(v[0]*sc, v[1]*sc, v[2]*sc) for v in dat]
               prof=Part.BSplineCurve()
               prof.interpolate(z)       
               prof=Part.Wire(prof.toShape())
@@ -87,7 +87,7 @@ Project to extend a (hydro-) foil profile over a wing span outline.
            # plane defined by the cord being its normal. but for foils with the
            # cord aproximately in the direction of the X axis this will be aprox Dy/Dz.
            # Ends are one-sided tangent aprox, interior points use two adjacent
-           Z = FreeCAD.Vector(0, 0, 1)
+           Z = Vector(0, 0, 1)
            e = self.LeadTrail.leadingEdge
            ln = len(e)
            rotation = [ Z.getAngle(e[1] - e[0])*180/math.pi ]
@@ -106,7 +106,7 @@ Project to extend a (hydro-) foil profile over a wing span outline.
                  r  = 0.0
               p  = scaledBspline(self.profile.profileDAT, sc)
               print("scaled profile " + str(sc))
-              p.translate(FreeCAD.Vector(ld))
+              p.translate(Vector(ld))
               #angle adjustment
               # ld - tr or tr - ld reverse rotationBase.
               #FreeCADError: Unknown C++ exception
@@ -195,7 +195,7 @@ Project to extend a (hydro-) foil profile over a wing span outline.
                     X = float(ln[0])
                     Y = float(ln[1])
                     #print(X, Y)
-                    profileDAT.append(FreeCAD.Vector(X, Y, Z))
+                    profileDAT.append(Vector(X, Y, Z))
                  except :
                     doc.append(ln)
            
@@ -216,11 +216,11 @@ Project to extend a (hydro-) foil profile over a wing span outline.
                     X = float(ln[0])
                     Y = float(ln[1])
                     Z = float(ln[2])
-                    leadingEdge.append(FreeCAD.Vector(X, Y, Z))
+                    leadingEdge.append(Vector(X, Y, Z))
                     X = float(ln[3])
                     Y = float(ln[4])
                     Z = float(ln[5])
-                    trailingEdge.append(FreeCAD.Vector(X, Y, Z))
+                    trailingEdge.append(Vector(X, Y, Z))
                  except :
                     doc.append(ln)
                 
@@ -253,16 +253,16 @@ BREAK THE NEXT UP INTO PIECES AND CLEAN UP.
    
    # intersection of line and a plane
    
-   Z  = FreeCAD.Vector( 0, 0, 1)
+   Z  = Vector( 0, 0, 1)
    
-   p1 = FreeCAD.Vector( 100, 0, 1)
-   p2 = FreeCAD.Vector(0, 100, 1)
-   p3 = FreeCAD.Vector(-100, 0, 1)
-   p4 = FreeCAD.Vector(0, -100, 1)
+   p1 = Vector( 100, 0, 1)
+   p2 = Vector(0, 100, 1)
+   p3 = Vector(-100, 0, 1)
+   p4 = Vector(0, -100, 1)
    
    # p is a surface (plane but bounded by points p*) because face=True
    p = Draft.makeWire([p1, p2, p3, p4], closed=True, face = True)
-   zzz = Part.makeLine(FreeCAD.Vector(1,0, 0), FreeCAD.Vector(1,0, 10))
+   zzz = Part.makeLine(Vector(1,0, 0), Vector(1,0, 10))
    dist,point,geom=zzz.distToShape(p.Shape)
    dist
    point
@@ -270,7 +270,7 @@ BREAK THE NEXT UP INTO PIECES AND CLEAN UP.
    
    # project vector onto spline 
    
-   Z  = FreeCAD.Vector( 0, 0, 1)
+   Z  = Vector( 0, 0, 1)
    sp = z3.leadingEdgeBspline()
    
    # CLEAN THIS UP
