@@ -3,7 +3,9 @@
 
    self
    box
+   circle
    sphere
+   ellipse
    cone
    polygon
    torus
@@ -14,7 +16,9 @@ Primitive Examples
 ==================
 
 .. include:: box.rst
+.. include:: circle.rst
 .. include:: sphere.rst
+.. include:: ellipse.rst
 .. include:: cone.rst
 .. include:: polygon.rst
 .. include:: torus.rst

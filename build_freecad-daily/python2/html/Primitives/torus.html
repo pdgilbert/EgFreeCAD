@@ -62,56 +62,28 @@
 <span class="c1">#Part.show(torus2)</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">torus</span><span class="p">,</span> <span class="n">torus2</span> <span class="p">)</span>
 
-<span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">torus</span><span class="p">,</span> <span class="n">torus2</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>Flipping will be equal</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">torus</span><span class="p">,</span> <span class="n">torus2</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>but half flip is not</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 <span class="n">testNotEqual</span><span class="p">(</span><span class="n">torus</span><span class="p">,</span> <span class="n">torus2</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>pnt is the center of torus and dir is the normal direction.
-The default is O, Z. Starting with default and rotating 90 around x-axis
+The default is o, z. Starting with default and rotating 90 around x-axis
 is the same as indicating y-axis as the initial normal direction.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span> <span class="o">=</span> <span class="n">torus</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">torus2</span><span class="p">,</span>  <span class="n">Part</span><span class="o">.</span><span class="n">makeTorus</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">O</span><span class="p">,</span> <span class="n">Y</span><span class="p">))</span>
+<span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">torus2</span><span class="p">,</span>  <span class="n">Part</span><span class="o">.</span><span class="n">makeTorus</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>Make an ellipse using origin O and  two radii, 6.0 and 2.0</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span> <span class="c1"># normal to  z-axis, longer in X direction</span>
-<span class="n">e</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span>  <span class="n">X</span><span class="p">,</span>  <span class="mi">90</span><span class="p">)</span>  <span class="c1"># normal to y-axis,  longer in X direction</span>
-<span class="n">e</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span>  <span class="n">Z</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">)</span>  <span class="c1"># normal to x-axis,  longer in Y direction</span>
-<span class="c1">#Part.show(e)</span>
-
-<span class="n">e2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span>
-<span class="n">testNotEqual</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
-<span class="n">e2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">e2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>  <span class="n">X</span><span class="p">,</span>  <span class="mi">90</span><span class="p">)</span>
-<span class="n">e2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>  <span class="n">Z</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">)</span>
-<span class="n">e2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">-</span><span class="n">X</span><span class="p">)</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
-
-<span class="n">wi</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">wi</span><span class="o">.</span><span class="n">isClosed</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Objects wi is not a closed loop&quot;</span><span class="p">)</span>
-
-<span class="n">d</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Face</span><span class="p">(</span><span class="n">wi</span><span class="p">)</span>
-<span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="c1">#Part.show(dd)</span>
-
-<span class="n">b</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCylinder</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This would not need to be rotated, but s2 does not work the way I think
-# e2 = Part.Ellipse(Vector(0.0, 0.0, 6),Vector(0.0, 2, 8), Vector(0.0, 0.0, 8)).toShape()
-#Part.show(e2)</p>
 </div>
 
 
@@ -168,7 +140,7 @@ is the same as indicating y-axis as the initial normal direction.</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2018, 2019, Paul Gilbert.
-      Last updated on May 03, 2019.
+      Last updated on May 14, 2019.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
     </div>
   </body>

@@ -1,4 +1,4 @@
-Results of doctest builder run on 2019-05-03 03:15:44
+Results of doctest builder run on 2019-05-14 02:41:40
 =====================================================
 
 Document: index
@@ -12,9 +12,9 @@ Test passed.
 Document: Primitives/sphere
 ---------------------------
 1 items passed all tests:
-   6 tests in default
-6 tests in 1 items.
-6 passed and 0 failed.
+  10 tests in default
+10 tests in 1 items.
+10 passed and 0 failed.
 Test passed.
 
 Document: Projects/foil/foil
@@ -28,9 +28,9 @@ Test passed.
 Document: Primitives/torus
 --------------------------
 1 items passed all tests:
-   5 tests in default
-5 tests in 1 items.
-5 passed and 0 failed.
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
 Test passed.
 
 Document: Projects/foil/index
@@ -65,6 +65,30 @@ Document: Misc
 7 passed and 0 failed.
 Test passed.
 
+Document: Primitives/ellipse
+----------------------------
+1 items passed all tests:
+   9 tests in default
+9 tests in 1 items.
+9 passed and 0 failed.
+Test passed.
+
+Document: puzzles
+-----------------
+1 items passed all tests:
+   1 tests in default
+1 tests in 1 items.
+1 passed and 0 failed.
+Test passed.
+
+Document: Primitives/circle
+---------------------------
+1 items passed all tests:
+   7 tests in default
+7 tests in 1 items.
+7 passed and 0 failed.
+Test passed.
+
 Document: SimpleConstructs/tube
 -------------------------------
 1 items passed all tests:
@@ -84,9 +108,9 @@ Test passed.
 Document: Primitives/index
 --------------------------
 1 items passed all tests:
-  23 tests in default
-23 tests in 1 items.
-23 passed and 0 failed.
+  42 tests in default
+42 tests in 1 items.
+42 passed and 0 failed.
 Test passed.
 
 Document: intro
@@ -107,7 +131,7 @@ Test passed.
 
 Doctest summary
 ===============
-   74 tests
+  113 tests
     0 failures in tests
     0 failures in setup code
     0 failures in cleanup code
