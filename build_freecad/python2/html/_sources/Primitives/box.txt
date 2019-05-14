@@ -4,15 +4,15 @@
 Box
 ---
 
-
 The function :py:func:`areEqual` compares two shapes and returns :py:const:`True` if
-they are equal and :py:const:`False` otherwise. Here it is used to compare boxes one with x, y, z
+they are equal and :py:const:`False` otherwise. Here it is used to compare solid boxes, one with x, y, z
 dimensions 1x100x10 and the other 1x100x9. These boxes are created in the default position, with one corner at the origin and dimensions extending in the positive direction. 
 
 .. testcode::
 
-   print(areEqual(Part.makeBox(1,100,10), Part.makeBox(1,100,10)))
-   print(areEqual(Part.makeBox(1,100,10), Part.makeBox(1,100,9)))
+   box1 = Part.makeBox(1, 100, 10)
+   print(areEqual(box1, Part.makeBox(1, 100, 10)))
+   print(areEqual(box1, Part.makeBox(1, 100, 9)))
 
 .. testoutput::
 
@@ -26,9 +26,9 @@ result is :py:const:`True` if the objects are equal.
 
 .. testcode::
 
-   print(isSubset(Part.makeBox(1,100,10), Part.makeBox(1,100,10)))
-   print(isSubset(Part.makeBox(1,100,9),  Part.makeBox(1,100,10)))
-   print(isSubset(Part.makeBox(1,100,10), Part.makeBox(1,100,9)))
+   print(isSubset(Part.makeBox(1, 100, 10), box1))
+   print(isSubset(Part.makeBox(1, 100, 9),  box1))
+   print(isSubset(box1, Part.makeBox(1, 100, 9)))
 
 .. testoutput::
 
@@ -40,15 +40,15 @@ These  have no output
 
 .. testcode::
 
-   testEqual(Part.makeBox(1,100,10), Part.makeBox(1,100,10)) 
-   testNotEqual(Part.makeBox(1,100,10), Part.makeBox(1,100,9))
+   testEqual(box1, Part.makeBox(1, 100, 10)) 
+   testNotEqual(box1, Part.makeBox(1, 100, 9))
 
 and these  raise exceptions
 
 .. testcode::
 
-   testNotEqual(Part.makeBox(1,100,10), Part.makeBox(1,100,10)) 
-   testEqual(Part.makeBox(1,100,10), Part.makeBox(1,100,9))
+   testNotEqual(box1, Part.makeBox(1, 100, 10)) 
+   testEqual(box1, Part.makeBox(1, 100, 9))
 
 .. testoutput::
 
@@ -59,18 +59,26 @@ and these  raise exceptions
     ...
     Exception: Objects are not equal
 
+A solid box can also be constructed by extruding a square made from line
+segments starting at the origin:
 
 .. testcode::
 
-   C1 = Part.Arc( Vector(0,10,0), Vector(-10,0,0), Vector(0,-10,0))
-   C2 = Part.Arc(Vector(30,10,0), Vector(40,0,0),  Vector(30,-10,0))
-   L1 = Part.LineSegment(Vector(0,10,0), Vector(30,10,0))
-   L2 = Part.LineSegment(Vector(30,-10,0), Vector(0,-10,0)) 
-   S1 = Part.Shape([C1,L1,C2,L2]) 
+   L1 = Part.LineSegment(o, x)
+   L2 = Part.LineSegment(x, Vector(1, 100, 0)) 
+   L3 = Part.LineSegment(Vector(1, 100,0), Vector(0, 100, 0))
+   L4 = Part.LineSegment(Vector(0, 100, 0), o) 
+   sq = Part.Shape([L1, L2, L3, L4]) 
+   # Part.show(sq ) 
    
-   W = Part.Wire(S1.Edges)
-   P = W.extrude(Vector(0,0,10)) 
-   # Part.show(P) 
+   f = Part.makeFilledFace(sq.Edges)
+   # Part.show(f) 
+   box2 = f.extrude(Vector(0,0,10)) 
+   # Part.show(box2) 
    
-   testEqual(P, W.extrude(Vector(0,0,10)))
-   testNotEqual(P, W.extrude(Vector(0,0,20))) 
+   print(areEqual(box1, box2))
+   testEqual(box1, box2,)
+
+.. testoutput::
+
+   True

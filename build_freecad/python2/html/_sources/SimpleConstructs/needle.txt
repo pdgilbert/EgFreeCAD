@@ -32,15 +32,10 @@ a = a.fuse([b, c])
 
 # Part.show(a)
 
-O = Vector(0, 0, 0)
-X = Vector(1, 0, 0)
-Y = Vector(0, 1, 0)
-Z = Vector(0, 0, 1)
-
 # hole for thread
 
 # center origin, X , Y radii, default orientation  normal to z-axis
-e = Part.Ellipse(O, 5, 0.4).toShape() 
+e = Part.Ellipse(o, 5, 0.4).toShape() 
 e.translate(Vector(6, 0, -1))
 d = Part.Face(Part.Wire(e)).extrude(Vector(0, 0, 5))
 #Part.show(d) 
@@ -66,7 +61,7 @@ h = a.cut(d)
 # or I have to make other adjustments I have not yet figured out.
 
 # e = Part.Ellipse(Vector(0, 0, 0), 6, 0.3).toShape() 
-# e.rotate(O,  X,  90)  # ceter at origin, about x-axis
+# e.rotate(o,  x,  90)  # ceter at origin, about x-axis
 # e.translate(Vector(6, -2, -1))
 # d = Part.Face(Part.Wire(e)).extrude(Vector(0, 5, 0))
 # #Part.show(d) 

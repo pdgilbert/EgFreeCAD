@@ -1,5 +1,35 @@
+CAN A CIRLCE BE MADE WITH BSpline?
+
+z = [ Vector(0, 0, 0) , Vector(0, .25, .5),  Vector(0, .5, 1.0), Vector(0, .25, 1.5)]
+z = [ Vector(0, 0, -10) , Vector(0, 10, 0),  Vector(0, 0, 10)]
+c=Part.BSplineCurve()
+c.interpolate(z, InitialTangent=y, FinalTangent= -y, PeriodicFlag=True)       
+c.interpolate(z, InitialTangent=y, FinalTangent= -y,  PeriodicFlag=True)       
+Part.show(c.toShape()) 
+
+cS = Part.makeRevolution(c, c.FirstParameter, c.LastParameter, 360, 
+        Vector(0,0,0), Vector(0,0,1), Part.Solid) 
+eC = c.toShape()
+cS = Part.makeRevolution(eC, eC.FirstParameter, eC.LastParameter, 360, 
+        Vector(0,0,0), Vector(0,0,1))  
+
 
 CLEAN UP BELOW
+
+   C1 = Part.Arc( Vector(0,10,0), Vector(-10,0,0), Vector(0,-10,0))
+   C2 = Part.Arc(Vector(30,10,0), Vector(40,0,0),  Vector(30,-10,0))
+   L1 = Part.LineSegment(Vector(0,10,0), Vector(30,10,0))
+   L2 = Part.LineSegment(Vector(30,-10,0), Vector(0,-10,0)) 
+   S1 = Part.Shape([C1,L1,C2,L2]) 
+   
+   W = Part.Wire(S1.Edges)
+   P = W.extrude(Vector(0,0,10)) 
+   # Part.show(P) 
+   
+   testEqual(P, W.extrude(Vector(0,0,10)))
+   testNotEqual(P, W.extrude(Vector(0,0,20))) 
+
+
 
    wire3.Length
    > 40.0
@@ -150,7 +180,7 @@ CLEAN UP BELOW
    Part.show(bottle)
    
    bottle2 = bottle.copy
-   bottle2.rotate(O, Z, 90)
+   bottle2.rotate(o, z, 90)
    
    import Part, FreeCAD, math
    from FreeCAD import Base

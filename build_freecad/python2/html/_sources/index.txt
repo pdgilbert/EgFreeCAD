@@ -17,6 +17,9 @@ FreeCAD Scripting Examples
 
 Built |date| with |FC| and Python |PYv| (See Environment Details)
 
+Recent versions of this document are at
+https://pdgilbert.github.io/EgFreeCAD/ 
+
 Table of Contents
 -----------------
 
@@ -28,6 +31,7 @@ Table of Contents
    SimpleConstructs/index
    Projects/index
    Misc
+   Puzzles
    Appendix
 
 .. index:: Indices and tables

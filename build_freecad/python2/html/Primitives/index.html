@@ -56,10 +56,11 @@
 <div class="section" id="box">
 <span id="index-1"></span><h2>Box<a class="headerlink" href="#box" title="Permalink to this headline">¶</a></h2>
 <p>The function <a class="reference internal" href="../Appendix.html#areEqual" title="areEqual"><code class="xref py py-func docutils literal"><span class="pre">areEqual()</span></code></a> compares two shapes and returns <code class="xref py py-const docutils literal"><span class="pre">True</span></code> if
-they are equal and <code class="xref py py-const docutils literal"><span class="pre">False</span></code> otherwise. Here it is used to compare boxes one with x, y, z
+they are equal and <code class="xref py py-const docutils literal"><span class="pre">False</span></code> otherwise. Here it is used to compare solid boxes, one with x, y, z
 dimensions 1x100x10 and the other 1x100x9. These boxes are created in the default position, with one corner at the origin and dimensions extending in the positive direction.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">)))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">box1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">)))</span>
 </pre></div>
 </div>
 <div class="highlight-none"><div class="highlight"><pre>True
@@ -70,9 +71,9 @@ False
 the first is a subset of the second, and <code class="xref py py-const docutils literal"><span class="pre">False</span></code> otherwise. Equal is
 considered to be a subset, that is, the subset need not be a strict subset, so the
 result is <code class="xref py py-const docutils literal"><span class="pre">True</span></code> if the objects are equal.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span>  <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">)))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">box1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>  <span class="n">box1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">)))</span>
 </pre></div>
 </div>
 <div class="highlight-none"><div class="highlight"><pre>True
@@ -81,13 +82,13 @@ False
 </pre></div>
 </div>
 <p>These  have no output</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">testEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">testNotEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">testEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>and these  raise exceptions</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">testNotEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">testNotEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-none"><div class="highlight"><pre>Traceback (most recent call last):
@@ -98,85 +99,618 @@ Traceback (most recent call last):
 Exception: Objects are not equal
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">C1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">C2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>  <span class="n">Vector</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">L1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">L2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">S1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Shape</span><span class="p">([</span><span class="n">C1</span><span class="p">,</span><span class="n">L1</span><span class="p">,</span><span class="n">C2</span><span class="p">,</span><span class="n">L2</span><span class="p">])</span>
+<p>A solid box can also be constructed by extruding a square made from line
+segments starting at the origin:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">L1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">L2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">L3</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">L4</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">o</span><span class="p">)</span>
+<span class="n">sq</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Shape</span><span class="p">([</span><span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">L3</span><span class="p">,</span> <span class="n">L4</span><span class="p">])</span>
+<span class="c1"># Part.show(sq )</span>
 
-<span class="n">W</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">S1</span><span class="o">.</span><span class="n">Edges</span><span class="p">)</span>
-<span class="n">P</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="c1"># Part.show(P)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeFilledFace</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">Edges</span><span class="p">)</span>
+<span class="c1"># Part.show(f)</span>
+<span class="n">box2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="c1"># Part.show(box2)</span>
 
-<span class="n">testEqual</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">W</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
-<span class="n">testNotEqual</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">W</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">box2</span><span class="p">))</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">box2</span><span class="p">,)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>True
+</pre></div>
+</div>
+</div>
+<div class="section" id="circle">
+<span id="index-2"></span><h2>Circle<a class="headerlink" href="#circle" title="Permalink to this headline">¶</a></h2>
+<p>The default <code class="xref py py-func docutils literal"><span class="pre">Part.makeCircle(r)()</span></code> produces a circular line on the
+XY plane with radius r. (A one dimensional object embedded in a two
+dimensional plane in three dimensional space).
+The function <code class="xref py py-func docutils literal"><span class="pre">Part.Circle(r)()</span></code> does essentially the same thing but takes
+arguments for the center, normal and radius, and has to be converted to a
+shape object.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCircle</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1">#Part.show(c)</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCircle</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>A circle has attributes that can be checked as follows.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">Curve</span><span class="o">.</span><span class="n">Radius</span> <span class="o">==</span> <span class="mf">5.0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">Curve</span><span class="o">.</span><span class="n">Center</span> <span class="o">==</span> <span class="n">o</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">Curve</span><span class="o">.</span><span class="n">Axis</span>   <span class="o">==</span> <span class="n">z</span> <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>True
+True
+True
+</pre></div>
+</div>
+<p>Within its plane, a circle is symmetic around its center, so this circle can be
+rotated any number of degrees around the Z-axis and produces an equal object</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">33</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>but translation produces an object that is not equal.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This circle is centered at the origin and is on the plane
+normal to z axis. A circle has one edge and no faces, properties that can
+be checked.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">C</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCircle</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">Edges</span><span class="p">)</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">Faces</span><span class="p">)</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">Solids</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>1
+0
+0
+</pre></div>
+</div>
+<p>When constructing a face (two dimensional object) from a circle (one
+dimensional object) it is usually important that the circle is not a partial
+circle, that is, it forms a complete closed loop. This is also a property
+that can be checked.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span> <span class="n">C</span><span class="o">.</span><span class="n">isClosed</span><span class="p">()</span> <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>True
+</pre></div>
+</div>
+<p>A face can be constructed by filling in the circle. For some reason this
+needs to be converted to a wire first.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">C2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Face</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">C2</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">C2</span><span class="o">.</span><span class="n">Faces</span><span class="p">)</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">C2</span><span class="o">.</span><span class="n">Solids</span><span class="p">)</span> <span class="p">)</span>
+<span class="c1">#Part.show(C2)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>Face
+1
+0
 </pre></div>
 </div>
 </div>
 <div class="section" id="sphere">
-<span id="index-2"></span><h2>Sphere<a class="headerlink" href="#sphere" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">S</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCircle</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">S2</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S2</span><span class="p">)</span>
-<span class="n">testNotEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCircle</span><span class="p">(</span><span class="mf">5.5</span><span class="p">))</span>
+<span id="index-3"></span><h2>Sphere<a class="headerlink" href="#sphere" title="Permalink to this headline">¶</a></h2>
+<p>FreeCAD <code class="xref py py-func docutils literal"><span class="pre">Part.Sphere()</span></code> produces a two dimensional surface (face) embedded
+in three dimensional space. (The mathematical topology of the object is S&lt;sup&gt;2&lt;/sup&gt;).
+The fact that this sphere is hollow can be seen by displaying with a piece cut out.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Sphere</span><span class="p">()</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span>
+<span class="c1">#Part.show(s2)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">S</span><span class="o">.</span><span class="n">Curve</span><span class="o">.</span><span class="n">Radius</span> <span class="o">!=</span> <span class="mf">5.0</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Circle radius should be 5.0.&quot;</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">S</span><span class="o">.</span><span class="n">Curve</span><span class="o">.</span><span class="n">Center</span> <span class="o">!=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Circle Center should be origin.&quot;</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">S</span><span class="o">.</span><span class="n">Curve</span><span class="o">.</span><span class="n">Axis</span>   <span class="o">!=</span> <span class="n">Z</span>   <span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Circle axis should be Z axis.&quot;</span><span class="p">)</span>
-
-<span class="c1"># circle is symmetic</span>
+<span class="c1"># Part.show(s2.cut(Part.makeBox(10,10,10)))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">S2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S2</span><span class="p">)</span>
-<span class="n">S2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S2</span><span class="p">)</span>
+<div class="highlight-none"><div class="highlight"><pre>Face
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">S2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">testNotEqual</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S2</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span>  <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">s2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+<p>Below concentrates on solid objects, notice the difference between
+<code class="xref py py-func docutils literal"><span class="pre">Part.Sphere()</span></code> which is hollow and <code class="xref py py-func docutils literal"><span class="pre">Part.makeSphere()</span></code>
+which is solid.
+Solid objects will be more interesting for things like 3D printing.</p>
+<p>The default <code class="xref py py-func docutils literal"><span class="pre">Part.makeSphere(r)()</span></code> produces a solid sphere centered
+at the origin with radius r. This is a three dimensional object.
+A sphere can be rotated in any direction about its
+center and produce an equal object, but translation gives an object that is
+not equal.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1">#Part.show(s.cut(Part.makeBox(10,10,10)))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span>
 
-<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">sr</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">sr</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sr</span><span class="p">)</span>
+
+<span class="n">sr</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sr</span><span class="p">)</span>
+
 <span class="n">testNotEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A sphere can be constructed by revolving a circle</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">C</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCircle</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># at origin, normal to z axis, one edge, no faces</span>
-
-<span class="k">if</span> <span class="ow">not</span> <span class="n">C</span><span class="o">.</span><span class="n">isClosed</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Object C is not a closed loop&quot;</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="mi">1</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">Edges</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Circle should have 1 edge.&quot;</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="mi">0</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">Faces</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Circle should have no faces.&quot;</span><span class="p">)</span>
-
-<span class="n">C2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Face</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
-<span class="k">if</span> <span class="mi">1</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">C2</span><span class="o">.</span><span class="n">Faces</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Circle with interior should have 1 face.&quot;</span><span class="p">)</span>
-
-<span class="n">C2x</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">(</span><span class="n">C2</span><span class="o">.</span><span class="n">Faces</span><span class="p">)</span>
+<div class="highlight-none"><div class="highlight"><pre>Solid
 </pre></div>
 </div>
-<p>See <a class="reference external" href="https://www.freecadweb.org/wiki/Part_Revolve">https://www.freecadweb.org/wiki/Part_Revolve</a>
-revolve a face should give a solid</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">S2</span> <span class="o">=</span> <span class="n">C2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="mi">360</span><span class="p">)</span>
-<span class="c1">#Part.show(S2)</span>
-<span class="n">S2</span> <span class="o">=</span> <span class="n">C2x</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
-<span class="c1">#Part.show(S2)</span>
-<span class="c1">#  THIS IS NOT SHOWING PROPERLY</span>
-<span class="n">S2</span> <span class="o">=</span> <span class="n">C2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
-<span class="n">S2</span> <span class="o">=</span> <span class="n">C2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<p>A sphere object has edges, faces and solids.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">Edges</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">Faces</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>3
+1
+1
+</pre></div>
+</div>
+<p>A sphere can also be constructed by revolving a circle.
+A full circle revolved 360 degrees covers the sphere twice over, which causes
+anomolies according to the help for .revolve().  Revolve 180 degrees is better.</p>
+<p>(There is an anomaly here. makeSphere gives ShapeType Solid&#8217; whereas Circle
+gives ShapeType &#8216;Face&#8217;, but cutting leaves an empty object. See Puzzles.)</p>
+<p>REVOLVE A FULL CIRCLE SEEMS BROKEN. THIS DOES NOT WORK.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c10</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Part.show(c10.toShape())</span>
+<span class="c1"># Part.show(Part.makeCircle(10))</span>
+
+<span class="n">c10</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span>  <span class="c1"># False</span>
+<span class="n">c10</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span>  <span class="c1"># False</span>
+<span class="n">c10</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span>  <span class="c1"># True but flat (z is norm)</span>
+<span class="c1"># Part.show(c10.toShape().revolve(o, z, 180))</span>
+</pre></div>
+</div>
+<p>A solid sphere can also be constructed by revolving a half circle line and
+filling it in to make a solid. According to the help for revolve() this is
+better than revolving a full circle. (This is an algorithmic
+improvement, not a theoretical difference.). <code class="xref py py-func docutils literal"><span class="pre">LastParameter()</span></code>
+for a circle is 2 * pi radians, so <code class="xref py py-func docutils literal"><span class="pre">h10()</span></code> in
+the next is a half circle on the X-Y plane.
+Revolving around the Z-axis results in a flat full circle, filled in to make an
+object of ShapeType &#8216;Face&#8217;.
+Revolving around the X-axis produces an object that is not valid. I think this is
+because of the problem mentioned in the help for revolve, the meshing algorithm
+does not like to rotate around a point where there is no vertex.
+The Y-axis goes through both vertexes and revolving around it works well.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c10</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">h10</span> <span class="o">=</span> <span class="n">c10</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="n">c10</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">c10</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">h10</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>
+<span class="c1"># Part.show(h10)   # unfilled half circle on X-Y plane</span>
+
+<span class="k">print</span><span class="p">(</span> <span class="n">h10</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span>     <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">h10</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span>     <span class="c1"># False</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">h10</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span>     <span class="c1"># True</span>
+
+<span class="n">sf10</span> <span class="o">=</span> <span class="n">h10</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">sf10</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>
+<span class="c1"># Part.show(sf10)</span>
+
+<span class="n">s10</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSolid</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">([</span><span class="n">sf10</span><span class="p">]))</span>
+<span class="c1"># Part.show(s10)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">s10</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">s10</span><span class="o">.</span><span class="n">Solids</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span> <span class="n">s10</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span> <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">s</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">s10</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span> <span class="c1"># True</span>
+
+<span class="c1">#testEqual(s, s10) # this test seems a bit fragile</span>
+
+<span class="c1"># Part.show(s.cut(Part.makeBox(10,10,10)))</span>
+<span class="c1"># Part.show(s10.cut(Part.makeBox(10,10,10)))</span>
+<span class="c1"># Part.show(s10.cut(s))</span>
+<span class="c1"># Part.show(s.cut(s10))</span>
+<span class="c1"># Part.show((s10.cut(s)).cut(Part.makeBox(10,10,10)))</span>
+<span class="c1"># Part.show((s.cut(s10)).cut(Part.makeBox(10,10,10)))</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>Edge
+True
+False
+True
+Face
+Solid
+1
+True
+True
+</pre></div>
+</div>
+<p>To support speculation about difficulty for the meshing algorithm, this example
+selects a different section of the circle and rotates successfully around
+the X-axis.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c10</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">c10</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c10</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span><span class="c1"># True</span>
+<span class="n">s10x</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSolid</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">([</span><span class="n">c10</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">c10</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">360</span><span class="p">)]))</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">s10x</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>
+<span class="c1"># Part.show(s10x)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s10x</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>True
+Solid
+</pre></div>
+</div>
+<p>And this example creates the circle on the Y-Z plane and
+selects a circle section that rotates successfully around the Z-axis.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c10z</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Circle</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">c10z</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c10z</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span><span class="c1"># True</span>
+
+<span class="n">s10z</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSolid</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">([</span>
+          <span class="n">c10z</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c10z</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>  <span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">s10z</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>
+<span class="c1"># Part.show(s10z)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s10z</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>True
+Solid
+</pre></div>
+</div>
+<p>While py:func:<cite>Part.makeSphere</cite> will generally be easier to use to make a sphere,
+or portions of it, an arc can be used to make different rotation profiles.
+The next example shows making a sphere using <code class="xref py py-func docutils literal"><span class="pre">Part.arc()</span></code>
+and <code class="xref py py-func docutils literal"><span class="pre">Part.makeRevolution()</span></code> so easy test comparisons are
+possible, but that will generally not be the most interesting rotation profile.</p>
+<p><code class="xref py py-func docutils literal"><span class="pre">Part.makeRevolution()</span></code> takes 7 arguments.
+(Prior to FreeCAD 0.19,  if the first argument was Part.Shape object then it was
+used to determine the ShapeType and only the 6 first arguments were supported.)</p>
+<p>Notice also that the angle, center,
+and axis arguments are in a different order from the <code class="xref py py-func docutils literal"><span class="pre">revolve()</span></code> method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">arc</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">z</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+<span class="c1">#Part.show(arc.toShape())</span>
+
+<span class="n">aS</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeRevolution</span><span class="p">(</span><span class="n">arc</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">FirstParameter</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">LastParameter</span><span class="p">,</span>
+              <span class="mi">360</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">Solid</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aS</span><span class="o">.</span><span class="n">isClosed</span><span class="p">()</span> <span class="p">)</span>  <span class="c1">#True</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aS</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span>   <span class="c1">#True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">aS</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>  <span class="c1">#Solid</span>
+<span class="c1">#Part.show(aS)</span>
+
+<span class="n">Part</span><span class="o">.</span><span class="n">makeRevolution</span><span class="p">(</span><span class="n">arc</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">FirstParameter</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">LastParameter</span><span class="p">,</span>
+              <span class="mi">360</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">Face</span><span class="p">)</span><span class="o">.</span><span class="n">ShapeType</span>  <span class="c1"># Face</span>
+
+<span class="c1">#Part.show(aS)</span>
+
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">aS</span><span class="p">)</span>
+
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeRevolution</span><span class="p">(</span><span class="n">arc</span><span class="o">.</span><span class="n">toShape</span><span class="p">(),</span>
+           <span class="n">arc</span><span class="o">.</span><span class="n">FirstParameter</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">LastParameter</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="c1"># This should work in 0.19</span>
+<span class="c1">#if (100* float(FreeCAD.Version()[0]) + float(FreeCAD.Version()[1]) &gt;= 19.0 ):</span>
+<span class="c1">#testEqual(s, Part.makeRevolution(arc.toShape(),</span>
+<span class="c1">#           arc.FirstParameter, arc.LastParameter, 360, o, z, Part.Solid) )</span>
+<span class="c1">#testEqual(s, Part.makeRevolution(arc.toShape(),</span>
+<span class="c1">#           arc.FirstParameter, arc.LastParameter, 360, o, z, Part.Solid) )</span>
+<span class="c1">#if (100* float(FreeCAD.Version()[0]) + float(FreeCAD.Version()[1]) &gt;= 19.0 ):</span>
+<span class="c1">#  aSe = Part.makeRevolution(arc.toShape(), arc.FirstParameter, arc.LastParameter,</span>
+<span class="c1">#              360, o, z, Part.Face).ShapeType  #Face</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>True
+True
+Solid
+</pre></div>
+</div>
+<p>It is important that the shape created by <code class="xref py py-func docutils literal"><span class="pre">Part.makeRevolution()</span></code> is closed
+or the result is not likely to be valid, and the problem is not immediately indicated
+unless you check. Subsequent use of the returned object is likely to be problematic
+but the source of the problem may not be obvious.</p>
+<p>Also beware that it not alway obvious how to convert a Face object created with
+the <code class="xref py py-obj docutils literal"><span class="pre">revolve</span></code> method into a solid. (At least, I have not yet figured
+out something that always works).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">arcS</span> <span class="o">=</span> <span class="n">arc</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">arcS</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>
+<span class="c1">#Part.makeSolid(Part.makeShell([arcS]))</span>
+<span class="c1">#Part.makeSolid(arcS)</span>
+<span class="c1">#Part.makeFilledFace(arcS.Edges)</span>
+
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">arcS</span> <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>Face
+</pre></div>
+</div>
+<p>CLEAN THIS UP
+py:func:<cite>Part.makeRevolution</cite> also works for making solid
+hemispheres. It is used next to illustrate mirror and fuse.</p>
+<p>py:func:<a href="#id1"><span class="problematic" id="id2">`</span></a>Part.makeSphere(radius, center, axis, fromLatitude, toLatitude, rotationAngle)
+where fromLatitude is angle to start of sweep, measured fom a normal to the axis,
+toLatitude is angle to end of sweep, measured from a normal to the axis,
+and rotationAngle is the circular sweep around the axis. Angles in degrees.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1">#Part.show(Part.makeSphere(10, o, y, 45, 90, 360))</span>
+<span class="c1">#Part.show(Part.makeSphere(10, o, y, 45, 60, 360))</span>
+<span class="c1">#Part.show(Part.makeSphere(10, o, y, 45, 60, 270))</span>
+
+<span class="n">hS</span>  <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<span class="n">hSm</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSphere</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="o">-</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">hS</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">hSm</span><span class="p">)</span>  <span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">hSm</span><span class="p">,</span> <span class="n">hS</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">hS</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">hS</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>  <span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">hS</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">hS</span><span class="p">)</span>  <span class="p">)</span>
+
+<span class="c1">#Part.show(hS)</span>
+<span class="c1">#Part.show(hSm)</span>
+<span class="c1">#Part.show(hS.fuse(hSm) )</span>
+
+<span class="n">arc</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">z</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+<span class="n">hSr</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeRevolution</span><span class="p">(</span><span class="n">arc</span><span class="p">,</span>
+           <span class="n">arc</span><span class="o">.</span><span class="n">FirstParameter</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">LastParameter</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">Solid</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span> <span class="n">hSr</span><span class="o">.</span><span class="n">isClosed</span><span class="p">()</span> <span class="p">)</span>  <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSr</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span>   <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSr</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>   <span class="c1"># Solid</span>
+<span class="c1">#Part.show(hSr)</span>
+
+<span class="n">testEqual</span><span class="p">(</span><span class="n">hS</span><span class="p">,</span> <span class="n">hSr</span> <span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">hS</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">hSr</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">hS</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">hSr</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">hSr</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">hS</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="c1">#Part.show(hS.mirror(o, y).fuse(hSr))</span>
+<span class="c1">#Part.show(hSr.mirror(o, y).fuse(hS))</span>
+
+<span class="n">hSrm</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeRevolution</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">z</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">z</span><span class="p">),</span>
+           <span class="n">arc</span><span class="o">.</span><span class="n">FirstParameter</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">LastParameter</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">Solid</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSrm</span><span class="o">.</span><span class="n">isClosed</span><span class="p">()</span> <span class="p">)</span>   <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSrm</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span>    <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSrm</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>    <span class="c1"># Solid</span>
+<span class="c1">#Part.show(hSrm)</span>
+<span class="c1">#Part.show(hSrm.fuse(hS))</span>
+<span class="n">hS2</span> <span class="o">=</span> <span class="n">hSm</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">hS</span><span class="p">)</span>
+<span class="c1">#Part.show(hS2)</span>
+
+<span class="n">hSm1</span> <span class="o">=</span> <span class="n">hS</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSm1</span><span class="o">.</span><span class="n">isClosed</span><span class="p">()</span> <span class="p">)</span>  <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSm1</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span>   <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSm1</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>   <span class="c1"># Solid</span>
+<span class="c1">#Part.show(hSm1)</span>
+<span class="c1">#Part.show(hS.fuse(hSm1) )</span>
+
+<span class="c1"># STILL TO FIX BELOW</span>
+<span class="c1"># this produces a flat disk, which</span>
+<span class="c1"># LOOKS TO ME LIKE A BUG OR LIMIT ON ANGLE, OR UNDOCUMENTED AND UNCHECKED FEATURE</span>
+<span class="n">hSm</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeRevolution</span><span class="p">(</span><span class="n">arc</span><span class="p">,</span>
+           <span class="n">arc</span><span class="o">.</span><span class="n">FirstParameter</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">LastParameter</span><span class="p">,</span> <span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">Solid</span><span class="p">)</span>
+<span class="c1">#Part.show(hSm)</span>
+
+<span class="c1"># NEXT SHOULD BE SAME AS ABOVE (reversing signs on 180 and z)</span>
+<span class="c1"># this works but has some anomolies across the flat face</span>
+<span class="n">hSm</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeRevolution</span><span class="p">(</span><span class="n">arc</span><span class="p">,</span>
+           <span class="n">arc</span><span class="o">.</span><span class="n">FirstParameter</span><span class="p">,</span> <span class="n">arc</span><span class="o">.</span><span class="n">LastParameter</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="o">-</span><span class="n">z</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">Solid</span><span class="p">)</span>
+
+<span class="c1">#Part.show(hSm)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSm</span><span class="o">.</span><span class="n">isClosed</span><span class="p">()</span> <span class="p">)</span>  <span class="c1">#True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">hSm</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span> <span class="p">)</span>   <span class="c1">#False  but  ???</span>
+
+
+<span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">(</span><span class="n">hSm</span><span class="o">.</span><span class="n">Faces</span><span class="p">)</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span>  <span class="c1">#False but ???</span>
+<span class="n">shellm</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">(</span><span class="n">hSm</span><span class="o">.</span><span class="n">Faces</span><span class="p">)</span>
+<span class="n">shellm</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span>
+<span class="c1">#Part.makeShell([hSm.Faces]).isValid()RuntimeError: check failed, shape may be empty</span>
+<span class="c1">#Part.show(shellm)</span>
+<span class="c1">#hSm = hS.mirror(o, x)</span>
+<span class="n">HS</span> <span class="o">=</span> <span class="n">hS</span><span class="o">.</span><span class="n">fuse</span><span class="p">([</span><span class="n">hSm</span><span class="p">])</span>   <span class="c1"># FAILS USING GUI UNION TOO</span>
+<span class="c1">#testEqual(s, HS.cleaned(), debug = True)</span>
+<span class="c1">#Part.show(HS)</span>
+<span class="c1"># this misses a quarter HS = hS.fuse(hS.mirror(o, x))</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>True
+True
+Solid
+True
+True
+Solid
+True
+True
+Solid
+True
+False
+</pre></div>
+</div>
+</div>
+<div class="section" id="ellipse">
+<span id="index-4"></span><h2>Ellipse<a class="headerlink" href="#ellipse" title="Permalink to this headline">¶</a></h2>
+<p><code class="xref py py-func docutils literal"><span class="pre">Part.Sphere()</span></code> produces a face and <code class="xref py py-func docutils literal"><span class="pre">Part.makeSphere()</span></code> produces
+a solid, but there is
+not yet a <code class="xref py py-func docutils literal"><span class="pre">Part.makeEllipsoid()</span></code> to make a solid.</p>
+<p>An ellipsoid can be produced by revolving an ellipse. When the ellipse is not
+filled in (has no faces) then the revolution will be hollow.</p>
+<p>The following shows different ways to use an ellipse to make a solid ellipsoid
+with the general shape of a rugby ball. (It could be made to look like a flying saucer but that will be left to the reader.)</p>
+<p><code class="xref py py-func docutils literal"><span class="pre">Part.Ellipse().toShape()</span></code> makes a shape that is an edge with no faces.
+The ellipsoid  made by revolving this has faces but is not solid (a hollow
+ellipsoid).</p>
+<p>1/ revolve full ellipse on x axis
+2/ 1/2 ellipse revolved around vertices on long axis
+3/ a different 1/2 ellipse revolved around long axis , mirror and join
+4/ 1/4 ellipse revolved to give 1/2 ellipsoid, mirror and join</p>
+<p>Make an ellipse, on the plane of the origin and normal to  z-axis,
+with radii, 6.0 and 2.0.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span><span class="o">.</span><span class="n">Faces</span><span class="p">))</span>
+<span class="c1">#Part.show(e.toShape())</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>0
+</pre></div>
+</div>
+<p>0/ revolve half ellipse on x axis using Part.makeRevolution</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">eh</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1">#Part.show(eh)</span>
+<span class="c1">#TEST ON Z AXIS</span>
+<span class="c1">#ecS = Part.makeRevolution(eh, 0, eh.LastParameter, 360, o, x)</span>
+<span class="c1">#ecS = Part.makeRevolution(eh, eh.LastParameter, 0, 360, o, x)</span>
+<span class="c1">#Part.OCCDomainError: creation of revolved shape failed    BUG ???</span>
+</pre></div>
+</div>
+<p>1/ revolve full ellipse on x axis</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1">#ed = Part.makeRevolution(e.toShape(), 0, e.LastParameter, 180, o, x)</span>
+
+<span class="n">ed</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span> <span class="c1">#saucer THIS SHOULD USE x BUT THAT FAILS</span>
+<span class="c1">#Part.show(ed)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span> <span class="c1">#  hollow</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">Faces</span><span class="p">))</span>
+
+<span class="c1">#ed1 = e.toShape().revolve(o, x, 180) # should be rugby ball but</span>
+<span class="c1">#Part.show(ed1)            # does not show</span>
+
+<span class="c1">#ed1.PrincipalProperties</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>Face
+0
+1
+</pre></div>
+</div>
+<p>2/ An algorithmically better way to make an ellipsoid, according to the revolve documentation, is to cut the ellipse so there are vertices. LastParameter is 2 pi radians so this cuts the sweep to the half circle from 0 to  pi:</p>
+<p>there is something weird in sphinx happening with testoutput here.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1">#Part.show(h)</span>
+<span class="n">hd</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span> <span class="c1">#rugby ball, hollow</span>
+<span class="n">ed2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSolid</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">([</span><span class="n">hd</span><span class="p">]))</span>
+<span class="c1">#Part.show(ed2)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span>     <span class="c1">#Edge</span>
+<span class="k">print</span><span class="p">(</span><span class="n">hd</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span>    <span class="c1">#Face</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ed2</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span>   <span class="c1">#Solid</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ed2</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span> <span class="c1">#1</span>
+<span class="k">print</span><span class="p">(</span><span class="n">hd</span><span class="o">.</span><span class="n">isClosed</span><span class="p">())</span>   <span class="c1">#False   ???</span>
+<span class="k">print</span><span class="p">(</span><span class="n">hd</span><span class="o">.</span><span class="n">isValid</span><span class="p">())</span>    <span class="c1">#True</span>
+
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ed2</span><span class="o">.</span><span class="n">Faces</span><span class="p">))</span>  <span class="c1">#1</span>
+<span class="c1">#DO TESTEQUAL</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>Edge
+Face
+Solid
+1
+False
+True
+1
+</pre></div>
+</div>
+<p>3/ a different 1/2 ellipse revolved around long axis, mirror and join</p>
+<blockquote>
+<div>NOT YET WORKING</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">h2</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1">#Part.show(h2)</span>
+
+<span class="n">hd</span> <span class="o">=</span> <span class="n">h2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span> <span class="c1">#half rugby hollow, double cover</span>
+<span class="c1">#Part.show(hd)</span>
+
+<span class="n">hd</span> <span class="o">=</span> <span class="n">h2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span> <span class="c1">#half rugby hollow</span>
+<span class="c1">#Part.show(hd)</span>
+<span class="n">hdm</span> <span class="o">=</span> <span class="n">hd</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="c1">#Part.show(hdm)</span>
+
+<span class="c1">#check = Part.makeShell([hdm])</span>
+<span class="c1">#Part.show(check)</span>
+<span class="c1">#sh3 = Part.makeShell([hd, hdm]) #SUPPOSED TO MAKE SHELL FROM LIST OF FACES BUT LOSES hdm</span>
+
+<span class="c1">#Part.show(sh3)</span>
+
+<span class="c1">#ed3 = Part.makeSolid(sh3)</span>
+<span class="c1">#Part.show(ed3)  # ONLY HALF</span>
+
+<span class="c1">#filled= Part.makeFilledFace(hd.toShape().Edges)</span>
+
+<span class="c1">#rugby = hd.fuse(hdm)  # No. Fuse wants solids (warning only in gui)</span>
+<span class="c1">#Part.show(rugby)</span>
+</pre></div>
+</div>
+<p>4/ 1/4 ellipse revolved to give 1/2 ellipsoid, mirror and join</p>
+<p>NOT YET</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span>
+<span class="c1">#Part.show(e)</span>
+<span class="n">ed</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span> <span class="c1">#saucer</span>
+<span class="c1">#Part.show(ed)</span>
+<span class="c1">#ed1 = Part.makeShell(ed) #Error creating objec</span>
+<span class="c1">#ed2 = Part.makeSolid(ed) # Creation of solid failed: No shells</span>
+<span class="c1">#Part.show(ed2)</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">Solids</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>0
+</pre></div>
+</div>
+<p>construct 2nd half rather than mirror</p>
+<p>NOT YET</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span>
+<span class="c1">#Part.show(e)</span>
+<span class="n">ed</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span> <span class="c1">#saucer</span>
+<span class="c1">#ed = e.revolve(o, x, 180) # why not rugby ball</span>
+<span class="c1">#Part.show(ed)</span>
+
+<span class="n">e2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span>
+<span class="n">e2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span>  <span class="n">z</span><span class="p">,</span>  <span class="mi">90</span><span class="p">)</span>
+<span class="c1">#Part.show(e2)</span>
+<span class="n">ed2</span> <span class="o">=</span> <span class="n">e2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span> <span class="c1"># why not</span>
+<span class="n">ed2</span> <span class="o">=</span> <span class="n">e2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span> <span class="c1"># why saucer</span>
+<span class="c1">#Part.show(ed2)</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
+<span class="n">e</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span>  <span class="n">x</span><span class="p">,</span>  <span class="mi">90</span><span class="p">)</span>
+<span class="n">e2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">e2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>  <span class="n">x</span><span class="p">,</span>  <span class="mi">90</span><span class="p">)</span>
+<span class="n">e2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>  <span class="n">z</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">e2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+<span class="c1">#testEqual(e, e2)</span>
+
+<span class="n">wi</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">wi</span><span class="o">.</span><span class="n">isClosed</span><span class="p">())</span>  <span class="c1">#True</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Face</span><span class="p">(</span><span class="n">wi</span><span class="p">)</span>
+<span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="c1">#Part.show(dd)</span>
+
+<span class="c1">#b = Part.makeCylinder(8, 20, o, x, 90)</span>
+<span class="c1">#b = b.cut(dd)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>True
+</pre></div>
+</div>
+<p>This would not need to be rotated, but s2 does not work the way I think
+# e2 = Part.Ellipse(Vector(0.0, 0.0, 6),Vector(0.0, 2, 8), Vector(0.0, 0.0, 8)).toShape()
+#Part.show(e2)</p>
+<p>An ellipsoid with equal radii is a circle a sphere made this way can be compared
+with a sphere  made with <code class="xref py py-func docutils literal"><span class="pre">makeSphere()</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">eC</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+<span class="n">edC</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSolid</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">([</span>
+          <span class="n">eC</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">eC</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>  <span class="p">]))</span>
+
+<span class="c1"># Part.show(edC)</span>
+<span class="n">testEqual</span><span class="p">(</span> <span class="n">edC</span><span class="p">,</span><span class="n">Part</span><span class="o">.</span> <span class="n">makeSphere</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Try above using makeRevolution.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">eC</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+<span class="n">ech</span> <span class="o">=</span> <span class="n">eC</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">eC</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1">#ecS = Part.makeRevolution(ech.Curve)</span>
+<span class="c1">#ecS = Part.makeRevolution(ech)</span>
+<span class="c1">#ecS = Part.makeRevolution(ech, ech.FirstParameter, ech.LastParameter, 360, o, x, Part.Solid)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="cone">
-<span id="index-3"></span><h2>Cone<a class="headerlink" href="#cone" title="Permalink to this headline">¶</a></h2>
+<span id="index-5"></span><h2>Cone<a class="headerlink" href="#cone" title="Permalink to this headline">¶</a></h2>
 <p>Make a cone with base radius 5, top radius 10, and height 15</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">cone</span>  <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCone</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
 <span class="c1">#Part.show(cone)</span>
@@ -186,12 +720,12 @@ revolve a face should give a solid</p>
 </pre></div>
 </div>
 <p>The cone is symmetic under Z axis rotation</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cone2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cone2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">cone</span><span class="p">,</span> <span class="n">cone2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>but not symmetic under X axis rotation</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cone2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cone2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">testNotEqual</span><span class="p">(</span><span class="n">cone</span><span class="p">,</span> <span class="n">cone2</span><span class="p">)</span>
 
 <span class="n">cone2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
@@ -200,34 +734,34 @@ revolve a face should give a solid</p>
 </div>
 <p>Translation and rotation can be undone, but if not undone in the reverse order
 then the axis for the rotation needs to be modified to the center of the cone.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cone2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">X</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cone2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">cone2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">))</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">cone</span><span class="p">,</span> <span class="n">cone2</span><span class="p">)</span>
 
-<span class="n">c</span>  <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCylinder</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<span class="n">c</span>  <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCylinder</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
 <span class="n">c2</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 
-<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 
-<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">180</span><span class="p">)</span>
+<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">180</span><span class="p">)</span>
 <span class="n">c2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 
 <span class="n">c2</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 
-<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 
-<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">c2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">90</span><span class="p">)</span>
 <span class="n">testNotEqual</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="polygon">
-<span id="index-4"></span><h2>Polygon<a class="headerlink" href="#polygon" title="Permalink to this headline">¶</a></h2>
+<span id="index-6"></span><h2>Polygon<a class="headerlink" href="#polygon" title="Permalink to this headline">¶</a></h2>
 <p>Make a line betweeen two points</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">line</span>  <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeLine</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">line2</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -238,28 +772,28 @@ then the axis for the rotation needs to be modified to the center of the cone.</
 <div class="highlight-python"><div class="highlight"><pre><span class="n">plane</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makePlane</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 
 <span class="c1"># there seems to be a bug here?</span>
-<span class="c1">#plane2 = plane.rotate(O, Z, 20)</span>
+<span class="c1">#plane2 = plane.rotate(o, z, 20)</span>
 <span class="c1">#Part.show(plane2)</span>
 
 <span class="n">plane2</span> <span class="o">=</span> <span class="n">plane</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">plane</span><span class="p">,</span> <span class="n">plane2</span><span class="p">)</span>
 
-<span class="n">plane2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">plane2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">testNotEqual</span><span class="p">(</span><span class="n">plane</span><span class="p">,</span> <span class="n">plane2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Make a polygon of a list of points</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">poly</span>  <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makePolygon</span><span class="p">([</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">poly</span>  <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makePolygon</span><span class="p">([</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">])</span>
 <span class="n">poly2</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">poly2</span><span class="p">)</span>
 
-<span class="n">poly2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">poly2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">testNotEqual</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">poly2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="torus">
-<span id="index-5"></span><h2>Torus<a class="headerlink" href="#torus" title="Permalink to this headline">¶</a></h2>
+<span id="index-7"></span><h2>Torus<a class="headerlink" href="#torus" title="Permalink to this headline">¶</a></h2>
 <p>Make a torus SxS with first radius 20 in the X-Y plane and second radius 5</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">torus</span> <span class="o">=</span>  <span class="n">Part</span><span class="o">.</span><span class="n">makeTorus</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="c1">#Part.show(torus)</span>
@@ -269,56 +803,28 @@ then the axis for the rotation needs to be modified to the center of the cone.</
 <span class="c1">#Part.show(torus2)</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">torus</span><span class="p">,</span> <span class="n">torus2</span> <span class="p">)</span>
 
-<span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">torus</span><span class="p">,</span> <span class="n">torus2</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>Flipping will be equal</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
 <span class="n">testEqual</span><span class="p">(</span><span class="n">torus</span><span class="p">,</span> <span class="n">torus2</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>but half flip is not</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
 <span class="n">testNotEqual</span><span class="p">(</span><span class="n">torus</span><span class="p">,</span> <span class="n">torus2</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>pnt is the center of torus and dir is the normal direction.
-The default is O, Z. Starting with default and rotating 90 around x-axis
+The default is o, z. Starting with default and rotating 90 around x-axis
 is the same as indicating y-axis as the initial normal direction.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">torus2</span> <span class="o">=</span> <span class="n">torus</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">torus2</span><span class="p">,</span>  <span class="n">Part</span><span class="o">.</span><span class="n">makeTorus</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">O</span><span class="p">,</span> <span class="n">Y</span><span class="p">))</span>
+<span class="n">torus2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">torus2</span><span class="p">,</span>  <span class="n">Part</span><span class="o">.</span><span class="n">makeTorus</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>Make an ellipse using origin O and  two radii, 6.0 and 2.0</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">e</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span> <span class="c1"># normal to  z-axis, longer in X direction</span>
-<span class="n">e</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span>  <span class="n">X</span><span class="p">,</span>  <span class="mi">90</span><span class="p">)</span>  <span class="c1"># normal to y-axis,  longer in X direction</span>
-<span class="n">e</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">O</span><span class="p">,</span>  <span class="n">Z</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">)</span>  <span class="c1"># normal to x-axis,  longer in Y direction</span>
-<span class="c1">#Part.show(e)</span>
-
-<span class="n">e2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span>
-<span class="n">testNotEqual</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
-<span class="n">e2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">e2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>  <span class="n">X</span><span class="p">,</span>  <span class="mi">90</span><span class="p">)</span>
-<span class="n">e2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>  <span class="n">Z</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">)</span>
-<span class="n">e2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">-</span><span class="n">X</span><span class="p">)</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
-
-<span class="n">wi</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">wi</span><span class="o">.</span><span class="n">isClosed</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Objects wi is not a closed loop&quot;</span><span class="p">)</span>
-
-<span class="n">d</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Face</span><span class="p">(</span><span class="n">wi</span><span class="p">)</span>
-<span class="n">dd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="c1">#Part.show(dd)</span>
-
-<span class="n">b</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeCylinder</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">O</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This would not need to be rotated, but s2 does not work the way I think
-# e2 = Part.Ellipse(Vector(0.0, 0.0, 6),Vector(0.0, 2, 8), Vector(0.0, 0.0, 8)).toShape()
-#Part.show(e2)</p>
 </div>
 </div>
 
@@ -332,7 +838,9 @@ is the same as indicating y-axis as the initial normal direction.</p>
   <ul>
 <li><a class="reference internal" href="#">Primitive Examples</a><ul>
 <li><a class="reference internal" href="#box">Box</a></li>
+<li><a class="reference internal" href="#circle">Circle</a></li>
 <li><a class="reference internal" href="#sphere">Sphere</a></li>
+<li><a class="reference internal" href="#ellipse">Ellipse</a></li>
 <li><a class="reference internal" href="#cone">Cone</a></li>
 <li><a class="reference internal" href="#polygon">Polygon</a></li>
 <li><a class="reference internal" href="#torus">Torus</a></li>
@@ -387,7 +895,7 @@ is the same as indicating y-axis as the initial normal direction.</p>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2018, 2019, Paul Gilbert.
-      Last updated on May 03, 2019.
+      Last updated on May 14, 2019.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
     </div>
   </body>

@@ -29,9 +29,9 @@ Outside 6,  wall 2, length 10, angle of sweep  360 (round tube)
 
    tb = tube( 6, 2, 10, 360)
    tb2 = tb.copy()
-   tb2.rotate(O, Z, 30)
+   tb2.rotate(o, z, 30)
    testEqual(tb,  tb2)   # symmetric normal to z-axis
-   tb2.rotate(O, X, 30)
+   tb2.rotate(o, x, 30)
    testNotEqual(tb,  tb2)  # not symmetric normal to x-axis
    
 TEST generate a tube by revolving a rectangle (vs cutting two cylindars above)
@@ -41,8 +41,10 @@ TEST generate a tube by revolving a rectangle (vs cutting two cylindars above)
 
    rect = Part.makePolygon([
         Vector(4,0,0), Vector(6,0,0),Vector(6,0,10),Vector(4,0,10), Vector(4,0,0)])
-   
-   tb3 = rect.revolve(O, Z, 360)
+
+   rectFace = Part.makeFilledFace(rect.Edges)
+
+   tb3 = rectFace.revolve(o, z, 360)
    # Part.show(tb3)
    testEqual(tb,  tb3)  
 
@@ -56,7 +58,7 @@ TEST generate a tube by revolving a rectangle (vs cutting two cylindars above)
 
 .. testcode::
 
-   line = Part.LineSegment(O, Vector(10,0,0))
+   line = Part.LineSegment(o, Vector(10,0,0))
    edge = line.toShape() 
    
    if edge.Length != 10.0 : print('bad')

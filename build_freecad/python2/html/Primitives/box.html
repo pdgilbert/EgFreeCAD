@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="EgFreeCAD 0.1 documentation" href="../index.html" />
     <link rel="up" title="Primitive Examples" href="index.html" />
-    <link rel="next" title="Sphere" href="sphere.html" />
+    <link rel="next" title="Circle" href="circle.html" />
     <link rel="prev" title="Primitive Examples" href="index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="sphere.html" title="Sphere"
+          <a href="circle.html" title="Circle"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Primitive Examples"
@@ -54,10 +54,11 @@
   <div class="section" id="box">
 <span id="index-0"></span><h1>Box<a class="headerlink" href="#box" title="Permalink to this headline">¶</a></h1>
 <p>The function <a class="reference internal" href="../Appendix.html#areEqual" title="areEqual"><code class="xref py py-func docutils literal"><span class="pre">areEqual()</span></code></a> compares two shapes and returns <code class="xref py py-const docutils literal"><span class="pre">True</span></code> if
-they are equal and <code class="xref py py-const docutils literal"><span class="pre">False</span></code> otherwise. Here it is used to compare boxes one with x, y, z
+they are equal and <code class="xref py py-const docutils literal"><span class="pre">False</span></code> otherwise. Here it is used to compare solid boxes, one with x, y, z
 dimensions 1x100x10 and the other 1x100x9. These boxes are created in the default position, with one corner at the origin and dimensions extending in the positive direction.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">)))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">box1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">)))</span>
 </pre></div>
 </div>
 <div class="highlight-none"><div class="highlight"><pre>True
@@ -68,9 +69,9 @@ False
 the first is a subset of the second, and <code class="xref py py-const docutils literal"><span class="pre">False</span></code> otherwise. Equal is
 considered to be a subset, that is, the subset need not be a strict subset, so the
 result is <code class="xref py py-const docutils literal"><span class="pre">True</span></code> if the objects are equal.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span>  <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
-<span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">)))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">box1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>  <span class="n">box1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">isSubset</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">)))</span>
 </pre></div>
 </div>
 <div class="highlight-none"><div class="highlight"><pre>True
@@ -79,13 +80,13 @@ False
 </pre></div>
 </div>
 <p>These  have no output</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">testEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">testNotEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">testEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">testNotEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>and these  raise exceptions</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">testNotEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">testEqual</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">testNotEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeBox</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-none"><div class="highlight"><pre>Traceback (most recent call last):
@@ -96,18 +97,25 @@ Traceback (most recent call last):
 Exception: Objects are not equal
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">C1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">C2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>  <span class="n">Vector</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">L1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">L2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">S1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Shape</span><span class="p">([</span><span class="n">C1</span><span class="p">,</span><span class="n">L1</span><span class="p">,</span><span class="n">C2</span><span class="p">,</span><span class="n">L2</span><span class="p">])</span>
+<p>A solid box can also be constructed by extruding a square made from line
+segments starting at the origin:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">L1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">L2</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">L3</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">L4</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">LineSegment</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">o</span><span class="p">)</span>
+<span class="n">sq</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Shape</span><span class="p">([</span><span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">L3</span><span class="p">,</span> <span class="n">L4</span><span class="p">])</span>
+<span class="c1"># Part.show(sq )</span>
 
-<span class="n">W</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Wire</span><span class="p">(</span><span class="n">S1</span><span class="o">.</span><span class="n">Edges</span><span class="p">)</span>
-<span class="n">P</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="c1"># Part.show(P)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeFilledFace</span><span class="p">(</span><span class="n">sq</span><span class="o">.</span><span class="n">Edges</span><span class="p">)</span>
+<span class="c1"># Part.show(f)</span>
+<span class="n">box2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="c1"># Part.show(box2)</span>
 
-<span class="n">testEqual</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">W</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
-<span class="n">testNotEqual</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">W</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">areEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">box2</span><span class="p">))</span>
+<span class="n">testEqual</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">box2</span><span class="p">,)</span>
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>True
 </pre></div>
 </div>
 </div>
@@ -122,8 +130,8 @@ Exception: Objects are not equal
   <p class="topless"><a href="index.html"
                         title="previous chapter">Primitive Examples</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="sphere.html"
-                        title="next chapter">Sphere</a></p>
+  <p class="topless"><a href="circle.html"
+                        title="next chapter">Circle</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -155,7 +163,7 @@ Exception: Objects are not equal
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="sphere.html" title="Sphere"
+          <a href="circle.html" title="Circle"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Primitive Examples"
@@ -166,7 +174,7 @@ Exception: Objects are not equal
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2018, 2019, Paul Gilbert.
-      Last updated on May 03, 2019.
+      Last updated on May 14, 2019.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
     </div>
   </body>
