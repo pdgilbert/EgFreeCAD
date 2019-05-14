@@ -75,7 +75,7 @@ The source files for sections of this document, available in the EgFreeCAD
 github repository,  use Sphinx :py:obj:`doctest` 
 and :py:obj:`testcode` with :py:obj:`testoutput` directives. 
 If there is any test output then it is displayed in a block below 
-the :py:obj:`testcode`. All tests use the setup code specified in Spinx
+the :py:obj:`testcode`. All tests use the setup code specified in Sphinx
 :py:obj:`conf.py` :py:obj:`doctest_global_setup` variable, which does
 
 .. testcode::
@@ -102,9 +102,9 @@ fits the contents to the screen.
 
 The command  :py:obj:`Part.show(something)` does two things. It opens a FreeCAD
 document (:py:obj:`App.ActiveDocument`) and it opens the GUI  window 
-and displays the object. There is a techincal sense in which *FreeCAD* is really
-the document and GUI. In that sense, the examples here are really about the 
-building blocks in the workbench rather than *FreeCAD* itself.
+and displays the object. There is a techincal sense in which *FreeCAD* is 
+the document and GUI. The examples here are really about the 
+building blocks in the workbench rather than the document and GUI.
 
 Additional illustration of the testing functions is provided in the examples.
 See especially *Primitives Examples / Box*.

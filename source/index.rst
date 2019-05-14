@@ -17,7 +17,7 @@ FreeCAD Scripting Examples
 
 Built |date| with |FC| and Python |PYv| (See Environment Details)
 
-Most recent version of this document are at
+Recent versions of this document are at
 https://pdgilbert.github.io/EgFreeCAD/ 
 
 Table of Contents

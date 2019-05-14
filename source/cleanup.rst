@@ -1,3 +1,17 @@
+CAN A CIRLCE BE MADE WITH BSpline?
+
+z = [ Vector(0, 0, 0) , Vector(0, .25, .5),  Vector(0, .5, 1.0), Vector(0, .25, 1.5)]
+z = [ Vector(0, 0, -10) , Vector(0, 10, 0),  Vector(0, 0, 10)]
+c=Part.BSplineCurve()
+c.interpolate(z, InitialTangent=y, FinalTangent= -y, PeriodicFlag=True)       
+c.interpolate(z, InitialTangent=y, FinalTangent= -y,  PeriodicFlag=True)       
+Part.show(c.toShape()) 
+
+cS = Part.makeRevolution(c, c.FirstParameter, c.LastParameter, 360, 
+        Vector(0,0,0), Vector(0,0,1), Part.Solid) 
+eC = c.toShape()
+cS = Part.makeRevolution(eC, eC.FirstParameter, eC.LastParameter, 360, 
+        Vector(0,0,0), Vector(0,0,1))  
 
 
 CLEAN UP BELOW

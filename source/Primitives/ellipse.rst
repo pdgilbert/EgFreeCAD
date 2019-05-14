@@ -8,7 +8,6 @@ Ellipse
 a solid, but there is 
 not yet a :py:func:`Part.makeEllipsoid` to make a solid.
 
-
 An ellipsoid can be produced by revolving an ellipse. When the ellipse is not
 filled in (has no faces) then the revolution will be hollow. 
 
@@ -27,20 +26,34 @@ ellipsoid).
 Make an ellipse, on the plane of the origin and normal to  z-axis, 
 with radii, 6.0 and 2.0.
 
-..testcode::
+.. testcode::
 
    e = Part.Ellipse(o, 6.0, 2.0)
    print(len(e.toShape().Faces))
    #Part.show(e.toShape())
 
-..testoutput::
+.. testoutput::
 
    0
 
+0/ revolve half ellipse on x axis using Part.makeRevolution
+
+.. testcode::
+
+   eh = e.toShape(0, e.LastParameter/2)
+   #Part.show(eh)
+   #TEST ON Z AXIS
+   #ecS = Part.makeRevolution(eh, 0, eh.LastParameter, 360, o, x)
+   #ecS = Part.makeRevolution(eh, eh.LastParameter, 0, 360, o, x)
+   #Part.OCCDomainError: creation of revolved shape failed    BUG ???
+
 1/ revolve full ellipse on x axis
-ASKING ON FORUM    NOT YET WORKING
-..testcode::
-   ed = e.toShape().revolve(o, y, 180) #saucer THIS SHOULD USE x
+
+.. testcode::
+
+   ed = Part.makeRevolution(e.toShape(), 0, e.LastParameter, 180, o, x)
+
+   ed = e.toShape().revolve(o, y, 180) #saucer THIS SHOULD USE x BUT THAT FAILS
    #Part.show(ed)
    print(ed.ShapeType) #  hollow
    print(len(ed.Solids))
@@ -51,7 +64,7 @@ ASKING ON FORUM    NOT YET WORKING
 
    #ed1.PrincipalProperties
 
-..testoutput::
+.. testoutput::
 
    Face
    0
@@ -63,28 +76,43 @@ ASKING ON FORUM    NOT YET WORKING
 there is something weird in sphinx happening with testoutput here.
 
 
-..testcode::
+.. testcode::
 
    e = Part.Ellipse(o, 6.0, 2.0)
    h = e.toShape(0, e.LastParameter/2) 
+   #Part.show(h)
    hd = h.revolve(o, x, 360) #rugby ball, hollow
    ed2 = Part.makeSolid(Part.makeShell([hd]))
    #Part.show(ed2)
 
-   #print(h.ShapeType)
-   #print(hd.ShapeType)
-   #print(ed2.ShapeType)
-   #print(len(ed2.Solids))
-   #print(len(ed2.Faces))
+   print(h.ShapeType)     #Edge
+   print(hd.ShapeType)    #Face
+   print(ed2.ShapeType)   #Solid
+   print(len(ed2.Solids)) #1
+   print(hd.isClosed())   #False   ???
+   print(hd.isValid())    #True
+
+   print(len(ed2.Faces))  #1
+   
+   #DO TESTEQUAL 
 
 
-Do TESTEQUAL WITH first
+.. testoutput::
+
+   Edge
+   Face
+   Solid
+   1
+   False
+   True
+   1
+
 
 3/ a different 1/2 ellipse revolved around long axis, mirror and join
 
-ASKING ON FORUM    NOT YET WORKING
+ NOT YET WORKING
 
-..testcode::
+.. testcode::
 
    h2 = e.toShape(e.LastParameter/4, 3*e.LastParameter/4)
    #Part.show(h2)
@@ -114,9 +142,9 @@ ASKING ON FORUM    NOT YET WORKING
 
 4/ 1/4 ellipse revolved to give 1/2 ellipsoid, mirror and join
 
-ASKING ON FORUM  NOT YET 
+NOT YET 
 
-..testcode::
+.. testcode::
 
    e = Part.Ellipse(o, 6.0, 2.0).toShape()
    #Part.show(e)
@@ -132,7 +160,7 @@ construct 2nd half rather than mirror
 
 NOT YET  
 
-..testcode::
+.. testcode::
 
    e = Part.Ellipse(o, 6.0, 2.0).toShape()
    #Part.show(e)
@@ -171,7 +199,7 @@ This would not need to be rotated, but s2 does not work the way I think
 An ellipsoid with equal radii is a circle a sphere made this way can be compared
 with a sphere  made with :py:func:`makeSphere`.
 
-..testcode::
+.. testcode::
 
    eC = Part.Ellipse(o, 5.0, 5.0)
    edC = Part.makeSolid(Part.makeShell([
@@ -179,3 +207,13 @@ with a sphere  made with :py:func:`makeSphere`.
    
    # Part.show(edC)
    testEqual( edC,Part. makeSphere(5) )
+
+Try above using makeRevolution.
+
+.. testcode::
+
+   eC = Part.Ellipse(o, 5.0, 5.0)
+   ech = eC.toShape(0, eC.LastParameter/2)
+   ecS = Part.makeRevolution(ech.Curve)
+   ecS = Part.makeRevolution(ech)
+   ecS = Part.makeRevolution(ech, ech.FirstParameter, ech.LastParameter, 360, o, x, Part.Solid)
