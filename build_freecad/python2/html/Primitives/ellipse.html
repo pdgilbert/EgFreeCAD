@@ -56,18 +56,14 @@
 <p><code class="xref py py-func docutils literal"><span class="pre">Part.Sphere()</span></code> produces a face and <code class="xref py py-func docutils literal"><span class="pre">Part.makeSphere()</span></code> produces
 a solid, but there is
 not yet a <code class="xref py py-func docutils literal"><span class="pre">Part.makeEllipsoid()</span></code> to make a solid.</p>
-<p>An ellipsoid can be produced by revolving an ellipse. When the ellipse is not
+<p>An ellipsoid can be produced by revolving an ellipse. If the ellipse is not
 filled in (has no faces) then the revolution will be hollow.</p>
 <p>The following shows different ways to use an ellipse to make a solid ellipsoid
 with the general shape of a rugby ball. (It could be made to look like a flying saucer but that will be left to the reader.)</p>
 <p><code class="xref py py-func docutils literal"><span class="pre">Part.Ellipse().toShape()</span></code> makes a shape that is an edge with no faces.
 The ellipsoid  made by revolving this has faces but is not solid (a hollow
 ellipsoid).</p>
-<p>1/ revolve full ellipse on x axis
-2/ 1/2 ellipse revolved around vertices on long axis
-3/ a different 1/2 ellipse revolved around long axis , mirror and join
-4/ 1/4 ellipse revolved to give 1/2 ellipsoid, mirror and join</p>
-<p>Make an ellipse, on the plane of the origin and normal to  z-axis,
+<p>To start, make an ellipse, on the XY-plane through the origin,
 with radii, 6.0 and 2.0.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">e</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span><span class="o">.</span><span class="n">Faces</span><span class="p">))</span>
@@ -77,37 +73,75 @@ with radii, 6.0 and 2.0.</p>
 <div class="highlight-none"><div class="highlight"><pre>0
 </pre></div>
 </div>
-<p>0/ revolve half ellipse on x axis using Part.makeRevolution</p>
+<p>Create a half ellipse on the XY-plane with ends on the X-axis and revolve it
+a full turn around the X-axis using  method <code class="xref py py-func docutils literal"><span class="pre">revolve()</span></code></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">eh</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 <span class="c1">#Part.show(eh)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">eh</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>  <span class="c1">#Edge</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">eh</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span> <span class="c1"># 0</span>
 <span class="c1">#TEST ON Z AXIS</span>
-<span class="c1">#ecS = Part.makeRevolution(eh, 0, eh.LastParameter, 360, o, x)</span>
+<span class="n">ecS</span> <span class="o">=</span> <span class="n">eh</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+<span class="c1">#Part.show(ecS )</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">ecS</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>  <span class="c1">#Face</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">ecS</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span> <span class="c1"># 0</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">ecS</span><span class="o">.</span><span class="n">isClosed</span><span class="p">()</span> <span class="p">)</span>  <span class="c1">#False #Looks like a BUG.</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">ecS</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span>  <span class="p">)</span> <span class="c1">#True</span>
+
+<span class="n">e1</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">makeSolid</span><span class="p">(</span><span class="n">Part</span><span class="o">.</span><span class="n">makeShell</span><span class="p">([</span><span class="n">ecS</span><span class="p">]))</span>
+<span class="c1">#Part.show(e1 )</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">e1</span><span class="o">.</span><span class="n">ShapeType</span> <span class="p">)</span>  <span class="c1">#Solid</span>
+<span class="k">print</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">e1</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span> <span class="c1"># 1</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">e1</span><span class="o">.</span><span class="n">isClosed</span><span class="p">()</span> <span class="p">)</span> <span class="c1">#True</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">e1</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span>  <span class="p">)</span> <span class="c1">#True</span>
+
+<span class="c1">#( still trying Part.makeRevolution arg need to be GeomCurve)</span>
+<span class="c1">#ecS = Part.makeRevolution(e, 0, e.LastParameter/2, 360, o, x)</span>
 <span class="c1">#ecS = Part.makeRevolution(eh, eh.LastParameter, 0, 360, o, x)</span>
 <span class="c1">#Part.OCCDomainError: creation of revolved shape failed    BUG ???</span>
 </pre></div>
 </div>
-<p>1/ revolve full ellipse on x axis</p>
+<div class="highlight-none"><div class="highlight"><pre>Edge
+0
+Face
+0
+False
+True
+Solid
+1
+True
+True
+</pre></div>
+</div>
+<p>1/ revolve full ellipse a half turn around the x axis</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c1">#ed = Part.makeRevolution(e.toShape(), 0, e.LastParameter, 180, o, x)</span>
 
 <span class="n">ed</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">()</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span> <span class="c1">#saucer THIS SHOULD USE x BUT THAT FAILS</span>
 <span class="c1">#Part.show(ed)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span> <span class="c1">#  hollow</span>
-<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">Faces</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span>   <span class="c1"># Face  (hollow ellipsoid)</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span> <span class="c1"># 0</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ed</span><span class="o">.</span><span class="n">Faces</span><span class="p">))</span>  <span class="c1"># 1</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">ed</span><span class="o">.</span><span class="n">isClosed</span><span class="p">()</span> <span class="p">)</span>  <span class="c1">#False #Looks like a BUG.</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">ed</span><span class="o">.</span><span class="n">isValid</span><span class="p">()</span>  <span class="p">)</span> <span class="c1">#True</span>
 
+<span class="c1">#TRY THIS IN GUI</span>
 <span class="c1">#ed1 = e.toShape().revolve(o, x, 180) # should be rugby ball but</span>
 <span class="c1">#Part.show(ed1)            # does not show</span>
-
+<span class="c1">#print( ed1.ShapeType )  #Face</span>
+<span class="c1">#print( len(ed1.Solids)) # 0</span>
+<span class="c1">#print( ed1.isClosed() )  #False #Looks like a BUG.</span>
+<span class="c1">#print( ed1.isValid()  ) #True</span>
 <span class="c1">#ed1.PrincipalProperties</span>
 </pre></div>
 </div>
 <div class="highlight-none"><div class="highlight"><pre>Face
 0
 1
+False
+True
 </pre></div>
 </div>
-<p>2/ An algorithmically better way to make an ellipsoid, according to the revolve documentation, is to cut the ellipse so there are vertices. LastParameter is 2 pi radians so this cuts the sweep to the half circle from 0 to  pi:</p>
-<p>there is something weird in sphinx happening with testoutput here.</p>
+<p>I THINK THIS IS THE SAME AS FIRST NOW
+An algorithmically better way to make an ellipsoid, according to the revolve documentation, is to cut the ellipse so there are vertices. LastParameter is 2 pi radians so this cuts the sweep to the half circle from 0 to  pi:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">e</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">Ellipse</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
 <span class="n">h</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 <span class="c1">#Part.show(h)</span>
@@ -138,30 +172,53 @@ True
 <p>3/ a different 1/2 ellipse revolved around long axis, mirror and join</p>
 <blockquote>
 <div>NOT YET WORKING</div></blockquote>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">h2</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-<span class="c1">#Part.show(h2)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">e3</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">toShape</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">e</span><span class="o">.</span><span class="n">LastParameter</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1">#Part.show(e3)</span>
 
-<span class="n">hd</span> <span class="o">=</span> <span class="n">h2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span> <span class="c1">#half rugby hollow, double cover</span>
+<span class="c1">#THESE ROTATION WORKS FINE DESPITE NOT THROUGH VERTEXES</span>
+<span class="c1">#hd = e3.revolve(o, x, 360) #half rugby hollow, double cover Also works</span>
+<span class="n">hd</span> <span class="o">=</span> <span class="n">e3</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span> <span class="c1">#half rugby hollow, singe cover</span>
 <span class="c1">#Part.show(hd)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">hd</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span>   <span class="c1">#Face</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hd</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span> <span class="c1">#0</span>
+<span class="k">print</span><span class="p">(</span><span class="n">hd</span><span class="o">.</span><span class="n">isClosed</span><span class="p">())</span>  <span class="c1">#False   ???</span>
+<span class="k">print</span><span class="p">(</span><span class="n">hd</span><span class="o">.</span><span class="n">isValid</span><span class="p">())</span>   <span class="c1">#True</span>
 
-<span class="n">hd</span> <span class="o">=</span> <span class="n">h2</span><span class="o">.</span><span class="n">revolve</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span> <span class="c1">#half rugby hollow</span>
-<span class="c1">#Part.show(hd)</span>
 <span class="n">hdm</span> <span class="o">=</span> <span class="n">hd</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 <span class="c1">#Part.show(hdm)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">hdm</span><span class="o">.</span><span class="n">ShapeType</span><span class="p">)</span>   <span class="c1">#Face</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hdm</span><span class="o">.</span><span class="n">Solids</span><span class="p">))</span> <span class="c1">#0</span>
+<span class="k">print</span><span class="p">(</span><span class="n">hdm</span><span class="o">.</span><span class="n">isClosed</span><span class="p">())</span>  <span class="c1">#False   ???</span>
+<span class="k">print</span><span class="p">(</span><span class="n">hdm</span><span class="o">.</span><span class="n">isValid</span><span class="p">())</span>   <span class="c1">#True)</span>
 
 <span class="c1">#check = Part.makeShell([hdm])</span>
 <span class="c1">#Part.show(check)</span>
 <span class="c1">#sh3 = Part.makeShell([hd, hdm]) #SUPPOSED TO MAKE SHELL FROM LIST OF FACES BUT LOSES hdm</span>
-
-<span class="c1">#Part.show(sh3)</span>
-
-<span class="c1">#ed3 = Part.makeSolid(sh3)</span>
-<span class="c1">#Part.show(ed3)  # ONLY HALF</span>
-
-<span class="c1">#filled= Part.makeFilledFace(hd.toShape().Edges)</span>
-
-<span class="c1">#rugby = hd.fuse(hdm)  # No. Fuse wants solids (warning only in gui)</span>
-<span class="c1">#Part.show(rugby)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>TRY THIS IN GUI</dt>
+<dd><p class="first">#sh3 = Part.makeShell([hd.Faces + hdm.Faces])
+#Part.show(sh3) # no show
+print(sh3.ShapeType)   #Face
+print(len(sh3.Solids)) #0
+print(sh3.isClosed())  #False   ???
+print(sh3.isValid())   #True</p>
+<p>#ed3 = Part.makeSolid(sh3)
+#Part.show(ed3)  # ONLY HALF</p>
+<p>#filled= Part.makeFilledFace(hd.toShape().Edges)</p>
+<p class="last">#rugby = hd.fuse(hdm)  # No. Fuse wants solids (warning only in gui)
+#Part.show(rugby)</p>
+</dd>
+</dl>
+<div class="highlight-none"><div class="highlight"><pre>Face
+0
+False
+True
+Face
+0
+False
+True
 </pre></div>
 </div>
 <p>4/ 1/4 ellipse revolved to give 1/2 ellipsoid, mirror and join</p>
@@ -292,7 +349,7 @@ with a sphere  made with <code class="xref py py-func docutils literal"><span cl
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2018, 2019, Paul Gilbert.
-      Last updated on May 14, 2019.
+      Last updated on May 21, 2019.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
     </div>
   </body>

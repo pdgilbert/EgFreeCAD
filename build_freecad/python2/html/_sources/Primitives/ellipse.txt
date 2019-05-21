@@ -8,22 +8,17 @@ Ellipse
 a solid, but there is 
 not yet a :py:func:`Part.makeEllipsoid` to make a solid.
 
-An ellipsoid can be produced by revolving an ellipse. When the ellipse is not
+An ellipsoid can be produced by revolving an ellipse. If the ellipse is not
 filled in (has no faces) then the revolution will be hollow. 
 
 The following shows different ways to use an ellipse to make a solid ellipsoid
 with the general shape of a rugby ball. (It could be made to look like a flying saucer but that will be left to the reader.)
 
-:py:func:`Part.Ellipse().toShape()` makes a shape that is an edge with no faces.
+:py:func:`Part.Ellipse().toShape` makes a shape that is an edge with no faces.
 The ellipsoid  made by revolving this has faces but is not solid (a hollow
 ellipsoid).
 
-1/ revolve full ellipse on x axis
-2/ 1/2 ellipse revolved around vertices on long axis
-3/ a different 1/2 ellipse revolved around long axis , mirror and join
-4/ 1/4 ellipse revolved to give 1/2 ellipsoid, mirror and join
-
-Make an ellipse, on the plane of the origin and normal to  z-axis, 
+To start, make an ellipse, on the XY-plane through the origin, 
 with radii, 6.0 and 2.0.
 
 .. testcode::
@@ -36,18 +31,49 @@ with radii, 6.0 and 2.0.
 
    0
 
-0/ revolve half ellipse on x axis using Part.makeRevolution
+Create a half ellipse on the XY-plane with ends on the X-axis and revolve it 
+a full turn around the X-axis using  method :py:func:`revolve` 
 
 .. testcode::
 
    eh = e.toShape(0, e.LastParameter/2)
    #Part.show(eh)
+   print( eh.ShapeType )  #Edge
+   print( len(eh.Solids)) # 0
    #TEST ON Z AXIS
-   #ecS = Part.makeRevolution(eh, 0, eh.LastParameter, 360, o, x)
+   ecS = eh.revolve(o, x, 360)
+   #Part.show(ecS )
+   print( ecS.ShapeType )  #Face
+   print( len(ecS.Solids)) # 0
+   print( ecS.isClosed() )  #False #Looks like a BUG. 
+   print( ecS.isValid()  ) #True
+
+   e1 = Part.makeSolid(Part.makeShell([ecS]))
+   #Part.show(e1 )
+   print( e1.ShapeType )  #Solid
+   print( len(e1.Solids)) # 1
+   print( e1.isClosed() ) #True 
+   print( e1.isValid()  ) #True
+
+   #( still trying Part.makeRevolution arg need to be GeomCurve)
+   #ecS = Part.makeRevolution(e, 0, e.LastParameter/2, 360, o, x)
    #ecS = Part.makeRevolution(eh, eh.LastParameter, 0, 360, o, x)
    #Part.OCCDomainError: creation of revolved shape failed    BUG ???
 
-1/ revolve full ellipse on x axis
+.. testoutput::
+
+   Edge
+   0
+   Face
+   0
+   False
+   True
+   Solid
+   1
+   True
+   True
+
+1/ revolve full ellipse a half turn around the x axis
 
 .. testcode::
 
@@ -55,13 +81,19 @@ with radii, 6.0 and 2.0.
 
    ed = e.toShape().revolve(o, y, 180) #saucer THIS SHOULD USE x BUT THAT FAILS
    #Part.show(ed)
-   print(ed.ShapeType) #  hollow
-   print(len(ed.Solids))
-   print(len(ed.Faces))
+   print(ed.ShapeType)   # Face  (hollow ellipsoid)
+   print(len(ed.Solids)) # 0
+   print(len(ed.Faces))  # 1
+   print( ed.isClosed() )  #False #Looks like a BUG. 
+   print( ed.isValid()  ) #True
 
+   #TRY THIS IN GUI
    #ed1 = e.toShape().revolve(o, x, 180) # should be rugby ball but
    #Part.show(ed1)            # does not show
-
+   #print( ed1.ShapeType )  #Face
+   #print( len(ed1.Solids)) # 0
+   #print( ed1.isClosed() )  #False #Looks like a BUG. 
+   #print( ed1.isValid()  ) #True
    #ed1.PrincipalProperties
 
 .. testoutput::
@@ -69,12 +101,12 @@ with radii, 6.0 and 2.0.
    Face
    0
    1
+   False
+   True
 
 
-2/ An algorithmically better way to make an ellipsoid, according to the revolve documentation, is to cut the ellipse so there are vertices. LastParameter is 2 pi radians so this cuts the sweep to the half circle from 0 to  pi:
-
-there is something weird in sphinx happening with testoutput here.
-
+I THINK THIS IS THE SAME AS FIRST NOW
+An algorithmically better way to make an ellipsoid, according to the revolve documentation, is to cut the ellipse so there are vertices. LastParameter is 2 pi radians so this cuts the sweep to the half circle from 0 to  pi:
 
 .. testcode::
 
@@ -112,22 +144,35 @@ there is something weird in sphinx happening with testoutput here.
 
 .. testcode::
 
-   h2 = e.toShape(e.LastParameter/4, 3*e.LastParameter/4)
-   #Part.show(h2)
+   e3 = e.toShape(e.LastParameter/4, 3*e.LastParameter/4)
+   #Part.show(e3)
 
-   hd = h2.revolve(o, x, 360) #half rugby hollow, double cover
+   #THESE ROTATION WORKS FINE DESPITE NOT THROUGH VERTEXES
+   #hd = e3.revolve(o, x, 360) #half rugby hollow, double cover Also works
+   hd = e3.revolve(o, x, 180) #half rugby hollow, singe cover
    #Part.show(hd)
+   print(hd.ShapeType)   #Face
+   print(len(hd.Solids)) #0
+   print(hd.isClosed())  #False   ???
+   print(hd.isValid())   #True
 
-   hd = h2.revolve(o, x, 180) #half rugby hollow
-   #Part.show(hd)
    hdm = hd.mirror(o, x)
    #Part.show(hdm)
+   print(hdm.ShapeType)   #Face
+   print(len(hdm.Solids)) #0
+   print(hdm.isClosed())  #False   ???
+   print(hdm.isValid())   #True)
 
    #check = Part.makeShell([hdm])
    #Part.show(check)
    #sh3 = Part.makeShell([hd, hdm]) #SUPPOSED TO MAKE SHELL FROM LIST OF FACES BUT LOSES hdm
-
-   #Part.show(sh3)
+TRY THIS IN GUI
+   #sh3 = Part.makeShell([hd.Faces + hdm.Faces])
+   #Part.show(sh3) # no show
+   print(sh3.ShapeType)   #Face
+   print(len(sh3.Solids)) #0
+   print(sh3.isClosed())  #False   ???
+   print(sh3.isValid())   #True
 
    #ed3 = Part.makeSolid(sh3)
    #Part.show(ed3)  # ONLY HALF
@@ -137,6 +182,16 @@ there is something weird in sphinx happening with testoutput here.
    #rugby = hd.fuse(hdm)  # No. Fuse wants solids (warning only in gui)
    #Part.show(rugby)
 
+.. testoutput::
+
+    Face
+    0
+    False
+    True
+    Face
+    0
+    False
+    True
 
 4/ 1/4 ellipse revolved to give 1/2 ellipsoid, mirror and join
 
