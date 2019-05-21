@@ -4,28 +4,32 @@
 Sphere
 ------
 
-FreeCAD :py:func:`Part.Sphere()` produces a two dimensional surface (face) embedded
-in three dimensional space. (The mathematical topology of the object is S<sup>2</sup>).
-The fact that this sphere is hollow can be seen by displaying with a piece cut out.
+FreeCAD :py:func:`Part.Sphere` produces a two dimensional curved 
+surface (face) embedded in three dimensional space (R\ :sup:`3`\ ). 
+(The mathematical topology of the object is S\ :sup:`2` ).
+The fact that this sphere is hollow can be seen by displaying with a piece 
+cut out, or checked by verifying that the object contains no solids.
 
 .. testcode::
 
-   s2 = Part.Sphere().toShape()  
-   #Part.show(s2)
-   print(s2.ShapeType)
+   S2 = Part.Sphere().toShape()  
+   #Part.show(S2)
+   print( S2.ShapeType )  #Face
+   print( len(S2.Solids)) # 0
    
    # Part.show(s2.cut(Part.makeBox(10,10,10)))
 
 .. testoutput::
 
    Face
+   0
 
-Below concentrates on solid objects, notice the difference between 
-:py:func:`Part.Sphere()` which is hollow and :py:func:`Part.makeSphere()`
+Below concentrates on solid objects. Notice the difference between 
+:py:func:`Part.Sphere` which is hollow and :py:func:`Part.makeSphere`
 which is solid.
 Solid objects will be more interesting for things like 3D printing.
 
-The default :py:func:`Part.makeSphere(r)` produces a solid sphere centered
+The default :py:obj:`Part.makeSphere(r)` produces a solid sphere centered
 at the origin with radius r. This is a three dimensional object. 
 A sphere can be rotated in any direction about its
 center and produce an equal object, but translation gives an object that is 
@@ -65,15 +69,18 @@ A sphere object has edges, faces and solids.
    1
    1
 
+.. index:: revolve
 
 A sphere can also be constructed by revolving a circle.
 A full circle revolved 360 degrees covers the sphere twice over, which causes
-anomolies according to the help for .revolve().  Revolve 180 degrees is better. 
+anomolies according to the help for :py:func:`.revolve`.  
+Revolving 180 degrees is better. 
 
-(There is an anomaly here. makeSphere gives ShapeType Solid' whereas Circle
+(There is an anomaly here. makeSphere gives ShapeType 'Solid' whereas Circle
 gives ShapeType 'Face', but cutting leaves an empty object. See Puzzles.)
 
-REVOLVE A FULL CIRCLE SEEMS BROKEN. THIS DOES NOT WORK.
+Revolving a full circle seems broken. Intuitively this may seem like the
+most obvious way to proceed, but does not work.
 
 .. testcode::
 
@@ -82,17 +89,24 @@ REVOLVE A FULL CIRCLE SEEMS BROKEN. THIS DOES NOT WORK.
    # Part.show(c10.toShape())   
    # Part.show(Part.makeCircle(10))   
 
-   c10.toShape().revolve(o, x, 180).isValid()  # False
-   c10.toShape().revolve(o, y, 180).isValid()  # False
-   c10.toShape().revolve(o, z, 180).isValid()  # True but flat (z is norm)
+   print( c10.toShape().revolve(o, x, 180).isValid() ) # False
+   print( c10.toShape().revolve(o, y, 180).isValid() ) # False
+   print( c10.toShape().revolve(o, z, 180).isValid() ) # True but flat (z is norm)
    # Part.show(c10.toShape().revolve(o, z, 180))
+
+.. testoutput::
+
+   False
+   False
+   True
 
 
 A solid sphere can also be constructed by revolving a half circle line and
-filling it in to make a solid. According to the help for revolve() this is 
+filling in the result to make a solid. According to the help for 
+:py:func:`.revolve` this is 
 better than revolving a full circle. (This is an algorithmic
-improvement, not a theoretical difference.). :py:func:`LastParameter` 
-for a circle is 2 * pi radians, so :py:func:`h10` in 
+improvement, not a theoretical difference.). :py:obj:`LastParameter` 
+for a circle is 2 * pi radians, so :py:obj:`h10` in 
 the next is a half circle on the X-Y plane.
 Revolving around the Z-axis results in a flat full circle, filled in to make an
 object of ShapeType 'Face'.
@@ -183,8 +197,10 @@ selects a circle section that rotates successfully around the Z-axis.
    True
    Solid
 
+.. index:: revolve
+.. index:: makeRevolution
 
-While py:func:`Part.makeSphere` will generally be easier to use to make a sphere, 
+While :py:func:`Part.makeSphere` will generally be easier to use to make a sphere, 
 or portions of it, an arc can be used to make different rotation profiles. 
 The next example shows making a sphere using :py:func:`Part.arc` 
 and :py:func:`Part.makeRevolution` so easy test comparisons are 
@@ -240,9 +256,8 @@ or the result is not likely to be valid, and the problem is not immediately indi
 unless you check. Subsequent use of the returned object is likely to be problematic 
 but the source of the problem may not be obvious.
 
-Also beware that it not alway obvious how to convert a Face object created with 
-the :py:obj:`.revolve` method into a solid. (At least, I have not yet figured 
-out something that always works).
+A revolved Face object produces a solid but beware that revolving other object will
+not produce solids. (More on this further below.)
 
 .. testcode::
 
@@ -259,12 +274,12 @@ out something that always works).
    Face
 
 
-CLEAN THIS UP
-py:func:`Part.makeRevolution` also works for making solid 
-hemispheres. It is used next to illustrate mirror and fuse.
+
+py:func:`Part.makeRevolution` can also be used to make a solid 
+hemisphere. It is used next to illustrate mirror and fuse.
 
 
-py:func:`Part.makeSphere(radius, center, axis, fromLatitude, toLatitude, rotationAngle)
+py:obj:`Part.makeSphere(radius, center, axis, fromLatitude, toLatitude, rotationAngle)
 where fromLatitude is angle to start of sweep, measured fom a normal to the axis,
 toLatitude is angle to end of sweep, measured from a normal to the axis,
 and rotationAngle is the circular sweep around the axis. Angles in degrees.
@@ -363,3 +378,126 @@ and rotationAngle is the circular sweep around the axis. Angles in degrees.
    True
    False
 
+:py:func:`Part.makeRevolution` and Shape method :py:func:`revolve` 
+use different approaches.
+Shape method :py:func:`revolve` uses BRepPrimAPI_MakeRevol which accepts 
+a shape as input. :py:func:`Part.makeRevolution` accepts a GeomCurve.
+
+So Shape method :py:func:`revolve` using accepts a wider range of 
+objects: with a vertex it creates an edge; 
+with an edge it creates a face; 
+with a wire it creates a shell; 
+with a face it creates a solid; 
+with a shell it creates a compound solid.
+
+On the other hand, :py:func:`Part.makeRevolution` has some flexibility on 
+what the output will be.
+
+.. testcode::
+
+   arc = Part.Arc(-10*z, 10*x, 10*z)
+   arcShapeEdge = arc.toShape()
+   print( arcShapeEdge.ShapeType )  #Edge
+   
+   arcShapeWire = Part.Wire(arcShapeEdge)
+   print( arcShapeWire.ShapeType )  #Wire
+
+   # makeRevolution
+   s0 =Part.makeRevolution(arc, arc.FirstParameter, arc.LastParameter, 
+                 360, o, z, Part.Solid)
+
+   print( s0.ShapeType )  #Solid
+   testEqual(s, s0)
+
+.. testoutput::
+
+   Edge
+   Wire
+   Solid
+
+From a vertex revolve to create an edge, and then revolve again to give a sphere. 
+This works if the vertex is revolved 180 degrees to give a half circle, and 
+that is revolved 360 degrees to give the sphere:
+
+.. testcode::
+
+   zp = Part.Point(Vector(10,0,0)).toShape()
+   print( zp.ShapeType ) #Vertex
+
+   s1 = Part.makeSolid(Part.makeShell([zp.revolve(o,z,180).revolve(o, x, 360)]))
+   #Part.show(s1)
+   print( s1.ShapeType )  #Solid
+   print( s1.isClosed() ) #True
+   print( s1.isValid()  ) #True
+   testEqual(s, s1)
+
+.. testoutput::
+
+   Vertex
+   Solid
+   True
+   True
+
+However, it fails if the rotations are 360 first then 180. This is possibly 
+because of the issue mentioned in the revolve doc, that rotation works best 
+about an axis that goes though vertexes. 
+The problem is more than anomolies suggested in the doc. 
+
+From an edge revolve create a face. 
+This works to give solid (but isClosed() seems wrong):
+
+.. testcode::
+
+   zz = arcShapeEdge.revolve(o, z, 360)
+   #Part.show(zz)
+   print( zz.ShapeType  )  #Face
+   print( zz.isClosed() )  #False #Looks like a BUG. 
+   print( zz.isValid()  )  #True
+   s2 = Part.makeSolid(Part.makeShell([zz]))
+   print( s2.ShapeType  )  #Solid
+   print( s2.isClosed() )  #True
+   print( s2.isValid()  )  #True
+   print( len(s2.Solids) ) # 1
+   #Part.show(s2)
+   testEqual(s, s2)
+
+.. testoutput::
+
+   Face
+   False
+   True
+   Solid
+   True
+   True
+   1
+
+For a wire revolve creates a shell:
+
+.. testcode::
+
+   ar = arcShapeWire.revolve(o, z, 360)
+   print( ar.ShapeType  ) #Shell
+   print( ar.isClosed() ) #True
+   print( ar.isValid()  ) #True
+
+   s3 =  Part.makeSolid(ar)
+   Part.show(s3)
+   print( s3.ShapeType  ) #Solid
+   print( s3.isClosed() ) #True
+   print( s3.isValid()  ) #True
+   print( len(s3.Solids) ) # 1
+   testEqual(s, s3)
+
+.. testoutput::
+
+   Shell
+   True
+   True
+   Solid
+   True
+   True
+   1
+
+
+And 4 and 5 from post if they can be made to work
+  

@@ -66,7 +66,7 @@ EgFreeCAD and set the path of the :py:mod:`testEqual` module
 library. This can be done before starting python with
 *export PYTHONPATH=/path/to/EgFreeCAD/lib:$PYTHONPATH*.
 It can also be done inside a python session 
-using :py:func:`sys.path.append("/path/to/EgFreeCAD/lib")`.
+using :py:obj:`sys.path.append("/path/to/EgFreeCAD/lib")`.
 The :py:mod:`testEqual` module is not needed except to run tests, which are
 mainly for the purpose of confirming that the examples in this document 
 continue to work in new FreeCAD versions. 
