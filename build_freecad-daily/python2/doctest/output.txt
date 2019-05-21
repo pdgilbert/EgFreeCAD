@@ -1,4 +1,4 @@
-Results of doctest builder run on 2019-05-14 02:41:40
+Results of doctest builder run on 2019-05-21 01:19:16
 =====================================================
 
 Document: index
@@ -12,9 +12,9 @@ Test passed.
 Document: Primitives/sphere
 ---------------------------
 1 items passed all tests:
-  10 tests in default
-10 tests in 1 items.
-10 passed and 0 failed.
+  14 tests in default
+14 tests in 1 items.
+14 passed and 0 failed.
 Test passed.
 
 Document: Projects/foil/foil
@@ -108,9 +108,9 @@ Test passed.
 Document: Primitives/index
 --------------------------
 1 items passed all tests:
-  42 tests in default
-42 tests in 1 items.
-42 passed and 0 failed.
+  46 tests in default
+46 tests in 1 items.
+46 passed and 0 failed.
 Test passed.
 
 Document: intro
@@ -131,7 +131,7 @@ Test passed.
 
 Doctest summary
 ===============
-  113 tests
+  121 tests
     0 failures in tests
     0 failures in setup code
     0 failures in cleanup code
